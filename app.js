@@ -321,11 +321,11 @@ function updateEstimatedCost() {
     const hasInt = document.getElementById('calcIntegrate').checked;
     const hasGps = document.getElementById('calcGps').checked;
 
-    if (hasBot) cost += 450;
-    if (hasBotDb) cost += 700;
-    if (hasDash) cost += 650;
-    if (hasInt) cost += 400;
-    if (hasGps) cost += 450;
+    if (hasBot) cost += 500;
+    if (hasBotDb) cost += 1000;
+    if (hasDash) cost += 1500;
+    if (hasInt) cost += 1000;
+    if (hasGps) cost += 1000;
 
     document.getElementById('estimatedCost').innerText = `${cost} $`;
 }
