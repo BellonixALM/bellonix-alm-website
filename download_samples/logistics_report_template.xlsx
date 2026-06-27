@@ -1,0 +1,14 @@
+BELLONIX ALM (Advanced Logic Masters)
+=====================================
+LOGISTICS REPORT EXCEL TEMPLATE
+
+This is a mock spreadsheet report.
+In production, this XLSX is populated automatically by our Telegram Bot with columns:
+- Timestamp
+- Driver Name
+- Order ID
+- Status (Delivered/Delayed/Refueled)
+- Expenses (Fuel, Parking, Tolls)
+- Customer Signature Link
+
+Contact us at office@bellonix.com.ua for integration details.

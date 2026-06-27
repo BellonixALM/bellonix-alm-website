@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BELLONIX ALM — Інтелектуальні системи автоматизації, боти та аналітика</title>
+    <meta name="description" content="BELLONIX ALM (Advanced Logic Masters) — розробка та впровадження інтелектуальних логістичних ботів, інтерактивних дашбордів та систем автоматизації для бізнесу та прокату.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for interactive analytics demo -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-gradient-glow"></div>
+    <div class="bg-noise"></div>
+
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="#" class="logo-wrapper">
+                <svg class="bellonix-logo-svg" viewBox="0 0 100 100" width="48" height="48">
+                    <!-- Outer glowing rings -->
+                    <circle cx="50" cy="35" r="18" fill="none" stroke="url(#blueGradient)" stroke-width="4.5" />
+                    <circle cx="35" cy="50" r="18" fill="none" stroke="url(#blueGradient)" stroke-width="4.5" />
+                    <circle cx="65" cy="50" r="18" fill="none" stroke="url(#blueGradient)" stroke-width="4.5" />
+                    <circle cx="50" cy="65" r="18" fill="none" stroke="url(#blueGradient)" stroke-width="4.5" />
+                    <!-- Center core -->
+                    <circle cx="50" cy="50" r="6" fill="#008080" />
+                    <circle cx="50" cy="50" r="12" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.7"/>
+                    <!-- Definitions for gradients -->
+                    <defs>
+                        <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#008080" />
+                            <stop offset="50%" stop-color="#0D3B66" />
+                            <stop offset="100%" stop-color="#004b75" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="logo-text">
+                    <span class="brand-name">BELLONIX <span class="highlight">ALM</span></span>
+                    <span class="brand-sub">Advanced Logic Masters</span>
+                </div>
+            </a>
+
+            <nav class="nav-menu">
+                <a href="#hero" class="nav-link active">Головна</a>
+                <a href="#solutions" class="nav-link">Наші рішення</a>
+                <a href="#sandbox" class="nav-link">Демо-симулятор</a>
+                <a href="#downloads" class="nav-link">Шаблони робіт</a>
+                <a href="#about" class="nav-link">Про компанію</a>
+                <a href="#contact" class="nav-btn">Контакти</a>
+                <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
+            </nav>
+
+            <div class="header-mobile-controls">
+                <button id="themeToggleMobile" class="theme-toggle-btn" aria-label="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
+                <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer">
+        <div class="drawer-header">
+            <span class="brand-name">BELLONIX <span class="highlight">ALM</span></span>
+            <button class="drawer-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="#hero" class="drawer-link">Головна</a>
+            <a href="#solutions" class="drawer-link">Наші рішення</a>
+            <a href="#sandbox" class="drawer-link">Демо-симулятор</a>
+            <a href="#downloads" class="drawer-link">Шаблони робіт</a>
+            <a href="#about" class="drawer-link">Про компанію</a>
+            <a href="#contact" class="drawer-link btn-style">Зв'язатися</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="badge"><i class="fa-solid fa-bolt"></i> Нове покоління бізнес-логістики</div>
+                <h1>Автоматизація, що тримає ваш бізнес в тонусі</h1>
+                <p class="hero-lead">Розробка інтелектуальних екосистем: зв'язок розумних Telegram/Viber ботів з інтерактивними аналітичними дашбордами в реальному часі. Для логістики, дистрибуції та прокатних компаній.</p>
+                <div class="hero-actions">
+                    <a href="#sandbox" class="btn-primary">Спробувати демо <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#solutions" class="btn-secondary">Наші послуги</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-num" data-val="98">98%</span>
+                        <span class="stat-lbl">Точність аналітики</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num" data-val="40">40%</span>
+                        <span class="stat-lbl">Скорочення витрат часу</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num" data-val="24">24/7</span>
+                        <span class="stat-lbl">Автономна робота</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="visual-card-wrapper">
+                    <!-- Glassmorphic Dashboard Preview inside Hero -->
+                    <div class="preview-card glass-panel">
+                        <div class="preview-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="preview-title">Bellonix Logistics Analytics</span>
+                        </div>
+                        <div class="preview-body">
+                            <div class="mini-chart-row">
+                                <div class="mini-stat">
+                                    <div class="label">Доставки сьогодні</div>
+                                    <div class="val">142 <span class="trend up"><i class="fa-solid fa-caret-up"></i> +12%</span></div>
+                                </div>
+                                <div class="mini-stat">
+                                    <div class="label">Активні боти</div>
+                                    <div class="val">8 <span class="trend neutral">Стабільно</span></div>
+                                </div>
+                            </div>
+                            <div class="hero-chart-container">
+                                <canvas id="heroChart"></canvas>
+                            </div>
+                            <!-- Chat Bubble Mock -->
+                            <div class="hero-chat-bubble">
+                                <div class="avatar"><i class="fa-brands fa-telegram"></i></div>
+                                <div class="msg-content">
+                                    <div class="name">Бот Диспетчер</div>
+                                    <div class="text">Замовлення #431 доставлено водієм Олександром. Дані автоматично внесено до CRM.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="solutions-section">
+        <div class="container">
+            <div class="section-title-wrapper">
+                <span class="section-subtitle">Що ми пропонуємо</span>
+                <h2 class="section-title">Екосистеми рішень для вашого бізнесу</h2>
+                <p class="section-desc">Ми об'єднуємо інтерфейси комунікації (месенджери) зі сховищами даних та аналітичними панелями для максимальної автоматизації процесів.</p>
+            </div>
+
+            <div class="solutions-grid">
+                <!-- Card 1: Logistics Bots -->
+                <div class="solution-card glass-panel hover-tilt">
+                    <div class="icon-box"><i class="fa-solid fa-truck-fast"></i></div>
+                    <h3>Логістичні Боти для Водіїв та Менеджерів</h3>
+                    <p>Розумні боти для Telegram/Viber, які повністю автоматизують взаємодію з водіями: видача завдань, фотофіксація ТТН, звіти про витрати палива та миттєве сповіщення про форс-мажори.</p>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-circle-check"></i> Покрокова звітність водія в 2 кліки</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Зчитування штрих-кодів та документів</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Автоматичний GPS-трекінг точок доставки</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Interactive Dashboards -->
+                <div class="solution-card glass-panel hover-tilt">
+                    <div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div>
+                    <h3>Аналітичні Дашборди керівництва</h3>
+                    <p>Інтерактивні веб-панелі управління, що синхронізуються з ботами. Візуалізують ключові показники (KPI), ефективність водіїв, фінансові витрати та статус рейсів у реальному часі.</p>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-circle-check"></i> Графіки рентабельності та завантаженості</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Інтеграція з 1С, BAS, KeyCRM, Google Sheets</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Гнучке налаштування рівнів доступу</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3: Rental Automation -->
+                <div class="solution-card glass-panel hover-tilt">
+                    <div class="icon-box"><i class="fa-solid fa-key"></i></div>
+                    <h3>Автоматизація Прокатних Компаній</h3>
+                    <p>Спеціалізовані рішення для оренди авто, спецтехніки чи обладнання. Автоматизований облік замовлень, нагадування клієнтам про повернення, інтеграція з GPS-трекерами.</p>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-circle-check"></i> Контроль термінів оренди та оплат</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Авто-генерація договорів та актів</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Сповіщення про необхідність ТО техніки</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sandbox (Interactive Simulation) Section -->
+    <section id="sandbox" class="sandbox-section">
+        <div class="container">
+            <div class="section-title-wrapper">
+                <span class="section-subtitle">Спробуйте в дії</span>
+                <h2 class="section-title">Інтерактивний симулятор екосистеми</h2>
+                <p class="section-desc">Натискайте кнопки на віртуальному телефоні водія ліворуч та спостерігайте, як миттєво оновлюються дані на аналітичній панелі керівництва праворуч.</p>
+            </div>
+
+            <div class="sandbox-grid">
+                <!-- Left Column: Virtual Bot Interface -->
+                <div class="phone-mockup glass-panel">
+                    <div class="phone-header">
+                        <div class="phone-speaker"></div>
+                        <div class="phone-camera"></div>
+                    </div>
+                    <div class="phone-screen">
+                        <div class="bot-chat-header">
+                            <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                            <div class="bot-info">
+                                <span class="name">Bellonix Logistics Bot</span>
+                                <span class="status"><span class="pulse-dot"></span> online</span>
+                            </div>
+                        </div>
+                        <div class="bot-chat-messages" id="chatMessages">
+                            <div class="chat-date">Сьогодні</div>
+                            <div class="message incoming">
+                                Вітаю! Ви на зв'язку з системою Bellonix ALM. Оберіть дію на панелі нижче для початку роботи.
+                            </div>
+                        </div>
+                        <div class="bot-keyboard">
+                            <button class="kbd-btn" onclick="simulateBotAction('new_trip')"><i class="fa-solid fa-route"></i> Почати рейс</button>
+                            <button class="kbd-btn" onclick="simulateBotAction('delivered')"><i class="fa-solid fa-clipboard-check"></i> Доставлено!</button>
+                            <button class="kbd-btn" onclick="simulateBotAction('refuel')"><i class="fa-solid fa-gas-pump"></i> Заправка</button>
+                            <button class="kbd-btn" onclick="simulateBotAction('issue')"><i class="fa-solid fa-triangle-exclamation"></i> Проблема</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Dashboard -->
+                <div class="dashboard-mockup glass-panel">
+                    <div class="dash-nav">
+                        <span class="dash-title"><i class="fa-solid fa-chart-line"></i> Дашборд Управління</span>
+                        <div class="status-badge"><span class="pulse-dot green"></span> З'єднання з ботами активне</div>
+                    </div>
+                    <div class="dash-stats-grid">
+                        <div class="dash-stat-card">
+                            <span class="lbl">Статус рейсів</span>
+                            <span class="val" id="dashTripsVal">12 активних</span>
+                        </div>
+                        <div class="dash-stat-card">
+                            <span class="lbl">Виконано за день</span>
+                            <span class="val" id="dashDeliveredVal">48 замовлень</span>
+                        </div>
+                        <div class="dash-stat-card">
+                            <span class="lbl">Витрати на паливо</span>
+                            <span class="val" id="dashFuelVal">12,450 ₴</span>
+                        </div>
+                        <div class="dash-stat-card">
+                            <span class="lbl">Сповіщення</span>
+                            <span class="val text-green" id="dashStatusVal">Норма</span>
+                        </div>
+                    </div>
+                    <div class="dash-charts-container">
+                        <div class="chart-box">
+                            <h4>Статистика доставок за годинами</h4>
+                            <canvas id="sandboxChart"></canvas>
+                        </div>
+                        <div class="log-box">
+                            <h4>Живий лог подій системи (Telegram API)</h4>
+                            <div class="log-content" id="logContent">
+                                <div class="log-row info">[SYSTEM] Дашборд ініціалізовано. Очікування запитів від ботів...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Downloads Section (Examples of work) -->
+    <section id="downloads" class="downloads-section">
+        <div class="container">
+            <div class="section-title-wrapper">
+                <span class="section-subtitle">Ресурси та матеріали</span>
+                <h2 class="section-title">Приклади готових робіт та архітектури</h2>
+                <p class="section-desc">Завантажте наші готові концепції, схеми інтеграцій та технічні специфікації для швидкого ознайомлення.</p>
+            </div>
+
+            <div class="downloads-grid">
+                <!-- Item 1: PDF Concept -->
+                <div class="download-card glass-panel">
+                    <div class="card-icon"><i class="fa-regular fa-file-pdf"></i></div>
+                    <div class="card-info">
+                        <h3>Схема інтеграції: Telegram Bot + CRM</h3>
+                        <p class="meta">PDF • 2.4 MB • Детальний опис архітектури обміну даними, вебхуків та структури бази даних.</p>
+                    </div>
+                    <a href="download_samples/integration_schema.pdf" class="btn-download" download onclick="trackDownload(event, 'integration_schema.pdf')"><i class="fa-solid fa-download"></i> Завантажити</a>
+                </div>
+
+                <!-- Item 2: Excel Template -->
+                <div class="download-card glass-panel">
+                    <div class="card-icon"><i class="fa-regular fa-file-excel"></i></div>
+                    <div class="card-info">
+                        <h3>Шаблон фінансового звіту логістики</h3>
+                        <p class="meta">XLSX • 1.1 MB • Приклад структури даних, яку наш бот автоматично експортує для бухгалтерії.</p>
+                    </div>
+                    <a href="download_samples/logistics_report_template.xlsx" class="btn-download" download onclick="trackDownload(event, 'logistics_report_template.xlsx')"><i class="fa-solid fa-download"></i> Завантажити</a>
+                </div>
+
+                <!-- Item 3: Interactive Demo PDF -->
+                <div class="download-card glass-panel">
+                    <div class="card-icon"><i class="fa-regular fa-file-powerpoint"></i></div>
+                    <div class="card-info">
+                        <h3>Презентація для компаній прокату</h3>
+                        <p class="meta">PDF • 4.8 MB • Кейс впровадження системи Bellonix Rent: від першого повідомлення клієнта до повернення авто.</p>
+                    </div>
+                    <a href="download_samples/rental_case_presentation.pdf" class="btn-download" download onclick="trackDownload(event, 'rental_case_presentation.pdf')"><i class="fa-solid fa-download"></i> Завантажити</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container about-grid">
+            <div class="about-visual">
+                <div class="about-globe">
+                    <!-- Complex glowing circle elements for corporate feel -->
+                    <div class="ring-outer"></div>
+                    <div class="ring-middle"></div>
+                    <div class="ring-inner">
+                        <svg viewBox="0 0 100 100" class="logo-large">
+                            <circle cx="50" cy="35" r="18" fill="none" stroke="#008080" stroke-width="4.5" />
+                            <circle cx="35" cy="50" r="18" fill="none" stroke="#0D3B66" stroke-width="4.5" />
+                            <circle cx="65" cy="50" r="18" fill="none" stroke="#0D3B66" stroke-width="4.5" />
+                            <circle cx="50" cy="65" r="18" fill="none" stroke="#008080" stroke-width="4.5" />
+                            <circle cx="50" cy="50" r="6" fill="#008080" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="about-content">
+                <span class="section-subtitle">Про компанію</span>
+                <h2>Майстри передової бізнес-логіки</h2>
+                <p><strong>BELLONIX ALM (Advanced Logic Masters)</strong> виникла як об'єднання розробників, закоханих в автоматизацію процесів. Ми спеціалізуємося на створенні «безшовного» досвіду для компаній, чий бізнес зав'язаний на постійному русі: транспорт, оренда, логістика та сервіс.</p>
+                <p>Наша місія — прибрати рутину, людський фактор та застарілі паперові носії. Замість складних інтерфейсів програм, які вимагають тижнів навчання персоналу, ми створюємо легких, швидких та розумних ботів у месенджерах, інтегрованих з потужною корпоративною аналітикою.</p>
+                <div class="tech-stack-row">
+                    <span class="tech-badge">Node.js</span>
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">React</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">Chart.js</span>
+                    <span class="tech-badge">Docker</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <div class="section-title-wrapper">
+                <span class="section-subtitle">Відгуки клієнтів</span>
+                <h2 class="section-title">Хто вже довірив нам свій бізнес</h2>
+            </div>
+            <div class="reviews-slider">
+                <div class="review-card glass-panel">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="review-text">"Завдяки впровадженню Telegram-бота від Bellonix, наші водії почали закривати звіти за рейси у 3 рази швидше. Зникли помилки з паливом, а керівництво бачить всю аналітику на зручному дашборді онлайн."</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar"><i class="fa-solid fa-user-tie"></i></div>
+                        <div class="reviewer-info">
+                            <span class="name">Дмитро Коваленко</span>
+                            <span class="pos">CEO, "TransGlobal Logistics"</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card glass-panel">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="review-text">"У нас автопарк на 45 автомобілів під викуп та прокат. Раніше була плутанина з платежами та термінами ТО. Bellonix налаштували систему сповіщень та дашборд. Тепер усе працює як швейцарський годинник!"</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar"><i class="fa-solid fa-user-shield"></i></div>
+                        <div class="reviewer-info">
+                            <span class="name">Олег Ващенко</span>
+                            <span class="pos">Власник, "LuxRent Kyiv"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Order Estimator Section -->
+    <section id="contact" class="contact-section">
+        <div class="container contact-grid">
+            <div class="contact-info-panel">
+                <span class="section-subtitle">Зв'яжіться з нами</span>
+                <h2>Готові оптимізувати свої процеси?</h2>
+                <p>Залиште заявку або розрахуйте приблизну вартість розробки за допомогою нашого інтерактивного калькулятора.</p>
+                <div class="contact-details">
+                    <div class="detail-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:office@bellonix.com.ua">office@bellonix.com.ua</a>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <h4>Телефон</h4>
+                            <a href="tel:+380441234567">+38 (044) 123-45-67</a>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h4>Локація</h4>
+                            <p>Київ, Україна / Дистанційне впровадження</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form-panel glass-panel">
+                <form id="leadForm" onsubmit="handleFormSubmit(event)">
+                    <h3>Швидкий запит та калькулятор</h3>
+                    <div class="form-group">
+                        <label for="clientName">Ваше ім'я</label>
+                        <input type="text" id="clientName" placeholder="Олександр" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientPhone">Телефон / Telegram</label>
+                        <input type="text" id="clientPhone" placeholder="+380..." required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Оберіть необхідні рішення:</label>
+                        <div class="calc-options-grid">
+                            <label class="calc-checkbox-label">
+                                <input type="checkbox" id="calcBot" checked onchange="updateEstimatedCost()">
+                                <span class="custom-chk"></span> Telegram / Viber Бот
+                            </label>
+                            <label class="calc-checkbox-label">
+                                <input type="checkbox" id="calcDash" checked onchange="updateEstimatedCost()">
+                                <span class="custom-chk"></span> Дашборд з аналітикою
+                            </label>
+                            <label class="calc-checkbox-label">
+                                <input type="checkbox" id="calcIntegrate" onchange="updateEstimatedCost()">
+                                <span class="custom-chk"></span> Інтеграція з CRM/1C
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="cost-estimator">
+                        <span class="est-label">Орієнтовна вартість розробки:</span>
+                        <span class="est-value" id="estimatedCost">1 200 $</span>
+                    </div>
+
+                    <button type="submit" class="btn-primary w-full">Надіслати заявку <i class="fa-regular fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-bottom">
+            <p>&copy; 2026 BELLONIX ALM. Всі права захищені. Розроблено компанією BELLONIX Advanced Logic Masters.</p>
+            <div class="socials">
+                <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast-notification">
+        <div class="toast-content">
+            <i class="fa-solid fa-circle-check text-green"></i>
+            <span id="toastMsg">Успішно!</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
