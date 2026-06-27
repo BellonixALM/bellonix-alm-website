@@ -15,7 +15,7 @@ let heroChart = null;
 let sandboxChart = null;
 
 // Global configuration (fill this with your Google Apps Script URL after deployment)
-const WEBAPP_URL = ""; 
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxmjphc7hbsjx6_KnGUynIUKaokoemWilxNelCdLlwH6IjsYLUcvTkFwLB3-C2K7f20Ng/exec"; 
 
 // Initialize when DOM loads
 document.addEventListener('DOMContentLoaded', () => {
