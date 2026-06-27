@@ -43,8 +43,7 @@ function doGet(e) {
   }
   
   return ContentService.createTextOutput(JSON.stringify(reviews))
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeader("Access-Control-Allow-Origin", "*"); // Для крос-доменних запитів на сайті
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function doPost(e) {
@@ -69,8 +68,7 @@ function doPost(e) {
         }
       }
       return ContentService.createTextOutput(JSON.stringify({ success: found, message: found ? "Status updated" : "ID not found" }))
-        .setMimeType(ContentService.MimeType.JSON)
-        .setHeader("Access-Control-Allow-Origin", "*");
+        .setMimeType(ContentService.MimeType.JSON);
     }
     
     // Звичайне створення відгуку (з сайту)
@@ -89,13 +87,11 @@ function doPost(e) {
     sendModerationAlert(reviewId, name, company, rating, text);
     
     return ContentService.createTextOutput(JSON.stringify({ success: true, id: reviewId }))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeader("Access-Control-Allow-Origin", "*");
+      .setMimeType(ContentService.MimeType.JSON);
       
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({ success: false, error: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeader("Access-Control-Allow-Origin", "*");
+      .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
