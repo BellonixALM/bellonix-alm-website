@@ -50,10 +50,12 @@ function doPost(e) {
     const params = JSON.parse(e.postData.contents);
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     
-    // Якщо прийшов запит на модерацію від бота
-    if (params.action === 'approve' || params.action === 'reject') {
+    // Якщо прийшов запит на модерацію чи видалення від бота
+    if (params.action === 'approve' || params.action === 'reject' || params.action === 'delete') {
       const reviewId = params.id;
-      const newStatus = params.action === 'approve' ? 'approved' : 'rejected';
+      let newStatus = 'rejected';
+      if (params.action === 'approve') newStatus = 'approved';
+      if (params.action === 'delete') newStatus = 'deleted';
       const data = sheet.getDataRange().getValues();
       let found = false;
       
