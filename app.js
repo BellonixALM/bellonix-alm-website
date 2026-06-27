@@ -323,7 +323,7 @@ function updateEstimatedCost() {
 
     if (hasBot) cost += 500;
     if (hasBotDb) cost += 1000;
-    if (hasDash) cost += 1500;
+    if (hasDash) cost += 500;
     if (hasInt) cost += 1000;
     if (hasGps) cost += 1000;
 
