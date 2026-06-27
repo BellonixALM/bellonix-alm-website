@@ -354,7 +354,7 @@ function handleFormSubmit(event) {
     // Open sharing dialog
     window.open(telegramShareUrl, '_blank');
     
-    showToast(`Дякуємо, ${name}! Заявку сформовано. Надішліть її контакту @bellonixalm_website_bot у відкритому вікні Telegram.`);
+    showToast(`Дякуємо, ${name}! Заявку сформовано. Надішліть її контакту Bellonix ALM Bot у відкритому вікні Telegram.`);
     
     // Reset inputs
     document.getElementById('leadForm').reset();
