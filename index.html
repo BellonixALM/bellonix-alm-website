@@ -363,8 +363,10 @@
             <div class="section-title-wrapper">
                 <span class="section-subtitle">Відгуки клієнтів</span>
                 <h2 class="section-title">Хто вже довірив нам свій бізнес</h2>
+                <button class="btn-secondary" style="margin-top: 1.5rem;" onclick="openReviewModal()"><i class="fa-regular fa-comment-dots"></i> Залишити відгук</button>
             </div>
-            <div class="reviews-slider">
+            <div class="reviews-slider" id="reviewsContainer">
+                <!-- Reviews will load dynamically here -->
                 <div class="review-card glass-panel">
                     <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                     <p class="review-text">"Завдяки впровадженню Telegram-бота від Bellonix, наші водії почали закривати звіти за рейси у 3 рази швидше. Зникли помилки з паливом, а керівництво бачить всю аналітику на зручному дашборді онлайн."</p>
@@ -495,6 +497,39 @@
         <div class="toast-content">
             <i class="fa-solid fa-circle-check text-green"></i>
             <span id="toastMsg">Успішно!</span>
+        </div>
+    </div>
+
+    <!-- Review Submission Modal -->
+    <div id="reviewModal" class="modal-overlay">
+        <div class="modal-content glass-panel animate-zoom">
+            <button class="modal-close" onclick="closeReviewModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3>Залишити відгук про Bellonix ALM</h3>
+            <form id="reviewForm" onsubmit="handleReviewSubmit(event)">
+                <div class="form-group">
+                    <label for="revName">Ваше ім'я</label>
+                    <input type="text" id="revName" placeholder="Олександр" required>
+                </div>
+                <div class="form-group">
+                    <label for="revCompany">Компанія / Посада</label>
+                    <input type="text" id="revCompany" placeholder="CEO, TransGlobal" required>
+                </div>
+                <div class="form-group">
+                    <label>Ваша оцінка</label>
+                    <div class="rating-stars-input">
+                        <input type="radio" id="star5" name="revRating" value="5" checked><label for="star5" title="5 stars">★</label>
+                        <input type="radio" id="star4" name="revRating" value="4"><label for="star4" title="4 stars">★</label>
+                        <input type="radio" id="star3" name="revRating" value="3"><label for="star3" title="3 stars">★</label>
+                        <input type="radio" id="star2" name="revRating" value="2"><label for="star2" title="2 stars">★</label>
+                        <input type="radio" id="star1" name="revRating" value="1"><label for="star1" title="1 star">★</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="revText">Відгук</label>
+                    <textarea id="revText" rows="4" placeholder="Напишіть ваші враження від співпраці..." required></textarea>
+                </div>
+                <button type="submit" class="btn-primary w-full">Надіслати на модерацію</button>
+            </form>
         </div>
     </div>
 

@@ -14,6 +14,9 @@ const state = {
 let heroChart = null;
 let sandboxChart = null;
 
+// Global configuration (fill this with your Google Apps Script URL after deployment)
+const WEBAPP_URL = ""; 
+
 // Initialize when DOM loads
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -21,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     initMobileNav();
     updateEstimatedCost();
+    loadReviews();
 });
 
 // Theme handling
@@ -377,4 +381,139 @@ function showToast(message) {
     setTimeout(() => {
         toast.classList.remove('show');
     }, 4500);
+}
+
+// Reviews Management Logic
+function openReviewModal() {
+    document.getElementById('reviewModal').classList.add('active');
+}
+
+function closeReviewModal() {
+    document.getElementById('reviewModal').classList.remove('active');
+    document.getElementById('reviewForm').reset();
+}
+
+// Default reviews to fallback on
+const defaultReviews = [
+    {
+        name: "Дмитро Коваленко",
+        company: "CEO, TransGlobal Logistics",
+        rating: 5,
+        text: "Завдяки впровадженню Telegram-бота від Bellonix, наші водії почали закривати звіти за рейси у 3 рази швидше. Зникли помилки з паливом, а керівництво бачить всю аналітику на дашборді."
+    },
+    {
+        name: "Олег Ващенко",
+        company: "Власник, LuxRent Kyiv",
+        rating: 5,
+        text: "У нас автопарк на 45 автомобілів під викуп та прокат. Раніше була плутанина з платежами та термінами ТО. Bellonix налаштували систему сповіщень та дашборд. Все працює як годинник!"
+    }
+];
+
+function loadReviews() {
+    const container = document.getElementById('reviewsContainer');
+    if (!container) return;
+    
+    // Clear container
+    container.innerHTML = '';
+    
+    if (WEBAPP_URL) {
+        // Fetch approved reviews from Google Sheets API
+        fetch(WEBAPP_URL)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    renderReviewCards(data);
+                } else {
+                    renderReviewCards(defaultReviews);
+                }
+            })
+            .catch(err => {
+                console.error("Error loading reviews from database:", err);
+                renderReviewCards(defaultReviews);
+            });
+    } else {
+        // Local mockup mode: Load default reviews + locally approved reviews from LocalStorage
+        const localApproved = JSON.parse(localStorage.getItem('approved_reviews')) || [];
+        const allReviews = [...defaultReviews, ...localApproved];
+        renderReviewCards(allReviews);
+    }
+}
+
+function renderReviewCards(reviews) {
+    const container = document.getElementById('reviewsContainer');
+    reviews.forEach(rev => {
+        const starsHtml = '<i class="fa-solid fa-star"></i>'.repeat(rev.rating) + 
+                          '<i class="fa-regular fa-star"></i>'.repeat(5 - rev.rating);
+                          
+        const card = document.createElement('div');
+        card.className = 'review-card glass-panel';
+        card.innerHTML = `
+            <div class="stars">${starsHtml}</div>
+            <p class="review-text">"${rev.text}"</p>
+            <div class="reviewer">
+                <div class="reviewer-avatar"><i class="fa-solid fa-user-tie"></i></div>
+                <div class="reviewer-info">
+                    <span class="name">${rev.name}</span>
+                    <span class="pos">${rev.company}</span>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function handleReviewSubmit(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('revName').value;
+    const company = document.getElementById('revCompany').value;
+    const text = document.getElementById('revText').value;
+    
+    // Get checked rating radio button value
+    const ratingActive = document.querySelector('input[name="revRating"]:checked');
+    const rating = ratingActive ? parseInt(ratingActive.value) : 5;
+    
+    const payload = { name, company, rating, text };
+    
+    if (WEBAPP_URL) {
+        // Submit review to Google WebApp (which logs it and sends alert to admin bot)
+        fetch(WEBAPP_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(resData => {
+            if (resData.success) {
+                showToast("Дякуємо! Ваш відгук надіслано на модерацію. Після схвалення він з'явиться на сайті.");
+                closeReviewModal();
+            } else {
+                showToast("Помилка надсилання. Спробуйте пізніше.");
+            }
+        })
+        .catch(err => {
+            console.log("Error submitting review:", err);
+            showToast("Помилка надсилання. Спробуйте пізніше.");
+        });
+    } else {
+        // Mockup local mode: Simulate moderation flow using local storage
+        const pendingReviews = JSON.parse(localStorage.getItem('pending_reviews')) || [];
+        const newId = "rev_" + new Date().getTime();
+        pendingReviews.push({ id: newId, ...payload });
+        localStorage.setItem('pending_reviews', JSON.stringify(pendingReviews));
+        
+        // Show success alert
+        showToast("Відгук надіслано на модерацію! (Схвалити відгук можна в Telegram-боті).");
+        
+        // Simulate bot callback internally for sandbox demo integration
+        setTimeout(() => {
+            if (window.parent && typeof window.parent.simulateBotReviewAlert === 'function') {
+                window.parent.simulateBotReviewAlert(newId, name, company, rating, text);
+            } else {
+                // If not in iframe, simulate bot logic internally
+                console.log(`[DEMO_MODE] Новий відгук чекає модерації: ID=${newId}`);
+            }
+        }, 1000);
+        
+        closeReviewModal();
+    }
 }
