@@ -316,12 +316,16 @@ function simulateBotAction(action) {
 function updateEstimatedCost() {
     let cost = 0;
     const hasBot = document.getElementById('calcBot').checked;
+    const hasBotDb = document.getElementById('calcBotDb').checked;
     const hasDash = document.getElementById('calcDash').checked;
     const hasInt = document.getElementById('calcIntegrate').checked;
+    const hasGps = document.getElementById('calcGps').checked;
 
-    if (hasBot) cost += 500;
-    if (hasDash) cost += 700;
+    if (hasBot) cost += 450;
+    if (hasBotDb) cost += 700;
+    if (hasDash) cost += 650;
     if (hasInt) cost += 400;
+    if (hasGps) cost += 450;
 
     document.getElementById('estimatedCost').innerText = `${cost} $`;
 }
@@ -332,13 +336,17 @@ function handleFormSubmit(event) {
     
     const name = document.getElementById('clientName').value;
     const phone = document.getElementById('clientPhone').value;
+    
     const hasBot = document.getElementById('calcBot').checked ? "Так" : "Ні";
+    const hasBotDb = document.getElementById('calcBotDb').checked ? "Так" : "Ні";
     const hasDash = document.getElementById('calcDash').checked ? "Так" : "Ні";
     const hasInt = document.getElementById('calcIntegrate').checked ? "Так" : "Ні";
+    const hasGps = document.getElementById('calcGps').checked ? "Так" : "Ні";
+    
     const cost = document.getElementById('estimatedCost').innerText;
     
     // Construct pre-formatted message
-    const message = `🔔 Нова заявка з сайту Bellonix ALM!\n\n👤 Ім'я: ${name}\n📞 Контакт: ${phone}\n\n🛠 Обрані послуги:\n- Telegram / Viber Бот: ${hasBot}\n- Дашборд з аналітикою: ${hasDash}\n- Інтеграція з CRM/1C: ${hasInt}\n\n💵 Розрахункова вартість: ${cost}`;
+    const message = `🔔 Нова заявка з сайту Bellonix ALM!\n\n👤 Ім'я: ${name}\n📞 Контакт: ${phone}\n\n🛠 Обрані рішення:\n- Telegram / Viber Бот (базовий): ${hasBot}\n- Бот із хмарною БД (Google / SQL): ${hasBotDb}\n- Дашборд з аналітикою: ${hasDash}\n- Інтеграція з CRM / 1С: ${hasInt}\n- Інтеграція з GPS-трекінгом: ${hasGps}\n\n💵 Розрахункова вартість: ${cost}`;
     
     // Use official Telegram share link to pass pre-filled message
     const telegramShareUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(message)}`;

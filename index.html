@@ -446,7 +446,11 @@
                         <div class="calc-options-grid">
                             <label class="calc-checkbox-label">
                                 <input type="checkbox" id="calcBot" checked onchange="updateEstimatedCost()">
-                                <span class="custom-chk"></span> Telegram / Viber Бот
+                                <span class="custom-chk"></span> Telegram / Viber Бот (базовий)
+                            </label>
+                            <label class="calc-checkbox-label">
+                                <input type="checkbox" id="calcBotDb" onchange="updateEstimatedCost()">
+                                <span class="custom-chk"></span> Бот із хмарною БД (Google Таблиці / SQL)
                             </label>
                             <label class="calc-checkbox-label">
                                 <input type="checkbox" id="calcDash" checked onchange="updateEstimatedCost()">
@@ -454,7 +458,11 @@
                             </label>
                             <label class="calc-checkbox-label">
                                 <input type="checkbox" id="calcIntegrate" onchange="updateEstimatedCost()">
-                                <span class="custom-chk"></span> Інтеграція з CRM/1C
+                                <span class="custom-chk"></span> Інтеграція з CRM / 1С
+                            </label>
+                            <label class="calc-checkbox-label">
+                                <input type="checkbox" id="calcGps" onchange="updateEstimatedCost()">
+                                <span class="custom-chk"></span> Інтеграція з GPS-трекінгом
                             </label>
                         </div>
                     </div>
