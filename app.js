@@ -332,10 +332,21 @@ function handleFormSubmit(event) {
     
     const name = document.getElementById('clientName').value;
     const phone = document.getElementById('clientPhone').value;
+    const hasBot = document.getElementById('calcBot').checked ? "Так" : "Ні";
+    const hasDash = document.getElementById('calcDash').checked ? "Так" : "Ні";
+    const hasInt = document.getElementById('calcIntegrate').checked ? "Так" : "Ні";
     const cost = document.getElementById('estimatedCost').innerText;
     
-    // Simulate API request and show toast notification
-    showToast(`Дякуємо, ${name}! Заявку на розрахунок (${cost}) отримано. Менеджер зв'яжеться з вами протягом 15 хвилин.`);
+    // Construct pre-formatted message
+    const message = `🔔 Нова заявка з сайту Bellonix ALM!\n\n👤 Ім'я: ${name}\n📞 Контакт: ${phone}\n\n🛠 Обрані послуги:\n- Telegram / Viber Бот: ${hasBot}\n- Дашборд з аналітикою: ${hasDash}\n- Інтеграція з CRM/1C: ${hasInt}\n\n💵 Розрахункова вартість: ${cost}`;
+    
+    // Use official Telegram share link to pass pre-filled message
+    const telegramShareUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(message)}`;
+    
+    // Open sharing dialog
+    window.open(telegramShareUrl, '_blank');
+    
+    showToast(`Дякуємо, ${name}! Заявку сформовано. Надішліть її контакту @BellonixALM у відкритому вікні Telegram.`);
     
     // Reset inputs
     document.getElementById('leadForm').reset();
