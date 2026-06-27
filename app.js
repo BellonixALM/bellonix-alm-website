@@ -520,6 +520,21 @@ function handleReviewSubmit(e) {
 }
 
 // Interactive Star Rating Logic
+window.setRatingValue = function(clickValue) {
+    const ratingInput = document.getElementById('revRating');
+    if (ratingInput) ratingInput.value = clickValue;
+    
+    const stars = document.querySelectorAll('.star-btn');
+    stars.forEach(s => {
+        const val = parseInt(s.getAttribute('data-value'));
+        if (val <= clickValue) {
+            s.classList.add('active');
+        } else {
+            s.classList.remove('active');
+        }
+    });
+};
+
 function initStarRating() {
     const stars = document.querySelectorAll('.star-btn');
     const ratingInput = document.getElementById('revRating');
@@ -542,22 +557,6 @@ function initStarRating() {
         // Hover leave handler
         star.onmouseleave = () => {
             stars.forEach(s => s.classList.remove('hover-active'));
-        };
-
-        // Click selection handler
-        star.onclick = () => {
-            const clickValue = parseInt(star.getAttribute('data-value'));
-            ratingInput.value = clickValue;
-            
-            // Set active states
-            stars.forEach(s => {
-                const val = parseInt(s.getAttribute('data-value'));
-                if (val <= clickValue) {
-                    s.classList.add('active');
-                } else {
-                    s.classList.remove('active');
-                }
-            });
         };
     });
 }
