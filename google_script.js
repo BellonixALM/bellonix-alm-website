@@ -23,7 +23,7 @@ const ADMIN_CHAT_ID = "1931242904"; // ADMIN_ID для модерації
 const SPREADSHEET_ID = "1ruKhm4WefmzMsMMFvzSFD093JH4lds4z7RdPQCzwcrE";
 
 function doGet(e) {
-  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
+  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheets()[0];
   const data = sheet.getDataRange().getValues();
   const reviews = [];
   
@@ -50,7 +50,7 @@ function doGet(e) {
 function doPost(e) {
   try {
     const params = JSON.parse(e.postData.contents);
-    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
+    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheets()[0];
     
     // Якщо прийшов запит на модерацію чи видалення від бота
     if (params.action === 'approve' || params.action === 'reject' || params.action === 'delete') {
