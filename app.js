@@ -386,11 +386,13 @@ function showToast(message) {
 // Reviews Management Logic
 function openReviewModal() {
     document.getElementById('reviewModal').classList.add('active');
+    initStarRating();
 }
 
 function closeReviewModal() {
     document.getElementById('reviewModal').classList.remove('active');
     document.getElementById('reviewForm').reset();
+    resetStarRating();
 }
 
 // Default reviews to fallback on
@@ -469,9 +471,8 @@ function handleReviewSubmit(e) {
     const company = document.getElementById('revCompany').value;
     const text = document.getElementById('revText').value;
     
-    // Get checked rating radio button value
-    const ratingActive = document.querySelector('input[name="revRating"]:checked');
-    const rating = ratingActive ? parseInt(ratingActive.value) : 5;
+    // Get rating value from hidden input
+    const rating = parseInt(document.getElementById('revRating').value) || 5;
     
     const payload = { name, company, rating, text };
     
@@ -516,4 +517,58 @@ function handleReviewSubmit(e) {
         
         closeReviewModal();
     }
+}
+
+// Interactive Star Rating Logic
+function initStarRating() {
+    const stars = document.querySelectorAll('.star-btn');
+    const ratingInput = document.getElementById('revRating');
+    if (!stars.length || !ratingInput) return;
+
+    stars.forEach(star => {
+        // Hover handler
+        star.onmouseenter = () => {
+            const hoverValue = parseInt(star.getAttribute('data-value'));
+            stars.forEach(s => {
+                const val = parseInt(s.getAttribute('data-value'));
+                if (val <= hoverValue) {
+                    s.classList.add('hover-active');
+                } else {
+                    s.classList.remove('hover-active');
+                }
+            });
+        };
+
+        // Hover leave handler
+        star.onmouseleave = () => {
+            stars.forEach(s => s.classList.remove('hover-active'));
+        };
+
+        // Click selection handler
+        star.onclick = () => {
+            const clickValue = parseInt(star.getAttribute('data-value'));
+            ratingInput.value = clickValue;
+            
+            // Set active states
+            stars.forEach(s => {
+                const val = parseInt(s.getAttribute('data-value'));
+                if (val <= clickValue) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+        };
+    });
+}
+
+function resetStarRating() {
+    const stars = document.querySelectorAll('.star-btn');
+    const ratingInput = document.getElementById('revRating');
+    if (ratingInput) ratingInput.value = 5;
+    
+    stars.forEach(s => {
+        s.classList.add('active');
+        s.classList.remove('hover-active');
+    });
 }

@@ -1357,6 +1357,7 @@ section {
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transform: translateY(150px);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: #ffffff !important;
 }
 
 .toast-notification.show {
@@ -1650,34 +1651,25 @@ body.light-theme .about-inner {
 
 .rating-stars-input {
     display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    gap: 5px;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 8px;
     font-size: 1.8rem;
     margin-top: 0.2rem;
-    position: relative;
-    z-index: 10;
 }
 
-.rating-stars-input input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-    pointer-events: none;
-}
-
-.rating-stars-input label {
-    display: inline-block !important;
-    margin-bottom: 0 !important;
+.star-btn {
     color: var(--color-grey);
     cursor: pointer;
-    transition: color 0.2s ease-in-out;
+    transition: color 0.15s ease-in-out, transform 0.1s ease;
 }
 
-.rating-stars-input label:hover,
-.rating-stars-input label:hover ~ label,
-.rating-stars-input input:checked ~ label {
+.star-btn:hover {
+    transform: scale(1.15);
+}
+
+.star-btn.active,
+.star-btn.hover-active {
     color: #f1c40f;
 }
 
@@ -1696,7 +1688,7 @@ body.light-theme .modal-content {
     box-shadow: 0 15px 50px rgba(13, 59, 102, 0.15);
 }
 
-body.light-theme .rating-stars-input label {
+body.light-theme .star-btn {
     color: #cbd5e1;
 }
 
