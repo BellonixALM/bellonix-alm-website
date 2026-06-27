@@ -1648,7 +1648,6 @@ body.light-theme .about-inner {
     font-weight: 700;
 }
 
-/* Star Rating Input */
 .rating-stars-input {
     display: flex;
     flex-direction: row-reverse;
@@ -1656,10 +1655,16 @@ body.light-theme .about-inner {
     gap: 5px;
     font-size: 1.8rem;
     margin-top: 0.2rem;
+    position: relative;
+    z-index: 10;
 }
 
 .rating-stars-input input {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
 }
 
 .rating-stars-input label {
