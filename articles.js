@@ -11,7 +11,7 @@
     // Helper to fetch and parse a markdown file
     async function loadArticle(meta) {
         try {
-            const resp = await fetch(`articles/${meta.filename}`);
+            const resp = await fetch(`articles/${meta.file || meta.filename}`);
             if (!resp.ok) return null;
             const text = await resp.text();
             
