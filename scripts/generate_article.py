@@ -34,9 +34,10 @@ def generate_content(topic, api_key=None):
         return f"---\ntitle: \"{topic}\"\ndate: \"{datetime.date.today()}\"\nsummary: \"Коротка анотація про {topic.lower()}.\"\nimage: \"placeholder.png\"\n---\n\n![]( {{image}} )\n\n## {topic}\n\nТут розгорнутий матеріал статті про {topic.lower()}…\n"
     import requests, json
     prompt = f"Напиши статтю у форматі Markdown на тему '{topic}'. Включи коротку анотацію, заголовок, приклад коду, та просту діаграму Mermaid."
-    headers = {"Content-Type": "application/json", "x-goog-api-key": api_key}
+    headers = {"Content-Type": "application/json"}
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
     data = {"contents": [{"role": "user", "parts": [{"text": prompt}]}]}
-    resp = requests.post("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent", headers=headers, json=data)
+    resp = requests.post(url, headers=headers, json=data)
     if resp.status_code != 200:
         raise RuntimeError(f"Gemini API error: {resp.status_code} {resp.text}")
     result = resp.json()
