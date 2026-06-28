@@ -56,7 +56,7 @@
                 snippet = snippet.substring(0, 160) + "...";
             }
 
-            return {title, date, snippet, filename: meta.filename};
+            return {title, date, snippet, filename: meta.file || meta.filename};
         } catch (e) { console.error('Failed to load article', meta.filename, e); return null; }
     }
 
