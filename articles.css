@@ -62,6 +62,8 @@
     color: var(--color-accent);
     text-decoration: none;
     transition: color 0.2s ease;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 .article-card .read-more i {
