@@ -22,50 +22,6 @@
 <link rel="stylesheet" href="articles.css">
 </head>
 <body>
-    <!-- Background Elements -->
-    <div class="bg-gradient-glow"></div>
-    <div class="bg-noise"></div>
-    
-    <!-- Header Navigation -->
-    <header class="main-header">
-        ... (unchanged) ...
-    </header>
-    
-    <!-- Mobile Navigation Drawer -->
-    <div class="mobile-drawer">
-        ... (unchanged) ...
-    </div>
-    
-    <!-- Hero Section -->
-    <section id="hero" class="hero-section">
-        ... (unchanged) ...
-    </section>
-    
-    <!-- Existing sections ... -->
-    
-    <!-- Articles Section -->
-    <section id="articles" class="articles-section">
-        <div class="container">
-            <h2 class="section-title">Автоматичні статті</h2>
-            <div id="articlesContainer" class="articles-grid">
-                <!-- JavaScript will inject article cards here -->
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer ... -->
-    <footer class="main-footer">
-        ... (unchanged) ...
-    </footer>
-    
-    <!-- Scripts -->
-    <script src="app.js"></script>
-    <script src="articles.js"></script>
-</body>
-<body>
-    <!-- Background Elements -->
-    <div class="bg-gradient-glow"></div>
-    <div class="bg-noise"></div>
 
     <!-- Header Navigation -->
     <header class="main-header">
@@ -438,6 +394,19 @@
             </div>
         </div>
     </section>
+ 
+    <!-- Articles Section -->
+    <section id="articles" class="articles-section">
+        <div class="container">
+            <div class="section-title-wrapper" style="text-align: center; margin-bottom: 3rem;">
+                <span class="section-subtitle">База знань</span>
+                <h2 class="section-title">Останні статті та аналітика</h2>
+            </div>
+            <div id="articlesContainer" class="articles-grid">
+                <!-- JavaScript will inject article cards here -->
+            </div>
+        </div>
+    </section>
 
     <!-- Contact & Order Estimator Section -->
     <section id="contact" class="contact-section">
@@ -582,5 +551,6 @@
 
     <!-- Scripts -->
     <script src="app.js"></script>
+    <script src="articles.js"></script>
 </body>
 </html>

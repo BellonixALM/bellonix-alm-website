@@ -14,11 +14,48 @@
             const resp = await fetch(`articles/${meta.filename}`);
             if (!resp.ok) return null;
             const text = await resp.text();
-            // Very naive front‑matter parser – first line as title, second as date, rest as snippet
-            const lines = text.split('\n');
-            const title = lines[0].replace(/^#\s*/, '').trim();
-            const date = lines[1] ? lines[1].trim() : '';
-            const snippet = lines.slice(2, 7).join(' ').trim(); // first few sentences
+            
+            let title = meta.title || "Без назви";
+            let date = meta.date || "";
+            let cleanText = text;
+
+            // Simple front matter parser
+            if (text.startsWith("---")) {
+                const parts = text.split("---");
+                if (parts.length >= 3) {
+                    const frontMatter = parts[1];
+                    cleanText = parts.slice(2).join("---");
+                    
+                    const titleMatch = frontMatter.match(/title:\s*["']?([^"'\n]+)["']?/i);
+                    const dateMatch = frontMatter.match(/date:\s*["']?([^"'\n]+)["']?/i);
+                    
+                    if (titleMatch) title = titleMatch[1];
+                    if (dateMatch) date = dateMatch[1];
+                }
+            }
+
+            // Fallback for title/date if no front matter
+            if (title === "Без назви" || !date) {
+                const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+                if (lines[0] && lines[0].startsWith('#')) {
+                    title = lines[0].replace(/^#\s*/, '');
+                    if (lines[1] && /^\d{4}-\d{2}-\d{2}$/.test(lines[1])) {
+                        date = lines[1];
+                    }
+                }
+            }
+
+            // Extract a clean snippet (remove markdown tags and images)
+            let snippet = cleanText
+                .replace(/!\[.*?\]\(.*?\)/g, "") // remove images
+                .replace(/[#*`_\[\]()\-]/g, "")   // remove markdown formatting characters
+                .replace(/\s+/g, " ")             // normalize spaces
+                .trim();
+            
+            if (snippet.length > 160) {
+                snippet = snippet.substring(0, 160) + "...";
+            }
+
             return {title, date, snippet, filename: meta.filename};
         } catch (e) { console.error('Failed to load article', meta.filename, e); return null; }
     }

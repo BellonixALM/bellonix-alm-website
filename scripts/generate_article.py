@@ -33,7 +33,19 @@ def generate_content(topic, api_key=None):
         # простий шаблон
         return f"---\ntitle: \"{topic}\"\ndate: \"{datetime.date.today()}\"\nsummary: \"Коротка анотація про {topic.lower()}.\"\nimage: \"placeholder.png\"\n---\n\n![]( {{image}} )\n\n## {topic}\n\nТут розгорнутий матеріал статті про {topic.lower()}…\n"
     import requests, json
-    prompt = f"Напиши статтю у форматі Markdown на тему '{topic}'. Включи коротку анотацію, заголовок, приклад коду, та просту діаграму Mermaid."
+    prompt = (
+        f"Напиши професійну, розгорнуту та корисну статтю українською мовою на тему: '{topic}'.\n"
+        "Стаття має бути орієнтована на бізнес-аудиторію (керівників, власників компаній, логістів).\n"
+        "Обов'язково почни статтю з YAML Front Matter у наступному форматі:\n"
+        "---\n"
+        f"title: \"[Привабливий професійний заголовок про {topic}]\"\n"
+        f"date: \"{datetime.date.today()}\"\n"
+        f"summary: \"[Короткий професійний опис статті на 2-3 речення українською мовою]\"\n"
+        "image: \"placeholder.png\"\n"
+        "---\n\n"
+        "Далі напиши структурований текст статті українською мовою з підзаголовками, практичними порадами, прикладами впровадження "
+        "(наприклад, зв'язок 1С, GPS-трекерів чи Telegram-ботів) та висновком."
+    )
     headers = {"Content-Type": "application/json"}
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
     data = {"contents": [{"role": "user", "parts": [{"text": prompt}]}]}
