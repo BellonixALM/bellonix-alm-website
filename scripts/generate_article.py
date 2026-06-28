@@ -4,19 +4,19 @@
 Щоденний скрипт, який:
 1. Читає список тем із `topics.txt`.
 2. Випадковим чином обирає тему.
-3. Використовує Gemini API (безкоштовний) для генерації статті у форматі Markdown.
+3. Використовує Gemini API (модель gemini-1.5-flash) для генерації статті у форматі Markdown.
 4. Записує результат у `articles/YYYY-MM-DD.md`.
-
-Якщо GEMINI_API_KEY не задано — генерує простий шаблон lorem ipsum.
+5. Оновлює `articles/manifest.json` з метаданими статті (title, date, summary, image, file).
 """
 
-import os, sys, random, datetime
+import os, sys, random, datetime, json, re
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 TOPICS_FILE = BASE_DIR / "topics.txt"
 ARTICLES_DIR = BASE_DIR / "articles"
 ARTICLES_DIR.mkdir(exist_ok=True)
+MANIFEST_PATH = ARTICLES_DIR / "manifest.json"
 
 def load_topics():
     if not TOPICS_FILE.exists():
@@ -30,9 +30,9 @@ def pick_topic(topics):
 
 def generate_content(topic, api_key=None):
     if not api_key:
-        # простий шаблон
+        # простий шаблон, якщо ключ відсутній
         return f"---\ntitle: \"{topic}\"\ndate: \"{datetime.date.today()}\"\nsummary: \"Коротка анотація про {topic.lower()}.\"\nimage: \"placeholder.png\"\n---\n\n![]( {{image}} )\n\n## {topic}\n\nТут розгорнутий матеріал статті про {topic.lower()}…\n"
-    import requests, json
+    import requests
     prompt = (
         f"Напиши професійну, розгорнуту та корисну статтю українською мовою на тему: '{topic}'.\n"
         "Стаття має бути орієнтована на бізнес-аудиторію (керівників, власників компаній, логістів).\n"
@@ -43,8 +43,7 @@ def generate_content(topic, api_key=None):
         f"summary: \"[Короткий професійний опис статті на 2-3 речення українською мовою]\"\n"
         "image: \"placeholder.png\"\n"
         "---\n\n"
-        "Далі напиши структурований текст статті українською мовою з підзаголовками, практичними порадами, прикладами впровадження "
-        "(наприклад, зв'язок 1С, GPS-трекерів чи Telegram-ботів) та висновком."
+        "Далі напиши структурований текст статті українською мовою з підзаголовками, практичними порадами, прикладами впровадження (наприклад, зв'язок 1С, GPS-трекерів чи Telegram-ботів) та висновком."
     )
     headers = {"Content-Type": "application/json"}
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
@@ -64,6 +63,35 @@ def save_article(content):
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(content)
     print(f"Article saved to {file_path}")
+    update_manifest(file_path, content)
+
+def update_manifest(file_path, content):
+    # Extract front‑matter between the first pair of ---
+    fm_match = re.search(r"---\n(.*?)\n---", content, re.DOTALL)
+    meta = {}
+    if fm_match:
+        for line in fm_match.group(1).splitlines():
+            if ":" in line:
+                key, val = line.split(":", 1)
+                meta[key.strip()] = val.strip().strip('"')
+    entry = {
+        "title": meta.get("title", "Untitled"),
+        "date": meta.get("date", datetime.date.today().isoformat()),
+        "summary": meta.get("summary", ""),
+        "image": meta.get("image", "placeholder.png"),
+        "file": file_path.name
+    }
+    # Load existing manifest (create if missing)
+    if MANIFEST_PATH.exists():
+        try:
+            manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            manifest = []
+    else:
+        manifest = []
+    manifest.append(entry)
+    MANIFEST_PATH.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Manifest updated with {file_path.name}")
 
 def main():
     topics = load_topics()
