@@ -129,7 +129,9 @@ def main():
         article_data = generate_content(topic, api_key)
         save_article(article_data)
     except Exception as e:
+        import traceback
         print(f"[error] Failed to generate article: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
         sys.exit(1)
 
 if __name__ == "__main__":
