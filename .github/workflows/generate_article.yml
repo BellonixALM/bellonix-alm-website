@@ -16,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -39,8 +39,13 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add articles/*.html articles/manifest.json
-          git commit -m "Add daily article $(date +'%Y-%m-%d')"
-          git push origin main
+          # Commit only if there are changes to avoid exit code 1
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Add daily article $(date +'%Y-%m-%d')"
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi
 
       - name: Send Telegram notification (Success)
         if: success()
