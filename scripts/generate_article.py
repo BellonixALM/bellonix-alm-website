@@ -74,9 +74,9 @@ def generate_content(topic, api_key=None):
     except Exception as e:
         raise RuntimeError(f"Unexpected Gemini response format: {e}\nRaw output: {text}")
 
-def save_article(article_data):
+def save_article(article_data, index):
     today = datetime.date.today().isoformat()
-    file_path = ARTICLES_DIR / f"{today}.html"
+    file_path = ARTICLES_DIR / f"{today}-{index}.html"
     
     title = article_data.get("title", "Без назви")
     summary = article_data.get("summary", "")
@@ -124,7 +124,7 @@ def update_manifest(file_path, title, summary):
     else:
         manifest = []
         
-    # Запобігаємо дублюванню на той самий день
+    # Запобігаємо дублюванню на той самий день та індекс
     manifest = [item for item in manifest if item.get("file") != file_path.name]
     manifest.append(entry)
     
@@ -133,16 +133,23 @@ def update_manifest(file_path, title, summary):
 
 def main():
     topics = load_topics()
-    topic = pick_topic(topics)
     api_key = os.getenv("GEMINI_API_KEY")
-    try:
-        article_data = generate_content(topic, api_key)
-        save_article(article_data)
-    except Exception as e:
-        import traceback
-        print(f"[error] Failed to generate article: {e}", file=sys.stderr)
-        traceback.print_exc(file=sys.stderr)
-        sys.exit(1)
+    
+    for i in range(1, 3):
+        if not topics:
+            print("[warning] No more topics available", file=sys.stderr)
+            break
+        topic = pick_topic(topics)
+        topics.remove(topic)
+        
+        try:
+            article_data = generate_content(topic, api_key)
+            save_article(article_data, i)
+        except Exception as e:
+            import traceback
+            print(f"[error] Failed to generate article {i} (topic: {topic}): {e}", file=sys.stderr)
+            traceback.print_exc(file=sys.stderr)
+            sys.exit(1)
 
 if __name__ == "__main__":
     main()
