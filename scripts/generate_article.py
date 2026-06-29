@@ -54,7 +54,7 @@ def generate_content(topic, api_key=None):
     data = {
         "contents": [{"role": "user", "parts": [{"text": prompt}]}],
         "generationConfig": {
-            "response_mime_type": "application/json"
+            "responseMimeType": "application/json"
         }
     }
     resp = requests.post(url, headers=headers, json=data)
