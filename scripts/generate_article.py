@@ -49,7 +49,7 @@ def generate_content(topic, api_key=None):
         "}"
     )
     headers = {"Content-Type": "application/json"}
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={api_key}"
     data = {"contents": [{"role": "user", "parts": [{"text": prompt}]}]}
     resp = requests.post(url, headers=headers, json=data)
     if resp.status_code != 200:
