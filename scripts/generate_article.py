@@ -112,9 +112,9 @@ def save_article(article_data):
 <title>{title}</title>
 <meta name="description" content="{summary}">
 <link rel="stylesheet" href="../styles.css">
-<link rel="icon" type="image/x-icon" href="../favicon.ico?v=3">
-<link rel="icon" type="image/png" href="../favicon.png?v=3">
-<link rel="apple-touch-icon" href="../favicon.png?v=3">
+<link rel="icon" type="image/x-icon" href="../favicon.ico?v=10">
+<link rel="icon" type="image/png" href="../favicon.png?v=10">
+<link rel="apple-touch-icon" href="../favicon.png?v=10">
 </head>
 <body>
 <article style="max-width: 800px; margin: 2rem auto; padding: 2rem; color: var(--color-text-white, #e0e0e0);">
