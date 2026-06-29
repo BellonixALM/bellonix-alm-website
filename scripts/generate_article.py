@@ -123,6 +123,14 @@ def save_article(article_data):
 </article>
 
 <script>
+  // Theme sync
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  if (savedTheme === 'light' || (!savedTheme && systemPrefersLight)) {{
+    document.body.classList.add('light-theme');
+  }}
+
+  // View count increment
   const artId = window.location.pathname.split('/').pop().replace('.html', '');
   if (artId) {{
     fetch(`https://api.counterapi.dev/v1/bellonix-alm/article_${{artId}}/up`).catch(() => {{}});
