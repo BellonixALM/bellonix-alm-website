@@ -35,8 +35,8 @@ function initSiteCounter() {
     fetch('https://api.counterapi.dev/v1/bellonix-alm/total_visits/up')
         .then(res => res.json())
         .then(data => {
-            if (data && typeof data.value !== 'undefined') {
-                viewsEl.textContent = data.value.toLocaleString();
+            if (data && typeof data.count !== 'undefined') {
+                viewsEl.textContent = data.count.toLocaleString();
             }
         })
         .catch(err => {

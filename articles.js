@@ -41,8 +41,8 @@
             .then(res => res.json())
             .then(data => {
                 const el = document.getElementById(`views-${artId}`);
-                if (el && data && typeof data.value !== 'undefined') {
-                    el.textContent = data.value;
+                if (el && data && typeof data.count !== 'undefined') {
+                    el.textContent = data.count;
                 }
             })
             .catch(() => {
