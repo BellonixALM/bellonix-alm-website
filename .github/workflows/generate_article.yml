@@ -39,10 +39,20 @@ jobs:
           git commit -m "Add daily article $(date +'%Y-%m-%d')"
           git push origin main
 
-      - name: Send Telegram notification
+      - name: Send Telegram notification (Success)
+        if: success()
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          MESSAGE="✅ Daily article generated for $(date +'%Y-%m-%d')"
+          MESSAGE="✅ Daily article successfully generated and published for $(date +'%Y-%m-%d')!"
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" -d chat_id=${TELEGRAM_CHAT_ID} -d text="$MESSAGE"
+
+      - name: Send Telegram notification (Failure)
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          MESSAGE="❌ Failed to generate daily article on $(date +'%Y-%m-%d'). Please check GitHub Actions logs."
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" -d chat_id=${TELEGRAM_CHAT_ID} -d text="$MESSAGE"
