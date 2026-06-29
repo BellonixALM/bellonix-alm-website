@@ -25,7 +25,26 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileNav();
     updateEstimatedCost();
     loadReviews();
+    initSiteCounter();
 });
+
+function initSiteCounter() {
+    const viewsEl = document.getElementById('siteViewsCount');
+    if (!viewsEl) return;
+    
+    fetch('https://api.counterapi.dev/v1/bellonix-alm/total_visits/up')
+        .then(res => res.json())
+        .then(data => {
+            if (data && typeof data.value !== 'undefined') {
+                viewsEl.textContent = data.value.toLocaleString();
+            }
+        })
+        .catch(err => {
+            console.error('Counter API error:', err);
+            const wrapper = document.getElementById('siteViewsWrapper');
+            if (wrapper) wrapper.style.display = 'none';
+        });
+}
 
 // Theme handling
 function initTheme() {

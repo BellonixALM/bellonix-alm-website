@@ -121,6 +121,13 @@ def save_article(article_data):
 <p style="opacity:0.7; margin-bottom:2rem;">{today}</p>
 {content_html}
 </article>
+
+<script>
+  const artId = window.location.pathname.split('/').pop().replace('.html', '');
+  if (artId) {{
+    fetch(`https://api.counterapi.dev/v1/bellonix-alm/article_${{artId}}/up`).catch(() => {{}});
+  }}
+</script>
 </body>
 </html>
 """

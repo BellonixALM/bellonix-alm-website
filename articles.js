@@ -21,16 +21,34 @@
         const date = a.date || '';
         const summary = a.summary || '';
         const filename = a.file || a.filename;
+        const artId = filename.replace('.html', '');
 
         const card = document.createElement('div');
         card.className = 'article-card';
         card.innerHTML = `
             <h3>${title}</h3>
-            <div class="meta">${date}</div>
+            <div class="meta">
+                <span>${date}</span> &bull; 
+                <span><i class="fa-regular fa-eye"></i> <span id="views-${artId}">...</span></span>
+            </div>
             <div class="snippet">${summary}</div>
             <a class="read-more" href="articles/${filename}" target="_blank">Читати далі <i class="fa-solid fa-arrow-right"></i></a>
         `;
         container.appendChild(card);
+
+        // Fetch view count for this article
+        fetch(`https://api.counterapi.dev/v1/bellonix-alm/article_${artId}`)
+            .then(res => res.json())
+            .then(data => {
+                const el = document.getElementById(`views-${artId}`);
+                if (el && data && typeof data.value !== 'undefined') {
+                    el.textContent = data.value;
+                }
+            })
+            .catch(() => {
+                const el = document.getElementById(`views-${artId}`);
+                if (el) el.textContent = '0';
+            });
     });
 
     // Carousel logic
