@@ -43,7 +43,7 @@ def generate_content(topic, api_key=None):
         f"summary: \"[Короткий професійний опис статті на 2-3 речення українською мовою]\"\n"
         "image: \"placeholder.png\"\n"
         "---\n\n"
-        "Далі напиши структурований текст статті українською мовою з підзаголовками, практичними порадами, прикладами впровадження (наприклад, зв'язок 1С, GPS-трекерів чи Telegram-ботів), розділом \"Аналітика\" з даними та трендами та висновком."
+        "Далі напиши структурований текст статті українською мовою з підзаголовками, практичними порадами, прикладами впровадження (наприклад, зв'язок BAS, GPS-трекерів чи Telegram-ботів), розділом \"Аналітика\" з даними та трендами та висновком."
     )
     headers = {"Content-Type": "application/json"}
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
@@ -59,7 +59,7 @@ def generate_content(topic, api_key=None):
 
 def save_article(content):
     today = datetime.date.today().isoformat()
-    file_path = ARTICLES_DIR / f"{today}.md"
+    file_path = ARTICLES_DIR / f"{today}.html"
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(content)
     print(f"Article saved to {file_path}")
