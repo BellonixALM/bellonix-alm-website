@@ -5,7 +5,7 @@
 1. Читає список тем із `topics.txt`.
 2. Випадковим чином обирає тему.
 3. Використовує Gemini API для генерації статті у форматі JSON (title, summary, content_html).
-4. Записує результат у повноцінний HTML-документ `articles/YYYY-MM-DD.html`.
+4. Записує результат у повноцінний HTML-документ `articles/YYYY-MM-DD-N.html`.
 5. Оновлює `articles/manifest.json`.
 """
 
@@ -41,6 +41,7 @@ def generate_content(topic, api_key=None):
         f"Напиши професійну, розгорнуту та корисну статтю українською мовою на тему: '{topic}'.\n"
         "Стаття має бути орієнтована на бізнес-аудиторію (керівників, власників компаній, логістів).\n"
         "Обов'язково зроби акцент на ботах (Telegram/Viber), зручності їх використання, а також на функціональних дашбордах, які дозволяють оперативно приймати управлінські рішення.\n"
+        "КАТЕГОРИЧНО ЗАБОРОНЕНО використовувати абревіатуру чи слово '1С' або '1C'. Замість цього використовуй 'BAS'.\n"
         "Поверни результат виключно у форматі JSON з наступною структурою (без жодних markdown-тегів на кшталт ```json):\n"
         "{\n"
         "  \"title\": \"Привабливий заголовок\",\n"
@@ -67,22 +68,36 @@ def generate_content(topic, api_key=None):
     result = resp.json()
     try:
         text = result["candidates"][0]["content"]["parts"][0]["text"]
-        # Очистимо можливе markdown-обгортання JSON
         text_clean = re.sub(r"^```json\s*", "", text.strip())
         text_clean = re.sub(r"\s*```$", "", text_clean)
+        # Видаляємо випадкові згадки 1C
+        text_clean = text_clean.replace("1С", "BAS").replace("1C", "BAS")
         return json.loads(text_clean)
     except Exception as e:
         raise RuntimeError(f"Unexpected Gemini response format: {e}\nRaw output: {text}")
 
-def save_article(article_data, index):
+def get_next_index():
     today = datetime.date.today().isoformat()
+    existing_indices = []
+    for f in ARTICLES_DIR.glob(f"{today}-*.html"):
+        match = re.search(rf"{today}-(\d+)\.html$", f.name)
+        if match:
+            existing_indices.append(int(match.group(1)))
+    if not existing_indices:
+        if (ARTICLES_DIR / f"{today}.html").exists():
+            return 2
+        return 1
+    return max(existing_indices) + 1
+
+def save_article(article_data):
+    today = datetime.date.today().isoformat()
+    index = get_next_index()
     file_path = ARTICLES_DIR / f"{today}-{index}.html"
     
-    title = article_data.get("title", "Без назви")
-    summary = article_data.get("summary", "")
-    content_html = article_data.get("content_html", "")
+    title = article_data.get("title", "Без назви").replace("1С", "BAS").replace("1C", "BAS")
+    summary = article_data.get("summary", "").replace("1С", "BAS").replace("1C", "BAS")
+    content_html = article_data.get("content_html", "").replace("1С", "BAS").replace("1C", "BAS")
     
-    # Створюємо повний HTML шаблон
     html_content = f"""<!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -113,7 +128,7 @@ def update_manifest(file_path, title, summary):
         "title": title,
         "date": datetime.date.today().isoformat(),
         "summary": summary,
-        "image": "bas_efficiency.png", # За замовчуванням
+        "image": "bas_efficiency.png",
         "file": file_path.name
     }
     if MANIFEST_PATH.exists():
@@ -124,7 +139,6 @@ def update_manifest(file_path, title, summary):
     else:
         manifest = []
         
-    # Запобігаємо дублюванню на той самий день та індекс
     manifest = [item for item in manifest if item.get("file") != file_path.name]
     manifest.append(entry)
     
@@ -133,23 +147,16 @@ def update_manifest(file_path, title, summary):
 
 def main():
     topics = load_topics()
+    topic = pick_topic(topics)
     api_key = os.getenv("GEMINI_API_KEY")
-    
-    for i in range(1, 3):
-        if not topics:
-            print("[warning] No more topics available", file=sys.stderr)
-            break
-        topic = pick_topic(topics)
-        topics.remove(topic)
-        
-        try:
-            article_data = generate_content(topic, api_key)
-            save_article(article_data, i)
-        except Exception as e:
-            import traceback
-            print(f"[error] Failed to generate article {i} (topic: {topic}): {e}", file=sys.stderr)
-            traceback.print_exc(file=sys.stderr)
-            sys.exit(1)
+    try:
+        article_data = generate_content(topic, api_key)
+        save_article(article_data)
+    except Exception as e:
+        import traceback
+        print(f"[error] Failed to generate article (topic: {topic}): {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

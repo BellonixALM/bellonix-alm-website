@@ -16,7 +16,7 @@
     if (manifest.length === 0) return;
 
     // Render cards directly from manifest metadata (no need to fetch each file)
-    manifest.forEach(a => {
+    manifest.slice().reverse().forEach(a => {
         const title = a.title || 'Без назви';
         const date = a.date || '';
         const summary = a.summary || '';

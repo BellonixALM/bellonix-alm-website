@@ -350,7 +350,7 @@ function handleFormSubmit(event) {
     const cost = document.getElementById('estimatedCost').innerText;
     
     // Construct pre-formatted message
-    const message = `🔔 Нова заявка з сайту Bellonix ALM!\n\n👤 Ім'я: ${name}\n📞 Контакт: ${phone}\n\n🛠 Обрані рішення:\n- Telegram / Viber Бот (базовий): ${hasBot}\n- Бот із хмарною БД (Google / SQL): ${hasBotDb}\n- Дашборд з аналітикою: ${hasDash}\n- Інтеграція з CRM / 1С: ${hasInt}\n- Інтеграція з GPS-трекінгом: ${hasGps}\n\n💵 Розрахункова вартість: ${cost}`;
+    const message = `🔔 Нова заявка з сайту Bellonix ALM!\n\n👤 Ім'я: ${name}\n📞 Контакт: ${phone}\n\n🛠 Обрані рішення:\n- Telegram / Viber Бот (базовий): ${hasBot}\n- Бот із хмарною БД (Google / SQL): ${hasBotDb}\n- Дашборд з аналітикою: ${hasDash}\n- Інтеграція з CRM / BAS: ${hasInt}\n- Інтеграція з GPS-трекінгом: ${hasGps}\n\n💵 Розрахункова вартість: ${cost}`;
     
     // Use official Telegram share link to pass pre-filled message
     const telegramShareUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(message)}`;
