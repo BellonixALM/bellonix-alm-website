@@ -35,7 +35,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add articles/*.md articles/manifest.json
+          git add articles/*.html articles/manifest.json
           git commit -m "Add daily article $(date +'%Y-%m-%d')"
           git push origin main
 
