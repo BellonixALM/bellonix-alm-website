@@ -53,6 +53,16 @@ def generate_content(topic, api_key=None):
     data = {"contents": [{"role": "user", "parts": [{"text": prompt}]}]}
     resp = requests.post(url, headers=headers, json=data)
     if resp.status_code != 200:
+        if resp.status_code == 404:
+            try:
+                models_resp = requests.get(f"https://generativelanguage.googleapis.com/v1/models?key={api_key}")
+                if models_resp.status_code == 200:
+                    models_list = [m["name"] for m in models_resp.json().get("models", [])]
+                    print(f"[debug] Available models for this key: {models_list}", file=sys.stderr)
+                else:
+                    print(f"[debug] Could not list models: {models_resp.status_code} {models_resp.text}", file=sys.stderr)
+            except Exception as ex:
+                print(f"[debug] Error listing models: {ex}", file=sys.stderr)
         raise RuntimeError(f"Gemini API error: {resp.status_code} {resp.text}")
     result = resp.json()
     try:
