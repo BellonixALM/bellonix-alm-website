@@ -42,16 +42,21 @@ def generate_content(topic, api_key=None):
         "Стаття має бути орієнтована на бізнес-аудиторію (керівників, власників компаній, логістів).\n"
         "Обов'язково зроби акцент на ботах (Telegram/Viber), зручності їх використання, а також на функціональних дашбордах, які дозволяють оперативно приймати управлінські рішення.\n"
         "КАТЕГОРИЧНО ЗАБОРОНЕНО використовувати абревіатуру чи слово '1С' або '1C'. Замість цього використовуй 'BAS'.\n"
-        "Поверни результат виключно у форматі JSON з наступною структурою (без жодних markdown-тегів на кшталт ```json):\n"
+        "Поверни результат виключно у форматі JSON з наступною структурою. Зверни особливу увагу на те, щоб усі лапки всередині значень JSON були екрановані (наприклад, \\\" для атрибутів HTML):\n"
         "{\n"
         "  \"title\": \"Привабливий заголовок\",\n"
         "  \"summary\": \"Короткий опис на 2-3 речення\",\n"
-        "  \"content_html\": \"<h1>Заголовок</h1><p>Абзац тексту з інтегрованими HTML-тегами для форматування (h2, p, ul, li, strong тощо)...</p>\"\n"
+        "  \"content_html\": \"<h1>Заголовок</h1><p>Абзац тексту з інтегрованими HTML-тегами для форматування...</p>\"\n"
         "}"
     )
     headers = {"Content-Type": "application/json"}
     url = f"https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key={api_key}"
-    data = {"contents": [{"role": "user", "parts": [{"text": prompt}]}]}
+    data = {
+        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "responseMimeType": "application/json"
+        }
+    }
     resp = requests.post(url, headers=headers, json=data)
     if resp.status_code != 200:
         if resp.status_code == 404:
@@ -68,7 +73,9 @@ def generate_content(topic, api_key=None):
     result = resp.json()
     try:
         text = result["candidates"][0]["content"]["parts"][0]["text"]
-        text_clean = re.sub(r"^```json\s*", "", text.strip())
+        text_clean = text.strip()
+        # Очистимо можливе markdown-обгортання JSON про всяк випадок
+        text_clean = re.sub(r"^```json\s*", "", text_clean)
         text_clean = re.sub(r"\s*```$", "", text_clean)
         # Видаляємо випадкові згадки 1C
         text_clean = text_clean.replace("1С", "BAS").replace("1C", "BAS")
