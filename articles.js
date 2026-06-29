@@ -32,4 +32,21 @@
         `;
         container.appendChild(card);
     });
+
+    // Carousel logic
+    const prevBtn = document.getElementById('articlesPrevBtn');
+    const nextBtn = document.getElementById('articlesNextBtn');
+    
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            const cardWidth = container.querySelector('.article-card').offsetWidth;
+            // Scroll by width of one card + gap (approx 2rem = 32px)
+            container.scrollBy({ left: -(cardWidth + 32), behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const cardWidth = container.querySelector('.article-card').offsetWidth;
+            container.scrollBy({ left: cardWidth + 32, behavior: 'smooth' });
+        });
+    }
 })();

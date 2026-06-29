@@ -6,14 +6,58 @@
     background: var(--color-bg-primary);
 }
 
+/* Carousel Wrapper */
+.articles-carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.carousel-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--color-text-white);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-bg-primary);
+    transform: scale(1.1);
+}
+
 .articles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
     gap: 2rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
+    padding: 1rem 0 2rem 0;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.articles-grid::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
 }
 
 .article-card {
+    flex: 0 0 calc(33.333% - 1.34rem); /* Show exactly 3 items at a time minus gap */
+    min-width: 300px;
+    scroll-snap-align: start;
     position: relative;
     padding: 1.5rem;
     background: rgba(255, 255, 255, 0.12);
