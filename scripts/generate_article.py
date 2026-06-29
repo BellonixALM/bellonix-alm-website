@@ -50,7 +50,7 @@ def generate_content(topic, api_key=None):
         "}"
     )
     headers = {"Content-Type": "application/json"}
-    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
     data = {
         "contents": [{"role": "user", "parts": [{"text": prompt}]}],
         "generationConfig": {
@@ -61,7 +61,7 @@ def generate_content(topic, api_key=None):
     if resp.status_code != 200:
         if resp.status_code == 404:
             try:
-                models_resp = requests.get(f"https://generativelanguage.googleapis.com/v1/models?key={api_key}")
+                models_resp = requests.get(f"https://generativelanguage.googleapis.com/v1beta/models?key={api_key}")
                 if models_resp.status_code == 200:
                     models_list = [m["name"] for m in models_resp.json().get("models", [])]
                     print(f"[debug] Available models for this key: {models_list}", file=sys.stderr)
