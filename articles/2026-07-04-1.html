@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Автоматизація бізнес‑процесів</title>
+<meta name="description" content="Коротка анотація про автоматизація бізнес‑процесів.">
+<link rel="stylesheet" href="../styles.css">
+<link rel="icon" type="image/x-icon" href="../favicon.ico?v=10">
+<link rel="icon" type="image/png" href="../favicon.png?v=10">
+<link rel="apple-touch-icon" href="../favicon.png?v=10">
+</head>
+<body>
+<article style="max-width: 800px; margin: 2rem auto; padding: 2rem; color: var(--color-text-white, #e0e0e0);">
+<p style="opacity:0.7; margin-bottom:2rem;">2026-07-04</p>
+<h1>Автоматизація бізнес‑процесів</h1>
+<p>Тут розгорнутий матеріал статті про автоматизація бізнес‑процесів…</p>
+</article>
+
+<script>
+  // Theme sync
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  if (savedTheme === 'light' || (!savedTheme && systemPrefersLight)) {
+    document.body.classList.add('light-theme');
+  }
+
+  // View count increment
+  const artId = window.location.pathname.split('/').pop().replace('.html', '');
+  if (artId) {
+    fetch(`https://api.counterapi.dev/v1/bellonix-alm/article_${artId}/up`).catch(() => {});
+  }
+</script>
+</body>
+</html>
