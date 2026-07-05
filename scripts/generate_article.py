@@ -168,6 +168,17 @@ def update_manifest(file_path, title, summary):
     print(f"Manifest updated with {file_path.name}")
 
 def main():
+    # Перевіримо, скільки статей вже згенеровано за сьогодні.
+    # Якщо вже є 2 статті (або більше), то цей запуск є резервним або повторним, і нам не потрібно нічого створювати.
+    today = datetime.date.today().isoformat()
+    existing_count = len(list(ARTICLES_DIR.glob(f"{today}-*.html")))
+    if (ARTICLES_DIR / f"{today}.html").exists():
+        existing_count += 1
+
+    if existing_count >= 2:
+        print(f"[info] Already generated {existing_count} articles for today ({today}). Skipping generation.")
+        sys.exit(0)
+
     topics = load_topics()
     topic = pick_topic(topics)
     api_key = os.getenv("GEMINI_API_KEY")
