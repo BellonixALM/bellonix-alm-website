@@ -369,15 +369,39 @@ function handleFormSubmit(event) {
     const cost = document.getElementById('estimatedCost').innerText;
     
     // Construct pre-formatted message
-    const message = `🔔 Нова заявка з сайту Bellonix ALM!\n\n👤 Ім'я: ${name}\n📞 Контакт: ${phone}\n\n🛠 Обрані рішення:\n- Telegram / Viber Бот (базовий): ${hasBot}\n- Бот із хмарною БД (Google / SQL): ${hasBotDb}\n- Дашборд з аналітикою: ${hasDash}\n- Інтеграція з CRM / BAS: ${hasInt}\n- Інтеграція з GPS-трекінгом: ${hasGps}\n\n💵 Розрахункова вартість: ${cost}`;
+    const message = `🔔 *Нова заявка з сайту Bellonix ALM!*\n\n👤 *Ім'я:* ${name}\n📞 *Контакт:* ${phone}\n\n🛠 *Обрані рішення:* \n- Telegram / Viber Бот (базовий): ${hasBot}\n- Бот із хмарною БД (Google / SQL): ${hasBotDb}\n- Дашборд з аналітикою: ${hasDash}\n- Інтеграція з CRM / BAS: ${hasInt}\n- Інтеграція з GPS-трекінгом: ${hasGps}\n\n💵 *Розрахункова вартість:* ${cost}`;
     
-    // Use official Telegram share link to pass pre-filled message
-    const telegramShareUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(message)}`;
+    const botToken = "8923736076:AAG9rKK-Qx37I6lws4fehlOWsprBW_tFIpA";
+    const chatId = "1931242904";
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
     
-    // Open sharing dialog
-    window.open(telegramShareUrl, '_blank');
-    
-    showToast(`Дякуємо, ${name}! Заявку сформовано. Надішліть її контакту Bellonix ALM Bot у відкритому вікні Telegram.`);
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+            parse_mode: "Markdown"
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.ok) {
+            showToast(`Дякуємо, ${name}! Заявку успішно відправлено. Ми зв'яжемося з вами найближчим часом.`);
+        } else {
+            // Fallback to Telegram web app share if API call fails
+            const telegramShareUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(message)}`;
+            window.open(telegramShareUrl, '_blank');
+            showToast(`Заявку сформовано. Будь ласка, надішліть її у відкритому вікні Telegram.`);
+        }
+    })
+    .catch(err => {
+        console.error("Error sending lead to Telegram:", err);
+        const telegramShareUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(message)}`;
+        window.open(telegramShareUrl, '_blank');
+    });
     
     // Reset inputs
     document.getElementById('leadForm').reset();
