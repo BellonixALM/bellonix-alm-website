@@ -374,28 +374,27 @@ function handleFormSubmit(event) {
     const botToken = "8923736076:AAG9rKK-Qx37I6lws4fehlOWsprBW_tFIpA";
     const chatId = "1931242904";
     
-    // Використовуємо офіційний метод Telegram, але з обходом CORS через no-cors або проксі
     const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
     
-    // Виконуємо запит у режимі 'no-cors'. Браузер виконає відправку повідомлення, але не дозволить прочитати відповідь.
-    // Оскільки нам не потрібна відповідь для успішної фіксації ліда, це ідеальний та безпечний метод.
+    // Відправляємо параметри як x-www-form-urlencoded. Це "простий запит" (Simple Request) для браузерів,
+    // тому він не викликає перевірку CORS (Preflight request) і успішно доходить до Telegram.
+    const params = new URLSearchParams();
+    params.append('chat_id', chatId);
+    params.append('text', message);
+    params.append('parse_mode', 'Markdown');
+    
     fetch(url, {
         method: "POST",
-        mode: "no-cors",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-            parse_mode: "Markdown"
-        })
+        body: params.toString()
     })
     .then(() => {
         showToast(`Дякуємо, ${name}! Заявку успішно відправлено. Ми зв'яжемося з вами найближчим часом.`);
     })
     .catch(err => {
-        console.error("Error sending lead directly:", err);
+        console.error("Error sending lead directly via simple request:", err);
         // Резервний варіант - відкриття Telegram Share у разі критичної помилки мережі
         const telegramShareUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(message)}`;
         window.open(telegramShareUrl, '_blank');
