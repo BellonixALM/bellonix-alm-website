@@ -15,7 +15,7 @@ let heroChart = null;
 let sandboxChart = null;
 
 // Global configuration (fill this with your Google Apps Script URL after deployment)
-const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw5DdeVKa2F7MegvkmfTx5wcPSzASZx0_-4iLDaqZwtiiWHnapJAbquFSSFyRecYz4Jxg/exec"; 
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxSHbdpQnvhVzTuMZYccwiXx1noQDEdx_Rp08hDEjQVnTJdKVLxSRZ-TCYPKWD7meHyQQ/exec"; 
 
 // Initialize when DOM loads
 document.addEventListener('DOMContentLoaded', () => {
@@ -368,37 +368,38 @@ function handleFormSubmit(event) {
     
     const cost = document.getElementById('estimatedCost').innerText;
     
-    // Формуємо красивий текст повідомлення
-    const message = `🔔 *Нова заявка з сайту Bellonix ALM!*\n\n👤 *Ім'я:* ${name}\n📞 *Контакт:* ${phone}\n\n🛠 *Обрані рішення:* \n- Telegram / Viber Бот (базовий): ${hasBot}\n- Бот із хмарною БД (Google / SQL): ${hasBotDb}\n- Дашборд з аналітикою: ${hasDash}\n- Інтеграція з CRM / BAS: ${hasInt}\n- Інтеграція з GPS-трекінгом: ${hasGps}\n\n💵 *Розрахункова вартість:* ${cost}`;
+    const payload = {
+        type: 'lead',
+        name: name,
+        phone: phone,
+        hasBot: hasBot,
+        hasBotDb: hasBotDb,
+        hasDash: hasDash,
+        hasInt: hasInt,
+        hasGps: hasGps,
+        cost: cost
+    };
     
-    const botToken = "8923736076:AAG9rKK-Qx37I6lws4fehlOWsprBW_tFIpA";
-    const chatId = "1931242904";
-    
-    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-    
-    // Відправляємо параметри як x-www-form-urlencoded. Це "простий запит" (Simple Request) для браузерів,
-    // тому він не викликає перевірку CORS (Preflight request) і успішно доходить до Telegram.
-    const params = new URLSearchParams();
-    params.append('chat_id', chatId);
-    params.append('text', message);
-    params.append('parse_mode', 'Markdown');
-    
-    fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: params.toString()
-    })
-    .then(() => {
-        showToast(`Дякуємо, ${name}! Заявку успішно відправлено. Ми зв'яжемося з вами найближчим часом.`);
-    })
-    .catch(err => {
-        console.error("Error sending lead directly via simple request:", err);
-        // Резервний варіант - відкриття Telegram Share у разі критичної помилки мережі
-        const telegramShareUrl = `https://t.me/share/url?url=&text=${encodeURIComponent(message)}`;
-        window.open(telegramShareUrl, '_blank');
-    });
+    if (WEBAPP_URL) {
+        fetch(WEBAPP_URL, {
+            method: "POST",
+            body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                showToast(`Дякуємо, ${name}! Заявку успішно відправлено. Ми зв'яжемося з вами найближчим часом.`);
+            } else {
+                showToast("Помилка надсилання. Спробуйте пізніше.");
+            }
+        })
+        .catch(err => {
+            console.error("Error sending lead to WebApp:", err);
+            showToast("Помилка надсилання. Спробуйте пізніше.");
+        });
+    } else {
+        showToast("Режим симуляції: Заявку збережено локально.");
+    }
     
     // Reset inputs
     document.getElementById('leadForm').reset();
