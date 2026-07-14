@@ -13,11 +13,21 @@
         if (manifestResp.ok) manifest = await manifestResp.json();
     } catch (_) { /* ignore */ }
 
+    // Determine current language from page HTML tag
+    const currentLang = document.documentElement.lang === 'en' ? 'en' : 'ua';
+
     if (manifest.length === 0) return;
 
+    // Filter articles based on active page language
+    const filteredManifest = manifest.filter(a => {
+        // Fallback for older articles without lang tag (default to ua)
+        const artLang = a.lang || 'ua';
+        return artLang === currentLang;
+    });
+
     // Render cards directly from manifest metadata (no need to fetch each file)
-    manifest.slice().reverse().forEach(a => {
-        const title = a.title || 'Без назви';
+    filteredManifest.slice().reverse().forEach(a => {
+        const title = a.title || 'Untitled';
         const date = a.date || '';
         const summary = a.summary || '';
         const filename = a.file || a.filename;
@@ -25,6 +35,9 @@
 
         const card = document.createElement('div');
         card.className = 'article-card';
+        
+        const readMoreText = currentLang === 'en' ? 'Read more' : 'Читати далі';
+
         card.innerHTML = `
             <h3>${title}</h3>
             <div class="meta">
@@ -32,7 +45,7 @@
                 <span><i class="fa-regular fa-eye"></i> <span id="views-${artId}">...</span></span>
             </div>
             <div class="snippet">${summary}</div>
-            <a class="read-more" href="articles/${filename}" target="_blank">Читати далі <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="read-more" href="articles/${filename}" target="_blank">${readMoreText} <i class="fa-solid fa-arrow-right"></i></a>
         `;
         container.appendChild(card);
 
