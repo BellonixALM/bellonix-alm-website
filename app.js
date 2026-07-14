@@ -436,21 +436,8 @@ function closeReviewModal() {
     resetStarRating();
 }
 
-// Default reviews to fallback on
-const defaultReviews = [
-    {
-        name: "Дмитро Коваленко",
-        company: "CEO, TransGlobal Logistics",
-        rating: 5,
-        text: "Завдяки впровадженню Telegram-бота від Bellonix, наші водії почали закривати звіти за рейси у 3 рази швидше. Зникли помилки з паливом, а керівництво бачить всю аналітику на дашборді."
-    },
-    {
-        name: "Олег Ващенко",
-        company: "Власник, LuxRent Kyiv",
-        rating: 5,
-        text: "У нас автопарк на 45 автомобілів під викуп та прокат. Раніше була плутанина з платежами та термінами ТО. Bellonix налаштували систему сповіщень та дашборд. Все працює як годинник!"
-    }
-];
+// Default reviews to fallback on (keep empty for real-user-only mode)
+const defaultReviews = [];
 
 function loadReviews() {
     const container = document.getElementById('reviewsContainer');
@@ -467,19 +454,35 @@ function loadReviews() {
                 if (data && data.length > 0) {
                     renderReviewCards(data);
                 } else {
-                    renderReviewCards(defaultReviews);
+                    renderEmptyReviewsPlaceholder();
                 }
             })
             .catch(err => {
                 console.error("Error loading reviews from database:", err);
-                renderReviewCards(defaultReviews);
+                renderEmptyReviewsPlaceholder();
             });
     } else {
-        // Local mockup mode: Load default reviews + locally approved reviews from LocalStorage
+        // Local mockup mode: Load locally approved reviews from LocalStorage
         const localApproved = JSON.parse(localStorage.getItem('approved_reviews')) || [];
-        const allReviews = [...defaultReviews, ...localApproved];
-        renderReviewCards(allReviews);
+        if (localApproved.length > 0) {
+            renderReviewCards(localApproved);
+        } else {
+            renderEmptyReviewsPlaceholder();
+        }
     }
+}
+
+function renderEmptyReviewsPlaceholder() {
+    const container = document.getElementById('reviewsContainer');
+    container.innerHTML = `
+        <div class="empty-reviews-placeholder glass-panel" style="grid-column: 1 / -1; text-align: center; padding: 3rem; width: 100%;">
+            <div class="icon-box" style="margin: 0 auto 1.5rem auto; font-size: 2.5rem;"><i class="fa-regular fa-comments"></i></div>
+            <h3>Тут поки що немає відгуків</h3>
+            <p style="color: var(--color-text-muted); margin-bottom: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+                Ваш відгук може стати першим! Поділіться своїм досвідом співпраці з BELLONIX ALM.
+            </p>
+        </div>
+    `;
 }
 
 function renderReviewCards(reviews) {
