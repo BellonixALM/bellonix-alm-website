@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B-Лідогенератор: Автоматичний пошук клієнтів та партнерів</title>
+    <style>
+        :root {
+            --color-bg: #0b111e;
+            --color-surface: #151f32;
+            --color-primary: #008080;
+            --color-primary-light: #00a8a8;
+            --color-secondary: #0D3B66;
+            --color-text: #e2e8f0;
+            --color-text-muted: #94a3b8;
+            --color-border: rgba(255, 255, 255, 0.08);
+            --color-accent: #38bdf8;
+            --color-success: #22c55e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--color-surface);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--color-border);
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 2rem;
+            margin-top: 0;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 0.75rem;
+        }
+
+        h2 {
+            color: var(--color-primary-light);
+            font-size: 1.4rem;
+            margin-top: 2rem;
+        }
+
+        h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+        }
+
+        p, li {
+            color: var(--color-text-muted);
+        }
+
+        ul {
+            padding-left: 1.25rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .flow-diagram {
+            background: #0f1624;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            color: var(--color-accent);
+            border-left: 4px solid var(--color-primary);
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+
+        .value-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--color-border);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .value-card h3 {
+            margin-top: 0;
+            color: var(--color-primary-light);
+        }
+
+        .badge {
+            background: rgba(0, 128, 128, 0.15);
+            color: var(--color-primary-light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--color-primary-light);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 B2B-Лідогенератор: Автоматичний пошук клієнтів</h1>
+        <p><span class="badge">Кейс впровадження</span> Це інтелектуальний інструмент на базі штучного інтелекту, створений для автоматизації збору гарячих лідів, аналізу ринку та залучення нових партнерів у будівельному та інженерному секторах.</p>
+        
+        <h2>1. Схема автономного циклу лідогенерації</h2>
+        <div class="flow-diagram">
+[ Онлайн-майданчики / Канали Telegram / Портали ]
+                   │
+                   ▼ (1. Цілодобовий моніторинг)
+[ Розумний B2B Парсер / Монітор джерел ]
+                   │
+                   ▼ (2. Інтелектуальна фільтрація: ключі + спам)
+[ Дворівневий ШІ-Фільтр ]
+                   │
+                   ▼ (3. Захист від дублів: звірка телефонів та брендів)
+[ Модуль ідентифікації та унікалізації ]
+                   │
+        ┌──────────┴──────────┐
+        ▼ (Експорт даних)    ▼ (Сповіщення)
+[ Google Sheets / CRM ]   [ Telegram-канал керівника ]
+        (Каталог B2B)       (Миттєве сповіщення про лід)</div>
+
+        <h2>2. Покроковий опис роботи системи</h2>
+        <h3>Крок 1. Цілодобовий моніторинг джерел</h3>
+        <p>Система автоматично сканує десятки відкритих джерел, де потенційні клієнти публікують свої запити:</p>
+        <ul>
+            <li><strong>Провідні джоб-портали:</strong> Work.ua та Robota.ua (аналіз вакансій компаній, які шукають персонал під конкретні будівельні чи інженерні проекти).</li>
+            <li><strong>Спеціалізовані платформи:</strong> Будівельні тендери та замовлення на Rabotniki.ua.</li>
+            <li><strong>Соціальні мережі та месенджери:</strong> Профільні будівельні B2B Telegram-канали та чати замовлень.</li>
+        </ul>
+
+        <h3>Крок 2. Інтелектуальна фільтрація та очищення від спаму</h3>
+        <p>Бот не просто збирає все поспіль — він використовує дворівневий алгоритм фільтрації:</p>
+        <ul>
+            <li><strong>Ключові запити:</strong> Аналізується зміст кожного оголошення на наявність цільових тем (наприклад: опалення, водопостачання, вентиляція, кондиціювання).</li>
+            <li><strong>Антиспам та B2B-фокус:</strong> Алгоритм відсікає оголошення від приватних осіб-одинаків або пропозицій роздрібного продажу матеріалів. Бот шукає саме бізнеси (ТОВ, ПП, компанії, бригади).</li>
+        </ul>
+
+        <h3>Крок 3. Автоматичний захист від дублікатів</h3>
+        <p>База залишається ідеально чистою завдяки розумному зіставленню:</p>
+        <ul>
+            <li><strong>Перевірка телефонів:</strong> Бот виділяє та нормалізує всі номери телефонів у тексті. Якщо цей номер уже зустрічався раніше — запис ігнорується.</li>
+            <li><strong>Перевірка брендів:</strong> Система розпізнає назви компаній. Навіть якщо одна компанія опублікувала 10 різних оголошень на різних сайтах, у базу вона потрапить лише <strong>один раз</strong>.</li>
+        </ul>
+
+        <h3>Крок 4. Автоматична каталогізація та миттєвий експорт</h3>
+        <p>Знайдені ліди автоматично розподіляються за відповідними вкладками у вашій Google Таблиці (чи CRM-системі) відповідно до типу діяльності:</p>
+        <ul>
+            <li>📐 <strong>Проектувальники</strong> (інжинірингові компанії, проектні інститути, конструкторські бюро).</li>
+            <li>🔧 <strong>Інсталятори</strong> (монтажні організації, компанії з встановлення систем опалення та вентиляції).</li>
+            <li>🏗 <strong>Забудовники</strong> (будівельні компанії, девелопери котеджних містечок у передмісті).</li>
+        </ul>
+        <p>Одночасно з цим бот надсилає миттєве сповіщення у ваш робочий Telegram з прямим посиланням на замовлення чи компанію.</p>
+
+        <h2>3. Цінність для бізнесу</h2>
+        <div class="value-card">
+            <h3>⏱ Економія 90% часу відділу продажів</h3>
+            <p>Менеджерам більше не потрібно годинами вручную гортати сайти з вакансіями чи моніторити десятки чатів. Вони отримують готову базу «гарячих» компаній, які саме зараз шукають виконавців чи проектувальників.</p>
+        </div>
+        <div class="value-card">
+            <h3>🎯 Тільки цільові ліди</h3>
+            <p>Жодного спаму про продаж дров чи послуги приватних сантехніків. Лише компанії, які мають реальні будівельні об'єкти та бюджети.</p>
+        </div>
+        <div class="value-card">
+            <h3>🚀 Випередження конкурентів</h3>
+            <p>Ви дізнаєтеся про новий тендер чи вакансію від забудовника протягом 5 хвилин після публікації і можете першими зробити комерційну пропозицію.</p>
+        </div>
+
+        <a href="../index.html" class="back-link">← Назад на головну сторінку</a>
+    </div>
+</body>
+</html>

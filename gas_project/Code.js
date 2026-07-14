@@ -49,7 +49,39 @@ function doGet(e) {
 function doPost(e) {
   try {
     const params = JSON.parse(e.postData.contents);
-    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheets()[0];
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    
+    // Якщо прийшов запит на створення ліда (заявки з калькулятора)
+    if (params.type === 'lead') {
+      let leadSheet = ss.getSheetByName("Заявки");
+      if (!leadSheet) {
+        // Якщо вкладки "Заявки" немає, створюємо її
+        leadSheet = ss.insertSheet("Заявки");
+        leadSheet.appendRow(["ID Заявки", "Ім'я", "Телефон", "Telegram Бот", "Хмарна БД", "Дашборд", "CRM / BAS", "GPS", "Орієнтовна вартість", "Час"]);
+      }
+      
+      const leadId = "lead_" + new Date().getTime();
+      const name = params.name || "Анонім";
+      const phone = params.phone || "";
+      const hasBot = params.hasBot || "Ні";
+      const hasBotDb = params.hasBotDb || "Ні";
+      const hasDash = params.hasDash || "Ні";
+      const hasInt = params.hasInt || "Ні";
+      const hasGps = params.hasGps || "Ні";
+      const cost = params.cost || "0 $";
+      const timestamp = new Date();
+      
+      leadSheet.appendRow([leadId, name, phone, hasBot, hasBotDb, hasDash, hasInt, hasGps, cost, timestamp]);
+      
+      // Надсилаємо миттєве сповіщення про лід адміну в Telegram
+      sendLeadAlert(name, phone, hasBot, hasBotDb, hasDash, hasInt, hasGps, cost);
+      
+      return ContentService.createTextOutput(JSON.stringify({ success: true, id: leadId }))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeader("Access-Control-Allow-Origin", "*");
+    }
+    
+    const sheet = ss.getSheets()[0];
     
     // Якщо прийшов запит на модерацію чи видалення від бота
     if (params.action === 'approve' || params.action === 'reject' || params.action === 'delete') {
@@ -68,7 +100,8 @@ function doPost(e) {
         }
       }
       return ContentService.createTextOutput(JSON.stringify({ success: found, message: found ? "Status updated" : "ID not found" }))
-        .setMimeType(ContentService.MimeType.JSON);
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeader("Access-Control-Allow-Origin", "*");
     }
     
     // Звичайне створення відгуку (з сайту)
@@ -87,11 +120,13 @@ function doPost(e) {
     sendModerationAlert(reviewId, name, company, rating, text);
     
     return ContentService.createTextOutput(JSON.stringify({ success: true, id: reviewId }))
-      .setMimeType(ContentService.MimeType.JSON);
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeader("Access-Control-Allow-Origin", "*");
       
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({ success: false, error: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeader("Access-Control-Allow-Origin", "*");
   }
 }
 
@@ -118,6 +153,36 @@ function sendModerationAlert(id, name, company, rating, text) {
     text: message,
     parse_mode: "Markdown",
     reply_markup: JSON.stringify(keyboard)
+  };
+  
+  const options = {
+    method: "post",
+    contentType: "application/json",
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true
+  };
+  
+  UrlFetchApp.fetch(url, options);
+}
+
+// Функція надсилання сповіщення про лід адміністратору в Telegram
+function sendLeadAlert(name, phone, hasBot, hasBotDb, hasDash, hasInt, hasGps, cost) {
+  const url = "https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage";
+  const message = "🔔 *Нова заявка з сайту Bellonix ALM!*\n\n" +
+                  "👤 *Ім'я:* " + name + "\n" +
+                  "📞 *Контакт:* " + phone + "\n\n" +
+                  "🛠 *Обрані рішення:* \n" +
+                  "- Telegram / Viber Бот: " + hasBot + "\n" +
+                  "- Бот із хмарною БД: " + hasBotDb + "\n" +
+                  "- Дашборд з аналітикою: " + hasDash + "\n" +
+                  "- Інтеграція з CRM / BAS: " + hasInt + "\n" +
+                  "- GPS-трекінг: " + hasGps + "\n\n" +
+                  "💵 *Розрахункова вартість:* " + cost;
+                  
+  const payload = {
+    chat_id: ADMIN_CHAT_ID,
+    text: message,
+    parse_mode: "Markdown"
   };
   
   const options = {
