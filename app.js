@@ -380,6 +380,8 @@ function handleFormSubmit(event) {
         cost: cost
     };
     
+    const isEn = document.documentElement.lang === 'en';
+    
     if (WEBAPP_URL) {
         fetch(WEBAPP_URL, {
             method: "POST",
@@ -388,17 +390,23 @@ function handleFormSubmit(event) {
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                showToast(`Дякуємо, ${name}! Заявку успішно відправлено. Ми зв'яжемося з вами найближчим часом.`);
+                const msg = isEn 
+                    ? `Thank you, ${name}! Your request has been successfully submitted. We will contact you soon.`
+                    : `Дякуємо, ${name}! Заявку успішно відправлено. Ми зв'яжемося з вами найближчим часом.`;
+                showToast(msg);
             } else {
-                showToast("Помилка надсилання. Спробуйте пізніше.");
+                const msg = isEn ? "Submission failed. Please try again later." : "Помилка надсилання. Спробуйте пізніше.";
+                showToast(msg);
             }
         })
         .catch(err => {
             console.error("Error sending lead to WebApp:", err);
-            showToast("Помилка надсилання. Спробуйте пізніше.");
+            const msg = isEn ? "Submission failed. Please try again later." : "Помилка надсилання. Спробуйте пізніше.";
+            showToast(msg);
         });
     } else {
-        showToast("Режим симуляції: Заявку збережено локально.");
+        const msg = isEn ? "Simulation mode: Request saved locally." : "Режим симуляції: Заявку збережено локально.";
+        showToast(msg);
     }
     
     // Reset inputs
