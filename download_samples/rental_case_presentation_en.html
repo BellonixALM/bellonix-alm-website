@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarRent SaaS Deployment Case Presentation</title>
+    <style>
+        :root {
+            --color-bg: #0b111e;
+            --color-surface: #151f32;
+            --color-primary: #008080;
+            --color-primary-light: #00a8a8;
+            --color-secondary: #0D3B66;
+            --color-text: #e2e8f0;
+            --color-text-muted: #94a3b8;
+            --color-border: rgba(255, 255, 255, 0.08);
+            --color-success: #22c55e;
+            --color-danger: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--color-surface);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--color-border);
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 2.2rem;
+            margin-top: 0;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h2 {
+            color: var(--color-primary-light);
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            border-left: 4px solid var(--color-primary);
+            padding-left: 0.75rem;
+        }
+
+        h3 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        p, li {
+            color: var(--color-text-muted);
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .case-card {
+            background: #0f1624;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            margin: 1.5rem 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            border: 1px solid var(--color-border);
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: var(--color-secondary);
+            color: #fff;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .badge {
+            background: rgba(0, 128, 128, 0.15);
+            color: var(--color-primary-light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 3rem;
+            color: var(--color-primary-light);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        /* Screenshots grid styling */
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2.5rem 0;
+        }
+
+        .screenshot-card {
+            background: #0f1624;
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .screenshot-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .screenshot-caption {
+            font-size: 0.9rem;
+            color: var(--color-text);
+            font-weight: bold;
+        }
+
+        .screenshot-desc {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 CarRent SaaS Case Presentation</h1>
+        
+        <div class="case-card">
+            <h3>🌟 Project Concept</h3>
+            <p><span class="highlight">CarRent</span> is an out-of-the-box SaaS solution powered by a Telegram bot and cloud databases (Google Sheets, SQL API) built to fully digitize and automate the rental of kid toy cars in amusement parks and family venues.</p>
+            <p>Instead of relying on handwritten logs, messy cash operations, and dealing with constant employee theft risks, business owners receive a transparent, automated system where every dollar and every minute of rental is tracked in real time.</p>
+        </div>
+
+        <h2>🛠️ Core Features (How the bot works)</h2>
+        <p>The system is split into three access roles: Client, Operator (staff member at the venue), and Business Owner (Administrator).</p>
+
+        <h3>1. Client Experience (Fast start, no queues)</h3>
+        <ul>
+            <li><span class="highlight">Rent in 2 clicks via QR-code:</span> Clients walk up to a toy car, scan the QR code sticker, and immediately load the Telegram WebApp interface.</li>
+            <li><span class="highlight">Flexible rates:</span> Options to select ride duration (e.g., 20, 40, or 60 minutes).</li>
+            <li><span class="highlight">Frictionless payments:</span>
+                <ul>
+                    <li><span class="highlight">Online card payments:</span> Integrated with banks (Apple Pay, credit card, Mono).</li>
+                    <li><span class="highlight">Cash:</span> Handed over to the operator and verified instantly via the bot.</li>
+                </ul>
+            </li>
+            <li><span class="highlight">Smart fallback logic:</span> If mobile signal is low and card payment fails, the bot falls back seamlessly, offering to pay cash or change the order.</li>
+            <li><span class="highlight">Time alerts:</span> Customers receive a message in Telegram when their ride is ending, prompting them to extend the lease in 1 click.</li>
+            <li><span class="highlight">Referrals program:</span> Invite friends via referral link and earn credits/discount codes.</li>
+        </ul>
+
+        <h3>2. Operator Interface (Local control and notifications)</h3>
+        <ul>
+            <li><span class="highlight">Instant notifications:</span> The bot alerts park employees immediately when a client initializes a rental.</li>
+            <li><span class="highlight">Cash verification button:</span> For cash payments, operators tap a single button in their chat to log receipt of funds and trigger the ride timer.</li>
+            <li><span class="highlight">Automatic tracking:</span> The bot counts the minutes. The operator gets a ping: <em>“Time is up for Toy Car #2. Please retrieve the vehicle or offer a lease extension.”</em></li>
+        </ul>
+
+        <h3>3. Business Owner (Global oversight)</h3>
+        <ul>
+            <li><span class="highlight">Multi-venue management:</span> Create new rental spots, add assets, assign workers.</li>
+            <li><span class="highlight">Auto Google-Sheet (CarRent Sheet):</span> Every transaction, ride status, cancellation, and amount is automatically exported to a cloud database.</li>
+            <li><span class="highlight">Missed Revenue analysis:</span> The bot logs instances where a client preferred card payment but paid cash or canceled due to lack of card support. This gives raw insights on cashless demand.</li>
+        </ul>
+
+        <h2>📱 UI Screens (Live Screenshots)</h2>
+        <div class="screenshot-gallery">
+            <div class="screenshot-card">
+                <img src="carrent_mobile_rent_screen.png" alt="Client Rent Screen" class="screenshot-img">
+                <div class="screenshot-caption">Client Rent Screen</div>
+                <div class="screenshot-desc">Telegram Mini App interface for choosing rates and checking out with card.</div>
+            </div>
+            <div class="screenshot-card">
+                <img src="carrent_operator_screen.png" alt="Operator Interface" class="screenshot-img">
+                <div class="screenshot-caption">Operator Bot Interface</div>
+                <div class="screenshot-desc">Chat-based control interface for staff to verify payments and log rides.</div>
+            </div>
+        </div>
+
+        <h2>📈 Business Benefits (Why invest?)</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Pain points without Bot</th>
+                    <th>Solutions with CarRent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="color: var(--color-danger);"><strong>Staff Theft:</strong> Workers pocket cash without logging rides in the paper ledger.</td>
+                    <td style="color: var(--color-success);"><strong>100% Tracking:</strong> A vehicle cannot be leased out undetected. The owner sees all active sessions and transactions live.</td>
+                </tr>
+                <tr>
+                    <td><strong>Accounting Chaos:</strong> Hard to tell which asset performs well and which sits idle or low on battery.</td>
+                    <td><strong>Google Sheets Analytics:</strong> Automatic performance reports showing hourly revenues, venue metrics, and battery states.</td>
+                </tr>
+                <tr>
+                    <td style="color: var(--color-danger);"><strong>Missed Sales:</strong> Parents have no cash, and there is no POS terminal at the venue.</td>
+                    <td style="color: var(--color-success);"><strong>Instant Cards:</strong> Customers pay via cards / Apple Pay directly in the bot. No hardware terminals needed.</td>
+                </tr>
+                <tr>
+                    <td><strong>Human Errors:</strong> Staff forgets when a ride began, giving away free extra minutes.</td>
+                    <td><strong>Auto Timers:</strong> The bot controls rides down to the second, notifying both client and operator.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>💰 Financial Impact (ROI)</h2>
+        <p>Implementing the CarRent bot enables:</p>
+        <ul>
+            <li><span class="badge">20-30% Revenue Growth</span> by accepting card payments (parents rarely carry paper bills at parks).</li>
+            <li><span class="badge">Up to 15% revenue saved</span> from being lost to dishonest staff actions.</li>
+            <li><span class="badge">Zero admin overhead</span> — no need to physically visit venues to verify paper logs. The ledger is always in your pocket.</li>
+        </ul>
+
+        <h2>🚀 Customer Flow (Step-by-Step)</h2>
+        <ul class="step-list" style="margin-top: 1.5rem;">
+            <li class="step-item"><strong>Step 1:</strong> Parent and child choose a toy car labeled: <em>«Scan this QR code to ride»</em>.</li>
+            <li class="step-item"><strong>Step 2:</strong> Scan code ➡️ enters bot ➡️ selects ride duration (e.g., 20 mins).</li>
+            <li class="step-item"><strong>Step 3:</strong> Pay online or select cash. <br><em>If cash: operator taps “Confirm receipt of 100 UAH” in their bot.</em></li>
+            <li class="step-item"><strong>Step 4:</strong> Ride starts. In 20 minutes, bot notifies parent and staff.</li>
+            <li class="step-item"><strong>Step 5:</strong> Data is logged automatically in the owner's Google Sheets.</li>
+        </ul>
+
+        <a href="../en.html" class="back-link">← Back to home page</a>
+    </div>
+</body>
+</html>
