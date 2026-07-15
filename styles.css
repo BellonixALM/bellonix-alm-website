@@ -183,6 +183,7 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 75px;
+    gap: 2rem;
 }
 
 .logo-wrapper {
