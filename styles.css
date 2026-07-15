@@ -191,11 +191,13 @@ body {
     gap: 12px;
     text-decoration: none;
     color: inherit;
+    flex-shrink: 0;
 }
 
 .logo-text {
     display: flex;
     flex-direction: column;
+    white-space: nowrap;
 }
 
 .brand-name {
@@ -203,6 +205,7 @@ body {
     font-size: 1.4rem;
     font-weight: 800;
     letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 .brand-sub {
@@ -210,6 +213,7 @@ body {
     color: var(--color-text-muted);
     letter-spacing: 1.5px;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .nav-menu {
