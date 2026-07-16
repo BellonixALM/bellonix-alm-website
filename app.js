@@ -338,19 +338,34 @@ function simulateBotAction(action) {
 // Interactive Pricing Cost Calculator
 function updateEstimatedCost() {
     let cost = 0;
+    let saasCost = 0;
+    
     const hasBot = document.getElementById('calcBot').checked;
     const hasBotDb = document.getElementById('calcBotDb').checked;
     const hasDash = document.getElementById('calcDash').checked;
     const hasInt = document.getElementById('calcIntegrate').checked;
     const hasGps = document.getElementById('calcGps').checked;
+    const hasFopSaaS = document.getElementById('calcFopSaaS').checked;
+    const hasFopCustom = document.getElementById('calcFopCustom').checked;
 
     if (hasBot) cost += 500;
     if (hasBotDb) cost += 1000;
     if (hasDash) cost += 500;
     if (hasInt) cost += 1000;
     if (hasGps) cost += 1000;
+    if (hasFopCustom) cost += 500;
+    if (hasFopSaaS) saasCost += 25;
 
-    document.getElementById('estimatedCost').innerText = `${cost} $`;
+    let resultText = "";
+    if (cost > 0 && saasCost > 0) {
+        resultText = `${cost} $ + ${saasCost} $/міс`;
+    } else if (saasCost > 0) {
+        resultText = `${saasCost} $/міс`;
+    } else {
+        resultText = `${cost} $`;
+    }
+    
+    document.getElementById('estimatedCost').innerText = resultText;
 }
 
 // Handle client requests contact form submissions
@@ -365,6 +380,8 @@ function handleFormSubmit(event) {
     const hasDash = document.getElementById('calcDash').checked ? "Так" : "Ні";
     const hasInt = document.getElementById('calcIntegrate').checked ? "Так" : "Ні";
     const hasGps = document.getElementById('calcGps').checked ? "Так" : "Ні";
+    const hasFopSaaS = document.getElementById('calcFopSaaS').checked ? "Так" : "Ні";
+    const hasFopCustom = document.getElementById('calcFopCustom').checked ? "Так" : "Ні";
     
     const cost = document.getElementById('estimatedCost').innerText;
     
@@ -377,6 +394,8 @@ function handleFormSubmit(event) {
         hasDash: hasDash,
         hasInt: hasInt,
         hasGps: hasGps,
+        hasFopSaaS: hasFopSaaS,
+        hasFopCustom: hasFopCustom,
         cost: cost
     };
     
