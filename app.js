@@ -880,3 +880,20 @@ function resetStarRating() {
         s.classList.remove('hover-active');
     });
 }
+
+// Floating contact widget toggles
+function toggleContactWidget() {
+    const menu = document.getElementById('contactWidgetMenu');
+    if (menu) menu.classList.toggle('active');
+}
+
+// Close contact widget menu if clicked outside
+window.addEventListener('click', (e) => {
+    const menu = document.getElementById('contactWidgetMenu');
+    const trigger = document.getElementById('contactWidgetTrigger');
+    if (menu && menu.classList.contains('active')) {
+        if (!menu.contains(e.target) && !trigger.contains(e.target)) {
+            menu.classList.remove('active');
+        }
+    }
+});
