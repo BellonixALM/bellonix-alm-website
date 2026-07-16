@@ -239,18 +239,9 @@
         <div class="container">
             <div class="section-title-wrapper">
                 <span class="section-subtitle">Спробуйте в дії</span>
-                <h2 class="section-title">Інтерактивний симулятор екосистеми</h2>
-                <p class="section-desc" style="margin-bottom: 1.5rem;">Натискайте кнопки на віртуальному телефоні/панелі ліворуч та дивіться, як дані моментально потрапляють у базу даних та відображаються на графіках і дашборді керівника праворуч.</p>
-                <div style="max-width: 700px; margin: 0 auto 2rem auto; text-align: left; background: rgba(0, 128, 128, 0.05); border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 12px;">
-                    <h4 style="margin-top: 0; color: var(--color-accent);"><i class="fa-solid fa-circle-info"></i> Інструкція для тестування:</h4>
-                    <ol style="margin: 0; padding-left: 1.25rem; font-size: 0.9rem; color: var(--color-text-muted);">
-                        <li style="margin-bottom: 0.5rem;"><strong>Крок 1:</strong> Оберіть режим зверху (🚚 Логістика або 💼 ФОП Кабінет).</li>
-                        <li style="margin-bottom: 0.5rem;"><strong>Крок 2:</strong> Натисніть кнопку на телефоні зліва (наприклад, <em>«Почати рейс»</em> чи <em>«Створити Рахунок»</em>).</li>
-                        <li style="margin-bottom: 0.5rem;"><strong>Крок 3:</strong> Подивіться на дашборд справа: значення «Статус рейсів» / «Неоплачено рахунків» одразу зміниться на основі ваших дій.</li>
-                        <li><strong>Крок 4:</strong> У вікні логів знизу відобразиться технічний звіт про те, яка саме база даних або API банку оновилися в реальному часі.</li>
-                    </ol>
-                </div>
-                <div class="sim-mode-switcher" style="display: inline-flex; gap: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--color-border); padding: 6px; border-radius: 30px;">
+                <h2 class="section-title">Interactive Ecosystem Simulator</h2>
+                <p class="section-desc" style="margin-bottom: 2rem;">Натискайте кнопки на віртуальному телефоні/панелі ліворуч та дивіться, як дані моментально відображаються на графіках і дашбордах праворуч.</p>
+                <div class="sim-mode-switcher" style="display: inline-flex; gap: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--color-border); padding: 6px; border-radius: 30px; margin-bottom: 1.5rem;">
                     <button id="simModeLogistics" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;" onclick="setSandboxMode('logistics')">🚚 Логістика (Водій + Офіс)</button>
                     <button id="simModeFop" class="btn-secondary" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;" onclick="setSandboxMode('fop')">💼 ФОП Кабінет (Рахунки + Банк)</button>
                 </div>

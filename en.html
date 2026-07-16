@@ -240,17 +240,8 @@
             <div class="section-title-wrapper">
                 <span class="section-subtitle">Try it live</span>
                 <h2 class="section-title">Interactive Ecosystem Simulator</h2>
-                <p class="section-desc" style="margin-bottom: 1.5rem;">Tap the buttons on the virtual interface on the left and see how instantly the control panel updates its databases and metrics on the right.</p>
-                <div style="max-width: 700px; margin: 0 auto 2rem auto; text-align: left; background: rgba(0, 128, 128, 0.05); border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 12px;">
-                    <h4 style="margin-top: 0; color: var(--color-accent);"><i class="fa-solid fa-circle-info"></i> How to use this interactive demo:</h4>
-                    <ol style="margin: 0; padding-left: 1.25rem; font-size: 0.9rem; color: var(--color-text-muted);">
-                        <li style="margin-bottom: 0.5rem;"><strong>Step 1:</strong> Select a system mode above (🚚 Logistics or 💼 Sole Trader Portal).</li>
-                        <li style="margin-bottom: 0.5rem;"><strong>Step 2:</strong> Tap any button on the virtual mobile interface on the left (e.g. <em>"Start Trip"</em> or <em>"Create Invoice"</em>).</li>
-                        <li style="margin-bottom: 0.5rem;"><strong>Step 3:</strong> Look at the dashboard on the right: stats counters like "Active Trips" or "Unpaid Invoices" update in real-time.</li>
-                        <li><strong>Step 4:</strong> Check the live transaction log container at the bottom right to see database records and API events.</li>
-                    </ol>
-                </div>
-                <div class="sim-mode-switcher" style="display: inline-flex; gap: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--color-border); padding: 6px; border-radius: 30px;">
+                <p class="section-desc" style="margin-bottom: 2rem;">Tap the buttons on the virtual interface on the left and see how instantly the control panel updates its databases and metrics on the right.</p>
+                <div class="sim-mode-switcher" style="display: inline-flex; gap: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--color-border); padding: 6px; border-radius: 30px; margin-bottom: 1.5rem;">
                     <button id="simModeLogistics" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;" onclick="setSandboxMode('logistics')">🚚 Logistics (Driver + Office)</button>
                     <button id="simModeFop" class="btn-secondary" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;" onclick="setSandboxMode('fop')">💼 Sole Trader Portal (Invoices + Bank)</button>
                 </div>
