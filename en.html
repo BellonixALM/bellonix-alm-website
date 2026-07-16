@@ -240,7 +240,11 @@
             <div class="section-title-wrapper">
                 <span class="section-subtitle">Try it live</span>
                 <h2 class="section-title">Interactive Ecosystem Simulator</h2>
-                <p class="section-desc">Tap the buttons on the virtual driver's phone mock on the left and see how instantly the management dashboard updates its database on the right.</p>
+                <p class="section-desc">Tap the buttons on the virtual interface on the left and watch how instantly the control panel updates its databases on the right.</p>
+                <div class="sim-mode-switcher" style="margin-top: 2rem; display: inline-flex; gap: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--color-border); padding: 6px; border-radius: 30px;">
+                    <button id="simModeLogistics" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;" onclick="setSandboxMode('logistics')">🚚 Logistics (Driver + Office)</button>
+                    <button id="simModeFop" class="btn-secondary" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;" onclick="setSandboxMode('fop')">💼 Sole Trader Portal (Invoices + Bank)</button>
+                </div>
             </div>
 
             <div class="sandbox-grid">
@@ -281,29 +285,29 @@
                     </div>
                     <div class="dash-stats-grid">
                         <div class="dash-stat-card">
-                            <span class="lbl">Active Trips</span>
+                            <span class="lbl" id="sandboxStat1Lbl">Active Trips</span>
                             <span class="val" id="dashTripsVal">12 active</span>
                         </div>
                         <div class="dash-stat-card">
-                            <span class="lbl">Completed Today</span>
+                            <span class="lbl" id="sandboxStat2Lbl">Completed Today</span>
                             <span class="val" id="dashDeliveredVal">48 orders</span>
                         </div>
                         <div class="dash-stat-card">
-                            <span class="lbl">Fuel Spend</span>
+                            <span class="lbl" id="sandboxStat3Lbl">Fuel Spend</span>
                             <span class="val" id="dashFuelVal">12,450 ₴</span>
                         </div>
                         <div class="dash-stat-card">
-                            <span class="lbl">System Alerts</span>
+                            <span class="lbl" id="sandboxStat4Lbl">System Alerts</span>
                             <span class="val text-green" id="dashStatusVal">Normal</span>
                         </div>
                     </div>
                     <div class="dash-charts-container">
                         <div class="chart-box">
-                            <h4>Hourly Deliveries Performance</h4>
+                            <h4 id="sandboxChartHeader">Hourly Deliveries Performance</h4>
                             <canvas id="sandboxChart"></canvas>
                         </div>
                         <div class="log-box">
-                            <h4>Real-time Event Stream (Telegram API Logs)</h4>
+                            <h4 id="sandboxLogHeader">Real-time Event Stream (Telegram API Logs)</h4>
                             <div class="log-content" id="logContent">
                                 <div class="log-row info">[SYSTEM] Dashboard initialized. Awaiting requests from bots...</div>
                             </div>
