@@ -360,32 +360,6 @@ function simulateBotAction(action) {
     }
 }
 
-    // Append driver message
-    const outDiv = document.createElement('div');
-    outDiv.className = 'message outgoing';
-    outDiv.innerText = outgoingMsg;
-    chatContainer.appendChild(outDiv);
-
-    // Append system bot response message with delay
-    setTimeout(() => {
-        const inDiv = document.createElement('div');
-        inDiv.className = 'message incoming';
-        inDiv.innerText = responseMsg;
-        chatContainer.appendChild(inDiv);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }, 450);
-
-    // Append Dashboard Log row
-    const logDiv = document.createElement('div');
-    logDiv.className = `log-row ${logType}`;
-    logDiv.innerText = logMsg;
-    logContent.appendChild(logDiv);
-    
-    // Auto-scroll elements
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-    logContent.scrollTop = logContent.scrollHeight;
-}
-
 // Global configuration (fill this with your Google Apps Script URL after deployment)
 const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxSHbdpQnvhVzTuMZYccwiXx1noQDEdx_Rp08hDEjQVnTJdKVLxSRZ-TCYPKWD7meHyQQ/exec"; 
 
