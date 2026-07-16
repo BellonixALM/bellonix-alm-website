@@ -54,6 +54,12 @@ jobs:
         run: |
           python scripts/post_to_facebook.py || echo "Skipping Facebook posting due to error or missing token"
 
+      - name: Auto-post to Telegram Channel (@Bellonix_ALM)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          python scripts/post_to_telegram.py || echo "Skipping Telegram channel posting due to error or missing token"
+
       - name: Send Telegram notification (Success)
         if: success()
         env:
