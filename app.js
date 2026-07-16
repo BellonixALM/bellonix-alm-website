@@ -29,47 +29,45 @@ let sandboxChart = null;
 function setSandboxMode(mode) {
     state.mode = mode;
     const isEn = document.documentElement.lang === 'en';
-    const logContent = document.getElementById('logContent');
-    const chatContainer = document.getElementById('chatMessages');
     const btnLogistics = document.getElementById('simModeLogistics');
     const btnFop = document.getElementById('simModeFop');
+    
+    // Panel elements
+    const phoneContainer = document.getElementById('phoneMockupContainer');
+    const fopControlPanel = document.getElementById('fopControlPanelContainer');
+    const logisticsDashboard = document.getElementById('logisticsDashboardMockup');
+    const fopDashboard = document.getElementById('fopDashboardMockup');
     
     // Toggle active class style on switcher buttons
     if (mode === 'logistics') {
         btnLogistics.className = 'btn-primary';
         btnFop.className = 'btn-secondary';
-    } else {
-        btnLogistics.className = 'btn-secondary';
-        btnFop.className = 'btn-primary';
-    }
-    
-    // Clear chat and logs
-    chatContainer.innerHTML = '';
-    logContent.innerHTML = '';
-    
-    const dateDiv = document.createElement('div');
-    dateDiv.className = 'chat-date';
-    dateDiv.innerText = isEn ? 'Today' : 'Сьогодні';
-    chatContainer.appendChild(dateDiv);
-    
-    const welcomeDiv = document.createElement('div');
-    welcomeDiv.className = 'message incoming';
-    
-    // Configure markup based on mode
-    if (mode === 'logistics') {
-        // Logistics Mode
+        
+        // Toggle view containers visibility
+        phoneContainer.style.display = 'flex';
+        fopControlPanel.style.display = 'none';
+        logisticsDashboard.style.display = 'flex';
+        fopDashboard.style.display = 'none';
+        
+        // Reset state
+        const chatContainer = document.getElementById('chatMessages');
+        const logContent = document.getElementById('logContent');
+        chatContainer.innerHTML = '';
+        logContent.innerHTML = '';
+        
+        const dateDiv = document.createElement('div');
+        dateDiv.className = 'chat-date';
+        dateDiv.innerText = isEn ? 'Today' : 'Сьогодні';
+        chatContainer.appendChild(dateDiv);
+        
+        const welcomeDiv = document.createElement('div');
+        welcomeDiv.className = 'message incoming';
         welcomeDiv.innerText = isEn 
             ? "Hello! You are connected to the Bellonix ALM ecosystem. Choose an action on the keyboard below to start the demo."
             : "Вітаю! Ви на зв'язку з системою Bellonix ALM. Оберіть дію на панелі нижче для початку роботи.";
         chatContainer.appendChild(welcomeDiv);
         
-        // Update stats labels
-        document.getElementById('sandboxStat1Lbl').innerText = isEn ? 'Active Trips' : 'Статус рейсів';
-        document.getElementById('sandboxStat2Lbl').innerText = isEn ? 'Completed Today' : 'Виконано за день';
-        document.getElementById('sandboxStat3Lbl').innerText = isEn ? 'Fuel Spend' : 'Витрати на паливо';
-        document.getElementById('sandboxStat4Lbl').innerText = isEn ? 'System Alerts' : 'Сповіщення';
-        
-        // Update stats values
+        // Reset stats values
         document.getElementById('dashTripsVal').innerText = isEn ? `${state.activeTrips} active` : `${state.activeTrips} активних`;
         document.getElementById('dashDeliveredVal').innerText = isEn ? `${state.deliveredToday} orders` : `${state.deliveredToday} замовлень`;
         document.getElementById('dashFuelVal').innerText = `${state.fuelExpenses.toLocaleString()} ₴`;
@@ -77,19 +75,6 @@ function setSandboxMode(mode) {
         const statusEl = document.getElementById('dashStatusVal');
         statusEl.innerText = isEn ? 'Normal' : 'Норма';
         statusEl.className = 'val text-green';
-        
-        // Update chart header and log header
-        document.getElementById('sandboxChartHeader').innerText = isEn ? 'Hourly Deliveries Performance' : 'Статистика доставок за годинами';
-        document.getElementById('sandboxLogHeader').innerText = isEn ? 'Real-time Event Stream (Telegram API Logs)' : 'Живий лог подій системи (Telegram API)';
-        
-        // Re-inject keyboard buttons
-        const keyboard = document.querySelector('.bot-keyboard');
-        keyboard.innerHTML = `
-            <button class="kbd-btn" onclick="simulateBotAction('new_trip')"><i class="fa-solid fa-route"></i> ${isEn ? 'Start Trip' : 'Почати рейс'}</button>
-            <button class="kbd-btn" onclick="simulateBotAction('delivered')"><i class="fa-solid fa-clipboard-check"></i> ${isEn ? 'Delivered!' : 'Доставлено!'}</button>
-            <button class="kbd-btn" onclick="simulateBotAction('refuel')"><i class="fa-solid fa-gas-pump"></i> ${isEn ? 'Refuel' : 'Заправка'}</button>
-            <button class="kbd-btn" onclick="simulateBotAction('issue')"><i class="fa-solid fa-triangle-exclamation"></i> ${isEn ? 'Issue Alert' : 'Проблема'}</button>
-        `;
         
         const initialLog = document.createElement('div');
         initialLog.className = 'log-row info';
@@ -103,202 +88,277 @@ function setSandboxMode(mode) {
         sandboxChart.update();
         
     } else {
-        // FOP Invoicing Mode
-        welcomeDiv.innerText = isEn 
-            ? "FOP Billing Portal initialized. Generate document draft below or trigger bank sync test."
-            : "Кабінет ФОП активовано. Створіть чернетку документа нижче або запустіть синхронізацію з банком.";
-        chatContainer.appendChild(welcomeDiv);
+        btnLogistics.className = 'btn-secondary';
+        btnFop.className = 'btn-primary';
         
-        // Update stats labels
-        document.getElementById('sandboxStat1Lbl').innerText = isEn ? 'Unpaid Invoices' : 'Неоплачено рахунків';
-        document.getElementById('sandboxStat2Lbl').innerText = isEn ? 'Total Bills Generated' : 'Всього рахунків';
-        document.getElementById('sandboxStat3Lbl').innerText = isEn ? 'Billed Amount (YTD)' : 'Загальний обіг';
-        document.getElementById('sandboxStat4Lbl').innerText = isEn ? 'Portal Connection' : 'Зв\'язок з банком';
+        // Toggle view containers visibility
+        phoneContainer.style.display = 'none';
+        fopControlPanel.style.display = 'flex';
+        logisticsDashboard.style.display = 'none';
+        fopDashboard.style.display = 'flex';
         
-        // Update stats values
-        document.getElementById('dashTripsVal').innerText = isEn ? `${state.unpaidInvoices} pending` : `${state.unpaidInvoices} очікують`;
-        document.getElementById('dashDeliveredVal').innerText = isEn ? `${state.invoicesCount} invoices` : `${state.invoicesCount} документів`;
-        document.getElementById('dashFuelVal').innerText = `${state.totalBilled.toLocaleString()} ₴`;
+        // Refresh FOP statistics metrics
+        updateFopDashboardUI();
         
-        const statusEl = document.getElementById('dashStatusVal');
-        statusEl.innerText = isEn ? 'Synced' : 'Синхронізовано';
-        statusEl.className = 'val text-green';
-        
-        // Update chart header and log header
-        document.getElementById('sandboxChartHeader').innerText = isEn ? 'Monthly Sales Invoicing (₴)' : 'Динаміка виставлених рахунків (₴)';
-        document.getElementById('sandboxLogHeader').innerText = isEn ? 'Sole Trader System Transaction Log (Bank APIs)' : 'Системний лог транзакцій ФОП (API Банків)';
-        
-        // Re-inject keyboard buttons
-        const keyboard = document.querySelector('.bot-keyboard');
-        keyboard.innerHTML = `
-            <button class="kbd-btn" onclick="simulateBotAction('create_invoice')"><i class="fa-solid fa-file-signature"></i> ${isEn ? 'Create Invoice' : 'Створити Рахунок'}</button>
-            <button class="kbd-btn" onclick="simulateBotAction('simulate_payment')"><i class="fa-solid fa-money-bill-transfer"></i> ${isEn ? 'Log Payment' : 'Оплата рахунку'}</button>
-            <button class="kbd-btn" onclick="simulateBotAction('bank_sync')"><i class="fa-solid fa-rotate"></i> ${isEn ? 'Sync Monobank' : 'Синхронізувати ФОП'}</button>
-            <button class="kbd-btn" onclick="simulateBotAction('generate_act')"><i class="fa-solid fa-file-contract"></i> ${isEn ? 'Create Act' : 'Зробити Акт'}</button>
-        `;
-        
-        const initialLog = document.createElement('div');
-        initialLog.className = 'log-row info';
-        initialLog.innerText = isEn ? '[PORTAL] Billing portal initialized. Awaiting API trigger commands...' : '[PORTAL] Систему обліку активовано. Очікування дій від користувача...';
-        logContent.appendChild(initialLog);
-        
-        // Rebuild Chart
-        sandboxChart.data.datasets[0].label = isEn ? 'Invoiced Revenue (₴)' : 'Сума рахунків (₴)';
-        sandboxChart.data.labels = isEn ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] : ['Січ', 'Лют', 'Бер', 'Кві', 'Тра', 'Чер'];
-        sandboxChart.data.datasets[0].data = [...state.fopChartData];
-        sandboxChart.update();
+        const fopLogContent = document.getElementById('fopLogContent');
+        fopLogContent.innerHTML = `<div class="log-row info" style="color: #64748b;">${isEn ? '[PORTAL] FOP Billing portal initialized. Awaiting api sync command triggers...' : '[PORTAL] Систему обліку активовано. Очікування дій від користувача...'}</div>`;
     }
+}
+
+// Helper to refresh FOP Dashboard data
+function updateFopDashboardUI() {
+    const isEn = document.documentElement.lang === 'en';
+    
+    // Total sum values
+    document.getElementById('fopInvoicedVal').innerText = `${state.totalBilled.toLocaleString('uk-UA')},00 ${isEn ? 'UAH' : 'грн'}`;
+    document.getElementById('fopActsVal').innerText = `${(state.totalBilled - (state.unpaidInvoices * 12500)).toLocaleString('uk-UA')},00 ${isEn ? 'UAH' : 'грн'}`;
+    
+    // Sub labels counts
+    document.getElementById('fopInvoicedSub').innerText = isEn 
+        ? `↗ Total ${state.invoicesCount} invoices` 
+        : `↗ Всього ${state.invoicesCount} рахунків`;
+        
+    document.getElementById('fopActsSub').innerText = isEn 
+        ? `⚏ Total ${state.invoicesCount - state.unpaidInvoices} acts` 
+        : `⚏ Всього ${state.invoicesCount - state.unpaidInvoices} актів`;
+        
+    // Left side counts
+    document.getElementById('fopClientsVal').innerText = "1";
+    document.getElementById('fopServicesVal').innerText = "2";
 }
 
 // Interactive Sandbox Actions Simulator
 function simulateBotAction(action) {
-    const chatContainer = document.getElementById('chatMessages');
-    const logContent = document.getElementById('logContent');
     const isEn = document.documentElement.lang === 'en';
+    const logContent = document.getElementById('logContent');
+    const fopLogContent = document.getElementById('fopLogContent');
     
     let outgoingMsg = '';
     let responseMsg = '';
     let logMsg = '';
     let logType = 'info';
 
-    switch (action) {
-        // LOGISTICS ACTIONS
-        case 'new_trip':
-            state.activeTrips += 1;
-            outgoingMsg = isEn ? "🚀 Start trip #1043" : "🚀 Розпочати рейс #1043";
-            responseMsg = isEn 
-                ? "✅ Trip #1043 activated. GPS tracking online. Waybill data dispatched to navigator."
-                : "✅ Рейс #1043 активовано. GPS трекінг розпочато. Маршрутний лист надіслано в навігатор.";
-            logMsg = isEn
-                ? "[BOT_API] Driver Alexander started trip #1043. CRM database synced."
-                : "[BOT_API] Водій Олександр розпочав рейс #1043. База даних CRM оновлена.";
-            logType = 'info';
-            document.getElementById('dashTripsVal').innerText = isEn ? `${state.activeTrips} active` : `${state.activeTrips} активних`;
-            break;
-            
-        case 'delivered':
-            state.activeTrips = Math.max(0, state.activeTrips - 1);
-            state.deliveredToday += 1;
-            state.chartData[state.chartData.length - 1] += 1;
-            
-            outgoingMsg = isEn ? "📦 Order delivered successfully. Signature captured." : "📦 Замовлення доставлено! Отримано підпис.";
-            responseMsg = isEn
-                ? "🎉 Delivery registered. Customer feedback request SMS dispatched."
-                : "🎉 Вітаємо! Доставка зареєстрована. Клієнту надіслано SMS із запитом на оцінку сервісу.";
-            logMsg = isEn
-                ? `[CRM] Delivery success. Today total: ${state.deliveredToday}. Hourly deliveries chart updated.`
-                : `[CRM] Доставка успішна. Загальна кількість сьогодні: ${state.deliveredToday}. Оновлено графік доставок.`;
-            logType = 'success';
-            
-            document.getElementById('dashTripsVal').innerText = isEn ? `${state.activeTrips} active` : `${state.activeTrips} активних`;
-            document.getElementById('dashDeliveredVal').innerText = isEn ? `${state.deliveredToday} orders` : `${state.deliveredToday} замовлень`;
-            sandboxChart.data.datasets[0].data = [...state.chartData];
-            sandboxChart.update();
-            break;
-            
-        case 'refuel':
-            const fuelCost = 2400;
-            state.fuelExpenses += fuelCost;
-            outgoingMsg = isEn ? `⛽ Refuel ${fuelCost} ₴. Dispatched invoice receipt photo...` : `⛽ Заправка на ${fuelCost} ₴. Надсилаю фото чеку...`;
-            responseMsg = isEn
-                ? `📥 Receipt captured. Fuel expense of 2,400 ₴ appended to current trip cost log.`
-                : "📥 Чек отримано. Суму 2 400 ₴ автоматично додано у витрати по рейсу. Звіт сформовано.";
-            logMsg = isEn
-                ? `[FINANCE] Refueling ticket approved. Fleet daily fuel costs: ${state.fuelExpenses.toLocaleString()} ₴`
-                : `[FINANCE] Отримано чек заправки. Поточні витрати палива за день: ${state.fuelExpenses.toLocaleString()} ₴`;
-            logType = 'success';
-            document.getElementById('dashFuelVal').innerText = `${state.fuelExpenses.toLocaleString()} ₴`;
-            break;
-            
-        case 'issue':
-            state.statusText = isEn ? 'Delayed' : 'Затримка';
-            outgoingMsg = isEn ? "⚠️ Traffic jam delay alert" : "⚠️ Затримка в заторі на Кільцевій дорозі";
-            responseMsg = isEn
-                ? "🚨 Dispatcher notified. Estimated arrival time recalculated (+40 mins)."
-                : "🚨 Повідомлення передано логісту. Розрахунковий час прибуття оновлено (+40 хв).";
-            logMsg = isEn
-                ? "[WARN] Courier warning status on trip #1043. Vehicle metrics changed to 'Warning'."
-                : "[WARN] Увага! Затримка по рейсу #1043. Статус автомобіля змінено на 'Warning'.";
-            logType = 'warn';
-            
-            const statusEl = document.getElementById('dashStatusVal');
-            statusEl.innerText = state.statusText;
-            statusEl.className = 'val text-red';
-            
-            setTimeout(() => {
-                state.statusText = isEn ? 'Normal' : 'Норма';
-                const sEl = document.getElementById('dashStatusVal');
-                sEl.innerText = state.statusText;
-                sEl.className = 'val text-green';
-                
-                const returnLog = document.createElement('div');
-                returnLog.className = 'log-row info';
-                returnLog.innerText = isEn ? "[SYSTEM] Traffic issue resolved. Vehicle returned to standard operations." : "[SYSTEM] Трафік нормалізувався. Автомобіль повернувся до штатного режиму.";
-                logContent.appendChild(returnLog);
-                logContent.scrollTop = logContent.scrollHeight;
-            }, 6000);
-            break;
-
-        // FOP INVOICING ACTIONS
-        case 'create_invoice':
-            state.invoicesCount += 1;
-            state.unpaidInvoices += 1;
-            outgoingMsg = isEn ? "📝 Create invoice: Client LLC 'Vanguard', amount 12,500 ₴" : "📝 Створити рахунок: Клієнт ТОВ 'Авангард', сума 12,500 ₴";
-            responseMsg = isEn
-                ? `✅ Invoice #INV-2401 drafted. PDF attachment dispatched to client's Telegram chat.`
-                : "✅ Рахунок #INV-2401 згенеровано. PDF-версію надіслано клієнту в Telegram-чат.";
-            logMsg = isEn
-                ? `[BILLING] Drafted invoice INV-2401. Current unpaid count: ${state.unpaidInvoices}. Database saved.`
-                : `[BILLING] Створено рахунок INV-2401. Очікуємо оплати. Загалом рахунків: ${state.invoicesCount}.`;
-            logType = 'info';
-            
-            document.getElementById('dashTripsVal').innerText = isEn ? `${state.unpaidInvoices} pending` : `${state.unpaidInvoices} очікують`;
-            document.getElementById('dashDeliveredVal').innerText = isEn ? `${state.invoicesCount} invoices` : `${state.invoicesCount} документів`;
-            break;
-            
-        case 'simulate_payment':
-            if (state.unpaidInvoices > 0) {
-                state.unpaidInvoices -= 1;
-                state.totalBilled += 12500;
-                state.fopChartData[state.fopChartData.length - 1] += 12500;
-                
-                outgoingMsg = isEn ? "💰 Simulate Monobank client payout notification" : "💰 Симуляція сповіщення Monobank про оплату рахунку";
-                responseMsg = isEn
-                    ? "🎉 Payout of 12,500 ₴ verified. Invoice marked as 'PAID'. Customer thank-you message sent."
-                    : "🎉 Отримано оплату 12 500 ₴. Рахунок позначено як 'ОПЛАЧЕНО'. Клієнту надіслано чек.";
+    if (state.mode === 'logistics') {
+        const chatContainer = document.getElementById('chatMessages');
+        switch (action) {
+            case 'new_trip':
+                state.activeTrips += 1;
+                outgoingMsg = isEn ? "🚀 Start trip #1043" : "🚀 Розпочати рейс #1043";
+                responseMsg = isEn 
+                    ? "✅ Trip #1043 activated. GPS tracking online. Waybill data dispatched to navigator."
+                    : "✅ Рейс #1043 активовано. GPS трекінг розпочато. Маршрутний лист надіслано в навігатор.";
                 logMsg = isEn
-                    ? `[MONOBANK_API] Inflow transactions logged. Net volume: ${state.totalBilled.toLocaleString()} ₴. Chart updated.`
-                    : `[MONOBANK_API] Отримано виписку від банку. Оплата зафіксована. Загальний оборот: ${state.totalBilled.toLocaleString()} ₴`;
+                    ? "[BOT_API] Driver Alexander started trip #1043. CRM database synced."
+                    : "[BOT_API] Водій Олександр розпочав рейс #1043. База даних CRM оновлена.";
+                logType = 'info';
+                document.getElementById('dashTripsVal').innerText = isEn ? `${state.activeTrips} active` : `${state.activeTrips} активних`;
+                break;
+                
+            case 'delivered':
+                state.activeTrips = Math.max(0, state.activeTrips - 1);
+                state.deliveredToday += 1;
+                state.chartData[state.chartData.length - 1] += 1;
+                
+                outgoingMsg = isEn ? "📦 Order delivered successfully. Signature captured." : "📦 Замовлення доставлено! Отримано підпис.";
+                responseMsg = isEn
+                    ? "🎉 Delivery registered. Customer feedback request SMS dispatched."
+                    : "🎉 Вітаємо! Доставка зареєстрована. Клієнту надіслано SMS із запитом на оцінку сервісу.";
+                logMsg = isEn
+                    ? `[CRM] Delivery success. Today total: ${state.deliveredToday}. Hourly deliveries chart updated.`
+                    : `[CRM] Доставка успішна. Загальна кількість сьогодні: ${state.deliveredToday}. Оновлено графік доставок.`;
                 logType = 'success';
                 
-                document.getElementById('dashTripsVal').innerText = isEn ? `${state.unpaidInvoices} pending` : `${state.unpaidInvoices} очікують`;
-                document.getElementById('dashFuelVal').innerText = `${state.totalBilled.toLocaleString()} ₴`;
-                sandboxChart.data.datasets[0].data = [...state.fopChartData];
+                document.getElementById('dashTripsVal').innerText = isEn ? `${state.activeTrips} active` : `${state.activeTrips} активних`;
+                document.getElementById('dashDeliveredVal').innerText = isEn ? `${state.deliveredToday} orders` : `${state.deliveredToday} замовлень`;
+                sandboxChart.data.datasets[0].data = [...state.chartData];
                 sandboxChart.update();
-            } else {
-                outgoingMsg = isEn ? "💰 Request payment sync status" : "💰 Запит статусу оплат";
-                responseMsg = isEn ? "⚠️ No pending unpaid bills found in database." : "⚠️ Усі виставлені рахунки наразі оплачені.";
-                logMsg = "[SYSTEM] Skipped payout trigger. Zero unpaid invoices.";
+                break;
+                
+            case 'refuel':
+                const fuelCost = 2400;
+                state.fuelExpenses += fuelCost;
+                outgoingMsg = isEn ? `⛽ Refuel ${fuelCost} ₴. Dispatched invoice receipt photo...` : `⛽ Заправка на ${fuelCost} ₴. Надсилаю фото чеку...`;
+                responseMsg = isEn
+                    ? `📥 Receipt captured. Fuel expense of 2,400 ₴ appended to current trip cost log.`
+                    : "📥 Чек отримано. Суму 2 400 ₴ автоматично додано у витрати по рейсу. Звіт сформовано.";
+                logMsg = isEn
+                    ? `[FINANCE] Refueling ticket approved. Fleet daily fuel costs: ${state.fuelExpenses.toLocaleString()} ₴`
+                    : `[FINANCE] Отримано чек заправки. Поточні витрати палива за день: ${state.fuelExpenses.toLocaleString()} ₴`;
+                logType = 'success';
+                document.getElementById('dashFuelVal').innerText = `${state.fuelExpenses.toLocaleString()} ₴`;
+                break;
+                
+            case 'issue':
+                state.statusText = isEn ? 'Delayed' : 'Затримка';
+                outgoingMsg = isEn ? "⚠️ Traffic jam delay alert" : "⚠️ Затримка в заторі на Кільцевій дорозі";
+                responseMsg = isEn
+                    ? "🚨 Dispatcher notified. Estimated arrival time recalculated (+40 mins)."
+                    : "🚨 Повідомлення передано логісту. Розрахунковий час прибуття оновлено (+40 хв).";
+                logMsg = isEn
+                    ? "[WARN] Courier warning status on trip #1043. Vehicle metrics changed to 'Warning'."
+                    : "[WARN] Увага! Затримка по рейсу #1043. Статус автомобіля змінено на 'Warning'.";
                 logType = 'warn';
-            }
-            break;
-            
-        case 'bank_sync':
-            outgoingMsg = isEn ? "🔄 Sync Monobank statement log" : "🔄 Синхронізувати транзакції з банком";
-            responseMsg = isEn ? "✅ Account statement sync complete. Checked transactions for past 24 hours." : "✅ Виписку оновлено. Звірено транзакції за останні 24 години.";
-            logMsg = isEn ? "[BANK_API] Connection to Monobank API active. All status codes returned 200 OK." : "[BANK_API] З'єднання з API банку активне. Всі транзакції синхронізовано.";
-            logType = 'info';
-            break;
-            
-        case 'generate_act':
-            state.invoicesCount += 1;
-            outgoingMsg = isEn ? "📄 Create service act for INV-2401" : "📄 Зробити акт виконаних робіт для INV-2401";
-            responseMsg = isEn ? "✅ Service Act compiled. Dispatched to client for digital sign (Diia / Paper)." : "✅ Акт виконаних робіт сформовано та відправлено замовнику на підпис.";
-            logMsg = isEn ? "[PORTAL] Created Service Act for Vanguard. Document registered." : "[PORTAL] Згенеровано Акт виконаних робіт для ТОВ 'Авангард'.";
-            logType = 'success';
-            document.getElementById('dashDeliveredVal').innerText = isEn ? `${state.invoicesCount} invoices` : `${state.invoicesCount} документів`;
-            break;
+                
+                const statusEl = document.getElementById('dashStatusVal');
+                statusEl.innerText = state.statusText;
+                statusEl.className = 'val text-red';
+                
+                setTimeout(() => {
+                    state.statusText = isEn ? 'Normal' : 'Норма';
+                    const sEl = document.getElementById('dashStatusVal');
+                    sEl.innerText = state.statusText;
+                    sEl.className = 'val text-green';
+                    
+                    const returnLog = document.createElement('div');
+                    returnLog.className = 'log-row info';
+                    returnLog.innerText = isEn ? "[SYSTEM] Traffic issue resolved. Vehicle returned to standard operations." : "[SYSTEM] Трафік нормалізувався. Автомобіль повернувся до штатного режиму.";
+                    logContent.appendChild(returnLog);
+                    logContent.scrollTop = logContent.scrollHeight;
+                }, 6000);
+                break;
+        }
+
+        // Append driver message layout
+        const outDiv = document.createElement('div');
+        outDiv.className = 'message outgoing';
+        outDiv.innerText = outgoingMsg;
+        chatContainer.appendChild(outDiv);
+
+        // Append system bot response message with delay
+        setTimeout(() => {
+            const inDiv = document.createElement('div');
+            inDiv.className = 'message incoming';
+            inDiv.innerText = responseMsg;
+            chatContainer.appendChild(inDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }, 450);
+
+        // Append Dashboard Log row
+        const logDiv = document.createElement('div');
+        logDiv.className = `log-row ${logType}`;
+        logDiv.innerText = logMsg;
+        logContent.appendChild(logDiv);
+        
+        // Auto-scroll elements
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        logContent.scrollTop = logContent.scrollHeight;
+
+    } else {
+        // FOP INVOICING SIMULATOR LOGIC
+        const invoicesContainer = document.getElementById('fopLastInvoicesContainer');
+        const actsContainer = document.getElementById('fopLastActsContainer');
+        
+        switch (action) {
+            case 'create_invoice':
+                state.invoicesCount += 1;
+                state.unpaidInvoices += 1;
+                state.totalBilled += 12500;
+                
+                logMsg = isEn 
+                    ? `[BILLING] Drafted Invoice № 00${state.invoicesCount} for PROPEX LLC: 12,500.00 UAH. Marked: 'NEW'.`
+                    : `[BILLING] Згенеровано Рахунок № 00${state.invoicesCount} для ТОВ "ПРОПЕКС" на суму 12 500,00 грн. Статус: 'Новий'.`;
+                logType = 'info';
+                
+                // Add invoice html item mockup matching design
+                const newInvRow = document.createElement('div');
+                newInvRow.style.cssText = "display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: #e0f2f1; border-radius: 12px; transition: background 0.3s;";
+                newInvRow.innerHTML = `
+                    <div>
+                        <span style="font-weight: 700; font-size: 0.85rem; color: #0d3b66; display: block;">${isEn ? `Invoice № 00${state.invoicesCount}` : `Рахунок № 00${state.invoicesCount}`}</span>
+                        <span style="font-size: 0.75rem; color: #64748b;">${isEn ? 'PROPEX LLC' : 'ТОВ "ПРОПЕКС"'} • ${new Date().toLocaleDateString('uk-UA')}</span>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-weight: 800; font-size: 0.85rem; color: #0d3b66; display: block;">12 500,00 грн</span>
+                        <span style="font-size: 0.65rem; background: #008080; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: 700;">${isEn ? 'New' : 'Новий'}</span>
+                    </div>
+                `;
+                invoicesContainer.insertBefore(newInvRow, invoicesContainer.firstChild);
+                
+                // Animate flash background back to slate gray after a second
+                setTimeout(() => {
+                    newInvRow.style.background = "#f8fafc";
+                }, 1000);
+                
+                updateFopDashboardUI();
+                break;
+                
+            case 'simulate_payment':
+                if (state.unpaidInvoices > 0) {
+                    state.unpaidInvoices -= 1;
+                    
+                    logMsg = isEn 
+                        ? `[MONOBANK_API] Inflow transaction detected. UAH 12,500.00 received. Automatically matching outstanding invoice INV-00${state.invoicesCount - state.unpaidInvoices}.`
+                        : `[MONOBANK_API] Отримано оплату за випискою банку: +12 500,00 грн від ТОВ "ПРОПЕКС". Рахунок № 00${state.invoicesCount - state.unpaidInvoices} закрито автоматично.`;
+                    logType = 'success';
+                    
+                    // Update visual label on first pending item badge inside invoicesContainer
+                    const firstBadge = invoicesContainer.querySelector('span[style*="background: #008080"]') || invoicesContainer.querySelector('span[style*="background: rgb(226, 232, 240)"]');
+                    if (firstBadge) {
+                        firstBadge.innerText = isEn ? 'Paid' : 'Оплачено';
+                        firstBadge.style.background = '#e0f2f1';
+                        firstBadge.style.color = '#008080';
+                    }
+                    
+                    updateFopDashboardUI();
+                } else {
+                    logMsg = isEn
+                        ? "[SYSTEM] payment synchronization triggered. All invoices are currently paid."
+                        : "[SYSTEM] Звірка оплат завершена. Неоплачених рахунків у системі не знайдено.";
+                    logType = 'warn';
+                }
+                break;
+                
+            case 'bank_sync':
+                logMsg = isEn 
+                    ? "[BANK_API] Monobank statement sync active. Connection test: 200 OK. Transactions verified."
+                    : "[BANK_API] Синхронізація виписок Monobank виконана. З'єднання активне (200 OK). Транзакцій не виявлено.";
+                logType = 'info';
+                break;
+                
+            case 'generate_act':
+                const paidActsCount = state.invoicesCount - state.unpaidInvoices;
+                logMsg = isEn
+                    ? `[PORTAL] Generated service performance Act № 00${paidActsCount} linked to Invoice INV-00${paidActsCount}.`
+                    : `[PORTAL] Створено Акт виконаних робіт № 00${paidActsCount} для ТОВ "ПРОПЕКС" на суму 12 500,00 грн.`;
+                logType = 'success';
+                
+                // Add act html item mockup matching design
+                const newActRow = document.createElement('div');
+                newActRow.style.cssText = "display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: #e0f2f1; border-radius: 12px; transition: background 0.3s;";
+                newActRow.innerHTML = `
+                    <div>
+                        <span style="font-weight: 700; font-size: 0.85rem; color: #0d3b66; display: block;">${isEn ? `Act № 00${paidActsCount}` : `Акт № 00${paidActsCount}`}</span>
+                        <span style="font-size: 0.75rem; color: #64748b;">${isEn ? `for Invoice № 00${paidActsCount}` : `до Рахунку № 00${paidActsCount}`} • ${new Date().toLocaleDateString('uk-UA')}</span>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-weight: 800; font-size: 0.85rem; color: #0d3b66; display: block;">12 500,00 грн</span>
+                        <span style="font-size: 0.7rem; color: #008080; font-weight: 600;">${isEn ? 'PROPEX LLC' : 'ТОВ "ПРОПЕКС"'}</span>
+                    </div>
+                `;
+                actsContainer.insertBefore(newActRow, actsContainer.firstChild);
+                
+                setTimeout(() => {
+                    newActRow.style.background = "#f8fafc";
+                }, 1000);
+                
+                updateFopDashboardUI();
+                break;
+        }
+
+        // Append FOP log row
+        const logDiv = document.createElement('div');
+        logDiv.className = `log-row ${logType}`;
+        
+        let color = '#3b82f6'; // info
+        if (logType === 'success') color = '#22c55e';
+        if (logType === 'warn') color = '#eab308';
+        
+        logDiv.style.cssText = `color: ${color}; margin-bottom: 0.4rem;`;
+        logDiv.innerText = logMsg;
+        fopLogContent.appendChild(logDiv);
+        fopLogContent.scrollTop = fopLogContent.scrollHeight;
     }
+}
 
     // Append driver message
     const outDiv = document.createElement('div');
@@ -537,114 +597,6 @@ function initCharts() {
             }
         }
     });
-}
-
-// Interactive Sandbox Actions Simulator
-function simulateBotAction(action) {
-    const chatContainer = document.getElementById('chatMessages');
-    const logContent = document.getElementById('logContent');
-    
-    let outgoingMsg = '';
-    let responseMsg = '';
-    let logMsg = '';
-    let logType = 'info';
-
-    switch (action) {
-        case 'new_trip':
-            state.activeTrips += 1;
-            outgoingMsg = "🚀 Розпочати рейс #1043";
-            responseMsg = "✅ Рейс #1043 активовано. GPS трекінг розпочато. Маршрутний лист надіслано в навігатор.";
-            logMsg = "[BOT_API] Водій Олександр розпочав рейс #1043. База даних CRM оновлена.";
-            logType = 'info';
-            
-            // UI updating
-            document.getElementById('dashTripsVal').innerText = `${state.activeTrips} активних`;
-            break;
-            
-        case 'delivered':
-            state.activeTrips = Math.max(0, state.activeTrips - 1);
-            state.deliveredToday += 1;
-            // Update last hour chart bar
-            state.chartData[state.chartData.length - 1] += 1;
-            
-            outgoingMsg = "📦 Замовлення доставлено! Отримано підпис.";
-            responseMsg = "🎉 Вітаємо! Доставка зареєстрована. Клієнту надіслано SMS із запитом на оцінку сервісу.";
-            logMsg = `[CRM] Доставка успішна. Загальна кількість сьогодні: ${state.deliveredToday}. Оновлено графік доставок.`;
-            logType = 'success';
-            
-            // UI updating
-            document.getElementById('dashTripsVal').innerText = `${state.activeTrips} активних`;
-            document.getElementById('dashDeliveredVal').innerText = `${state.deliveredToday} замовлень`;
-            
-            // Refresh chart view
-            sandboxChart.data.datasets[0].data = [...state.chartData];
-            sandboxChart.update();
-            break;
-            
-        case 'refuel':
-            const fuelCost = 2400;
-            state.fuelExpenses += fuelCost;
-            outgoingMsg = `⛽ Заправка на ${fuelCost} ₴. Надсилаю фото чеку...`;
-            responseMsg = "📥 Чек отримано. Суму 2 400 ₴ автоматично додано у витрати по рейсу. Звіт сформовано.";
-            logMsg = `[FINANCE] Отримано чек заправки. Поточні витрати палива за день: ${state.fuelExpenses.toLocaleString()} ₴`;
-            logType = 'success';
-            
-            // UI updating
-            document.getElementById('dashFuelVal').innerText = `${state.fuelExpenses.toLocaleString()} ₴`;
-            break;
-            
-        case 'issue':
-            state.statusText = 'Затримка';
-            outgoingMsg = "⚠️ Затримка в заторі на Кільцевій дорозі";
-            responseMsg = "🚨 Повідомлення передано логісту. Розрахунковий час прибуття оновлено (+40 хв).";
-            logMsg = "[WARN] Увага! Затримка по рейсу #1043. Статус автомобіля змінено на 'Warning'.";
-            logType = 'warn';
-            
-            // UI updating
-            const statusEl = document.getElementById('dashStatusVal');
-            statusEl.innerText = state.statusText;
-            statusEl.className = 'val text-red';
-            
-            // Reset to normal after 5 seconds automatically to simulate real operation flow
-            setTimeout(() => {
-                state.statusText = 'Норма';
-                const sEl = document.getElementById('dashStatusVal');
-                sEl.innerText = state.statusText;
-                sEl.className = 'val text-green';
-                
-                const returnLog = document.createElement('div');
-                returnLog.className = 'log-row info';
-                returnLog.innerText = "[SYSTEM] Трафік нормалізувався. Автомобіль повернувся до штатного режиму.";
-                logContent.appendChild(returnLog);
-                logContent.scrollTop = logContent.scrollHeight;
-            }, 6000);
-            break;
-    }
-
-    // Append driver message
-    const outDiv = document.createElement('div');
-    outDiv.className = 'message outgoing';
-    outDiv.innerText = outgoingMsg;
-    chatContainer.appendChild(outDiv);
-
-    // Append system bot response message with delay
-    setTimeout(() => {
-        const inDiv = document.createElement('div');
-        inDiv.className = 'message incoming';
-        inDiv.innerText = responseMsg;
-        chatContainer.appendChild(inDiv);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }, 450);
-
-    // Append Dashboard Log row
-    const logDiv = document.createElement('div');
-    logDiv.className = `log-row ${logType}`;
-    logDiv.innerText = logMsg;
-    logContent.appendChild(logDiv);
-    
-    // Auto-scroll elements
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-    logContent.scrollTop = logContent.scrollHeight;
 }
 
 // Interactive Pricing Cost Calculator
