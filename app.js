@@ -255,8 +255,8 @@ function simulateBotAction(action) {
                 state.totalBilled += 12500;
                 
                 logMsg = isEn 
-                    ? `[BILLING] Drafted Invoice № 00${state.invoicesCount} for PROPEX LLC: 12,500.00 UAH. Marked: 'NEW'.`
-                    : `[BILLING] Згенеровано Рахунок № 00${state.invoicesCount} для ТОВ "ПРОПЕКС" на суму 12 500,00 грн. Статус: 'Новий'.`;
+                    ? `[BILLING] Drafted Invoice № 00${state.invoicesCount} for Bellonix ALM (Test): 12,500.00 UAH. Marked: 'NEW'.`
+                    : `[BILLING] Згенеровано Рахунок № 00${state.invoicesCount} для Bellonix ALM (Тест) на суму 12 500,00 грн. Статус: 'Новий'.`;
                 logType = 'info';
                 
                 // Add invoice html item mockup matching design
@@ -265,7 +265,7 @@ function simulateBotAction(action) {
                 newInvRow.innerHTML = `
                     <div>
                         <span style="font-weight: 700; font-size: 0.85rem; color: #0d3b66; display: block;">${isEn ? `Invoice № 00${state.invoicesCount}` : `Рахунок № 00${state.invoicesCount}`}</span>
-                        <span style="font-size: 0.75rem; color: #64748b;">${isEn ? 'PROPEX LLC' : 'ТОВ "ПРОПЕКС"'} • ${new Date().toLocaleDateString('uk-UA')}</span>
+                        <span style="font-size: 0.75rem; color: #64748b;">${isEn ? 'Bellonix ALM (Test)' : 'Bellonix ALM (Тест)'} • ${new Date().toLocaleDateString('uk-UA')}</span>
                     </div>
                     <div style="text-align: right;">
                         <span style="font-weight: 800; font-size: 0.85rem; color: #0d3b66; display: block;">12 500,00 грн</span>
@@ -288,7 +288,7 @@ function simulateBotAction(action) {
                     
                     logMsg = isEn 
                         ? `[MONOBANK_API] Inflow transaction detected. UAH 12,500.00 received. Automatically matching outstanding invoice INV-00${state.invoicesCount - state.unpaidInvoices}.`
-                        : `[MONOBANK_API] Отримано оплату за випискою банку: +12 500,00 грн від ТОВ "ПРОПЕКС". Рахунок № 00${state.invoicesCount - state.unpaidInvoices} закрито автоматично.`;
+                        : `[MONOBANK_API] Отримано оплату за випискою банку: +12 500,00 грн від Bellonix ALM (Тест). Рахунок № 00${state.invoicesCount - state.unpaidInvoices} закрито автоматично.`;
                     logType = 'success';
                     
                     // Update visual label on first pending item badge inside invoicesContainer
@@ -319,7 +319,7 @@ function simulateBotAction(action) {
                 const paidActsCount = state.invoicesCount - state.unpaidInvoices;
                 logMsg = isEn
                     ? `[PORTAL] Generated service performance Act № 00${paidActsCount} linked to Invoice INV-00${paidActsCount}.`
-                    : `[PORTAL] Створено Акт виконаних робіт № 00${paidActsCount} для ТОВ "ПРОПЕКС" на суму 12 500,00 грн.`;
+                    : `[PORTAL] Створено Акт виконаних робіт № 00${paidActsCount} для Bellonix ALM (Тест) на суму 12 500,00 грн.`;
                 logType = 'success';
                 
                 // Add act html item mockup matching design
@@ -332,7 +332,7 @@ function simulateBotAction(action) {
                     </div>
                     <div style="text-align: right;">
                         <span style="font-weight: 800; font-size: 0.85rem; color: #0d3b66; display: block;">12 500,00 грн</span>
-                        <span style="font-size: 0.7rem; color: #008080; font-weight: 600;">${isEn ? 'PROPEX LLC' : 'ТОВ "ПРОПЕКС"'}</span>
+                        <span style="font-size: 0.7rem; color: #008080; font-weight: 600;">${isEn ? 'Bellonix ALM (Test)' : 'Bellonix ALM (Тест)'}</span>
                     </div>
                 `;
                 actsContainer.insertBefore(newActRow, actsContainer.firstChild);
