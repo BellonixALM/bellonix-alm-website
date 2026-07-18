@@ -592,13 +592,13 @@ function updateEstimatedCost() {
     if (hasInt) cost += 1000;
     if (hasGps) cost += 1000;
     if (hasFopCustom) cost += 500;
-    if (hasFopSaaS) saasCost += 25;
+    if (hasFopSaaS) saasCost += 199;
 
     let resultText = "";
     if (cost > 0 && saasCost > 0) {
-        resultText = `${cost} $ + ${saasCost} $/міс`;
+        resultText = `${cost} $ + ${saasCost} ${isEn ? 'UAH/mo' : 'грн/міс'}`;
     } else if (saasCost > 0) {
-        resultText = `${saasCost} $/міс`;
+        resultText = `${saasCost} ${isEn ? 'UAH/mo' : 'грн/міс'}`;
     } else {
         resultText = `${cost} $`;
     }
