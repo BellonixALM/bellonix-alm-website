@@ -147,7 +147,8 @@ def save_article(article_data, lang, index):
   // View count increment
   const artId = window.location.pathname.split('/').pop().replace('.html', '');
   if (artId) {{
-    fetch(`https://api.counterapi.dev/v1/bellonix-alm/article_${{artId}}/up`).catch(() => {{}});
+    const apiKey = 'article_' + artId.replace(/-/g, '_');
+    fetch(`https://api.counterapi.dev/v1/bellonix-alm/${{apiKey}}/up`).catch(() => {{}});
   }}
 </script>
 </body>

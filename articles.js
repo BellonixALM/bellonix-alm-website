@@ -50,7 +50,8 @@
         container.appendChild(card);
 
         // Fetch view count for this article
-        fetch(`https://api.counterapi.dev/v1/bellonix-alm/article_${artId}`)
+        const apiKey = `article_${artId.replace(/-/g, '_')}`;
+        fetch(`https://api.counterapi.dev/v1/bellonix-alm/${apiKey}`)
             .then(res => res.json())
             .then(data => {
                 const el = document.getElementById(`views-${artId}`);
