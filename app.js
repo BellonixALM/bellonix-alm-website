@@ -941,8 +941,9 @@ window.handleGenerateInvoice = function(e) {
     const periodText = periodSelect.options[periodSelect.selectedIndex].text.split('—')[0].trim();
     const priceText = document.getElementById('invTotalAmount').textContent;
 
-    const payerName = payerNameInput.value.trim() || 'ФОП Замовник';
-    const taxCode = taxCodeInput.value.trim() || '12345678';
+    const payerName = payerNameInput.value.trim() || 'Приватна особа';
+    const taxCode = taxCodeInput.value.trim();
+    const taxCodeDisplay = taxCode ? ` (${taxCode})` : '';
 
     // Date & Bill Number
     const today = new Date();
@@ -953,10 +954,10 @@ window.handleGenerateInvoice = function(e) {
     document.getElementById('resInvNumber').textContent = invNumber;
     document.getElementById('resInvDate').textContent = dateStr;
     document.getElementById('resPayerText').textContent = payerName;
-    document.getElementById('resTaxCodeText').textContent = taxCode;
+    document.getElementById('resTaxCodeText').textContent = taxCode ? taxCode : 'Фізична особа';
     document.getElementById('resItemName').textContent = `Підписка: ${prodName} (${periodText})`;
     document.getElementById('resItemPrice').textContent = priceText;
-    document.getElementById('resPurposeText').textContent = `Призначення: Оплата підписки на ${prodName} (${periodText}), без ПДВ. Платник: ${taxCode}`;
+    document.getElementById('resPurposeText').textContent = `Призначення: Оплата підписки на ${prodName} (${periodText}), без ПДВ. Платник: ${payerName}${taxCodeDisplay}`;
 
     // QR Code Generation
     const iban = "UA893220010000026007012345678";
