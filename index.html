@@ -217,10 +217,7 @@
                         <li><i class="fa-solid fa-circle-check"></i> Автоматичний захист від дублікатів</li>
                         <li><i class="fa-solid fa-circle-check"></i> Експорт у Google Sheets та CRM у реальному часі</li>
                     </ul>
-                    <div style="display: flex; flex-direction: column; gap: 8px;">
-                        <a href="https://t.me/BellonixALMLeadGen_Bot" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;"><i class="fa-brands fa-telegram"></i> Підключити бот-лідогенератор</a>
-                        <button class="btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;" onclick="openInvoiceModal('lead-gen')"><i class="fa-solid fa-file-invoice-dollar"></i> Отримати рахунок / Тарифи</button>
-                    </div>
+                    <a href="https://t.me/BellonixALMLeadGen_Bot" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Підключити бот-лідогенератор</a>
                 </div>
 
                 <!-- Card 5: Intelligent Team Reminder Bot (Knock-Knock) -->
@@ -774,11 +771,8 @@
             <!-- Step 1: Form -->
             <form id="invoiceForm" onsubmit="handleGenerateInvoice(event)">
                 <div class="form-group">
-                    <label for="invProductSelect">Обраний продукт</label>
-                    <select id="invProductSelect" class="form-control" style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-main);" onchange="updateInvoiceCalculation()">
-                        <option value="knock-knock">Командний Бот-Нагадувач (Knock-Knock Bot)</option>
-                        <option value="lead-gen">Інтелектуальний B2B-Лідогенератор</option>
-                    </select>
+                    <label>Обраний продукт</label>
+                    <input type="text" value="Командний Бот-Нагадувач (Knock-Knock Bot)" disabled style="width: 100%; padding: 0.75rem; background: rgba(0, 128, 128, 0.1); border: 1px solid var(--color-accent); border-radius: 8px; color: var(--color-text-white); font-weight: 600;">
                 </div>
 
                 <div class="form-group">

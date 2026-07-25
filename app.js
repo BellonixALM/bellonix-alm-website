@@ -932,12 +932,11 @@ window.updateInvoiceCalculation = function() {
 window.handleGenerateInvoice = function(e) {
     e.preventDefault();
 
-    const productSelect = document.getElementById('invProductSelect');
     const periodSelect = document.getElementById('invPeriodSelect');
     const payerNameInput = document.getElementById('invPayerName');
     const taxCodeInput = document.getElementById('invTaxCode');
 
-    const prodName = productSelect.value === 'knock-knock' ? 'Командний Бот-Нагадувач' : 'B2B-Лідогенератор';
+    const prodName = 'Командний Бот-Нагадувач';
     const periodText = periodSelect.options[periodSelect.selectedIndex].text.split('—')[0].trim();
     const priceText = document.getElementById('invTotalAmount').textContent;
 
