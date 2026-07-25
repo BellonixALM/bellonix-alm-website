@@ -921,10 +921,10 @@ window.updateInvoiceCalculation = function() {
     if (!periodSelect || !totalSpan) return;
 
     const val = periodSelect.value;
-    let priceText = "199 грн";
-    if (val === '1m') priceText = "199 грн";
-    if (val === '3m') priceText = "499 грн";
-    if (val === '1y') priceText = "1 499 грн";
+    let priceText = "100 грн";
+    if (val === '1m') priceText = "100 грн";
+    if (val === '3m') priceText = "250 грн";
+    if (val === '1y') priceText = "850 грн";
 
     totalSpan.textContent = priceText;
 };
