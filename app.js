@@ -897,3 +897,101 @@ window.addEventListener('click', (e) => {
         }
     }
 });
+
+// --- Invoice Modal & Billing Logic ---
+window.openInvoiceModal = function(productKey) {
+    const modal = document.getElementById('invoiceModal');
+    const prodSelect = document.getElementById('invProductSelect');
+    if (prodSelect && productKey) {
+        prodSelect.value = productKey;
+    }
+    updateInvoiceCalculation();
+    if (modal) modal.classList.add('active');
+};
+
+window.closeInvoiceModal = function() {
+    const modal = document.getElementById('invoiceModal');
+    if (modal) modal.classList.remove('active');
+    resetInvoiceForm();
+};
+
+window.updateInvoiceCalculation = function() {
+    const periodSelect = document.getElementById('invPeriodSelect');
+    const totalSpan = document.getElementById('invTotalAmount');
+    if (!periodSelect || !totalSpan) return;
+
+    const val = periodSelect.value;
+    let priceText = "199 грн";
+    if (val === '1m') priceText = "199 грн";
+    if (val === '3m') priceText = "499 грн";
+    if (val === '1y') priceText = "1 499 грн";
+
+    totalSpan.textContent = priceText;
+};
+
+window.handleGenerateInvoice = function(e) {
+    e.preventDefault();
+
+    const productSelect = document.getElementById('invProductSelect');
+    const periodSelect = document.getElementById('invPeriodSelect');
+    const payerNameInput = document.getElementById('invPayerName');
+    const taxCodeInput = document.getElementById('invTaxCode');
+
+    const prodName = productSelect.value === 'knock-knock' ? 'Командний Бот-Нагадувач' : 'B2B-Лідогенератор';
+    const periodText = periodSelect.options[periodSelect.selectedIndex].text.split('—')[0].trim();
+    const priceText = document.getElementById('invTotalAmount').textContent;
+
+    const payerName = payerNameInput.value.trim() || 'ФОП Замовник';
+    const taxCode = taxCodeInput.value.trim() || '12345678';
+
+    // Date & Bill Number
+    const today = new Date();
+    const dateStr = today.toLocaleDateString('uk-UA');
+    const invNumber = 'SF-' + today.getFullYear() + String(today.getMonth()+1).padStart(2,'0') + String(today.getDate()).padStart(2,'0') + '-' + Math.floor(100 + Math.random()*900);
+
+    // Update Result View Elements
+    document.getElementById('resInvNumber').textContent = invNumber;
+    document.getElementById('resInvDate').textContent = dateStr;
+    document.getElementById('resPayerText').textContent = payerName;
+    document.getElementById('resTaxCodeText').textContent = taxCode;
+    document.getElementById('resItemName').textContent = `Підписка: ${prodName} (${periodText})`;
+    document.getElementById('resItemPrice').textContent = priceText;
+    document.getElementById('resPurposeText').textContent = `Призначення: Оплата підписки на ${prodName} (${periodText}), без ПДВ. Платник: ${taxCode}`;
+
+    // QR Code Generation
+    const iban = "UA893220010000026007012345678";
+    const amountClean = priceText.replace(/\D/g, '');
+    const qrPayload = `ST00012|Name=ФОП Беллонін М.В.|IBAN=${iban}|CB=305299|Sum=${amountClean}00|Purpose=Оплата підписки ${prodName} (${invNumber})`;
+    const qrUrl = `https://quickchart.io/qr?text=${encodeURIComponent(qrPayload)}&size=200`;
+    
+    document.getElementById('resQrImage').src = qrUrl;
+
+    // Switch view
+    document.getElementById('invoiceForm').style.display = 'none';
+    document.getElementById('invoiceResultView').style.display = 'block';
+
+    if (typeof showToast === 'function') {
+        showToast("Рахунок та QR-код успішно сформовано!");
+    }
+};
+
+window.resetInvoiceForm = function() {
+    const form = document.getElementById('invoiceForm');
+    const resView = document.getElementById('invoiceResultView');
+    if (form) form.style.display = 'block';
+    if (resView) resView.style.display = 'none';
+};
+
+window.copyIbanToClipboard = function() {
+    const ibanText = document.getElementById('resIbanCode').textContent;
+    navigator.clipboard.writeText(ibanText).then(() => {
+        if (typeof showToast === 'function') showToast("IBAN скопійовано у буфер обміну!");
+    }).catch(() => {
+        alert("IBAN: " + ibanText);
+    });
+};
+
+window.printInvoice = function() {
+    window.print();
+};
+

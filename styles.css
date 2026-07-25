@@ -1852,4 +1852,20 @@ body.light-theme .widget-item {
     }
 }
 
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #printableInvoice, #printableInvoice * {
+        visibility: visible;
+    }
+    #printableInvoice {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+}
+
+
 

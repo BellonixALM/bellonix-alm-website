@@ -217,10 +217,29 @@
                         <li><i class="fa-solid fa-circle-check"></i> Автоматичний захист від дублікатів</li>
                         <li><i class="fa-solid fa-circle-check"></i> Експорт у Google Sheets та CRM у реальному часі</li>
                     </ul>
-                    <a href="https://t.me/BellonixALMLeadGen_Bot" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Підключити бот-лідогенератор</a>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <a href="https://t.me/BellonixALMLeadGen_Bot" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;"><i class="fa-brands fa-telegram"></i> Підключити бот-лідогенератор</a>
+                        <button class="btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;" onclick="openInvoiceModal('lead-gen')"><i class="fa-solid fa-file-invoice-dollar"></i> Отримати рахунок / Тарифи</button>
+                    </div>
                 </div>
 
-                <!-- Card 5: PE / FOP Automation Web Portal -->
+                <!-- Card 5: Intelligent Team Reminder Bot (Knock-Knock) -->
+                <div class="solution-card glass-panel hover-tilt">
+                    <div class="icon-box"><i class="fa-solid fa-bell-concierge"></i></div>
+                    <h3>Командний Бот-Нагадувач (Knock-Knock)</h3>
+                    <p>Автономний контроль згадок (@) у робочих чатах Telegram. Бот не дозволить пропустити завдання чи питання: повторно нагадує відповісти до отримання реплаю чи реакції.</p>
+                    <ul class="features-list" style="margin-bottom: 1.5rem;">
+                        <li><i class="fa-solid fa-circle-check"></i> Моніторинг усіх згадок (@) у робочих чатах 24/7</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Авто-зняття нагадування при Reply або реакції</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Повністю автономний запуск на сервері</li>
+                    </ul>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <a href="https://t.me/BellonixALM_knock_knock_bot" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;"><i class="fa-brands fa-telegram"></i> Підключити Бот у Telegram</a>
+                        <button class="btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;" onclick="openInvoiceModal('knock-knock')"><i class="fa-solid fa-file-invoice-dollar"></i> Отримати рахунок / Тарифи</button>
+                    </div>
+                </div>
+
+                <!-- Card 6: PE / FOP Automation Web Portal -->
                 <div class="solution-card glass-panel hover-tilt">
                     <div class="icon-box"><i class="fa-solid fa-file-invoice-dollar"></i></div>
                     <h3>Веб-системи обліку та документів для ФОП</h3>
@@ -737,6 +756,103 @@
                 </div>
                 <button type="submit" class="btn-primary w-full">Надіслати на модерацію</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Invoice & Subscription Modal -->
+    <div id="invoiceModal" class="modal-overlay">
+        <div class="modal-content glass-panel animate-zoom" style="max-width: 650px;">
+            <button class="modal-close" onclick="closeInvoiceModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="invModalTitle">Оформлення рахунку та підписки</h3>
+            
+            <!-- Step 1: Form -->
+            <form id="invoiceForm" onsubmit="handleGenerateInvoice(event)">
+                <div class="form-group">
+                    <label for="invProductSelect">Обраний продукт</label>
+                    <select id="invProductSelect" class="form-control" style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-main);" onchange="updateInvoiceCalculation()">
+                        <option value="knock-knock">Командний Бот-Нагадувач (Knock-Knock Bot)</option>
+                        <option value="lead-gen">Інтелектуальний B2B-Лідогенератор</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="invPeriodSelect">Тарифний план</label>
+                    <select id="invPeriodSelect" class="form-control" style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-main);" onchange="updateInvoiceCalculation()">
+                        <option value="1m">1 Місяць — 199 грн</option>
+                        <option value="3m">3 Місяці — 499 грн (знижка 15%)</option>
+                        <option value="1y">1 Рік — 1499 грн (знижка 35%)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="invPayerName">Назва компанії / ПІБ ФОП</label>
+                    <input type="text" id="invPayerName" placeholder="ФОП Іванов І. І. або ТОВ 'Вектор'" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="invTaxCode">Код ЄДРПОУ / ІПН</label>
+                    <input type="text" id="invTaxCode" placeholder="12345678" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="invContact">Контактний Telegram або Email</label>
+                    <input type="text" id="invContact" placeholder="@username або email@domain.com" required>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--color-border); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 1.1rem;">
+                        <span>Разом до сплати:</span>
+                        <span id="invTotalAmount" style="color: var(--color-accent);">199 грн</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary w-full"><i class="fa-solid fa-qrcode"></i> Сформувати рахунок з QR-кодом</button>
+            </form>
+
+            <!-- Step 2: Invoice Result View (hidden by default) -->
+            <div id="invoiceResultView" style="display: none; margin-top: 1rem;">
+                <div style="background: #ffffff; color: #1a1a1a; padding: 1.5rem; border-radius: 12px; font-family: sans-serif;" id="printableInvoice">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #333; padding-bottom: 0.75rem; margin-bottom: 1rem;">
+                        <div>
+                            <h4 style="margin: 0; color: #000; font-size: 1.1rem;">РАХУНОК-ФАКТУРА № <span id="resInvNumber">SF-2026-0725</span></h4>
+                            <small style="color: #666;">від <span id="resInvDate">25.07.2026</span></small>
+                        </div>
+                        <div style="text-align: right;">
+                            <strong style="color: #000; font-size: 0.9rem;">Bellonix ALM</strong><br>
+                            <small style="color: #666;">ФОП Беллонін М. В.</small>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4;">
+                        <strong>Отримувач:</strong> ФОП Беллонін М. В.<br>
+                        <strong>Код ЄДРПОУ/ІПН:</strong> 3378512398<br>
+                        <strong>IBAN:</strong> <code id="resIbanCode" style="background: #eee; padding: 2px 6px; border-radius: 4px; font-weight: bold;">UA893220010000026007012345678</code> 
+                        <button onclick="copyIbanToClipboard()" style="background: none; border: none; cursor: pointer; color: #0066cc; font-size: 0.85rem;" title="Копіювати IBAN"><i class="fa-regular fa-copy"></i></button><br>
+                        <strong>Банк:</strong> АТ КБ "ПРИВАТБАНК", МФО 305299<br>
+                        <strong>Платник:</strong> <span id="resPayerText">ФОП Сміт</span> (<span id="resTaxCodeText">12345678</span>)
+                    </div>
+
+                    <div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 0.75rem 0; margin-bottom: 1rem; font-size: 0.9rem;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 600;">
+                            <span id="resItemName">Підписка: Бот-Нагадувач (1 міс)</span>
+                            <span id="resItemPrice">199.00 грн</span>
+                        </div>
+                        <small style="color: #666;" id="resPurposeText">Призначення: Оплата підписки на Бот-Нагадувач, без ПДВ</small>
+                    </div>
+
+                    <!-- Instant Payment QR Code -->
+                    <div style="text-align: center; background: #f9f9f9; padding: 1rem; border-radius: 8px; border: 1px dashed #ccc;">
+                        <div style="font-size: 0.85rem; font-weight: bold; color: #333; margin-bottom: 0.5rem;">📱 Скануйте QR-код для оплати в банківському додатку (Monobank / Privat24):</div>
+                        <img id="resQrImage" src="" alt="Оплата за QR" style="width: 170px; height: 170px; border-radius: 6px; border: 1px solid #ddd; background: #fff; padding: 4px;">
+                        <div style="font-size: 0.75rem; color: #777; margin-top: 0.4rem;">Або здійсніть переказ за IBAN у ваших реквізитах.</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 1.2rem;">
+                    <button class="btn-secondary" style="flex: 1;" onclick="resetInvoiceForm()"><i class="fa-solid fa-arrow-left"></i> Назад</button>
+                    <button class="btn-primary" style="flex: 2;" onclick="printInvoice()"><i class="fa-solid fa-print"></i> Роздрукувати / Зберегти PDF</button>
+                </div>
+            </div>
         </div>
     </div>
 
