@@ -899,12 +899,29 @@ window.addEventListener('click', (e) => {
 });
 
 // --- Invoice Modal & Billing Logic ---
+window.currentProductKey = 'knock-knock';
+
 window.openInvoiceModal = function(productKey) {
+    window.currentProductKey = productKey || 'knock-knock';
     const modal = document.getElementById('invoiceModal');
-    const prodSelect = document.getElementById('invProductSelect');
-    if (prodSelect && productKey) {
-        prodSelect.value = productKey;
+    const periodSelect = document.getElementById('invPeriodSelect');
+    
+    if (periodSelect) {
+        if (window.currentProductKey === 'santech-scan') {
+            periodSelect.innerHTML = `
+                <option value="10$">Тариф "Старт" (10 монтажників) — 10$ / міс (415 грн)</option>
+                <option value="20$">Тариф "Про" (20 монтажників) — 20$ / міс (830 грн)</option>
+                <option value="50$">Тариф "Безліміт" (Необмежена кількість) — 50$ / міс (2075 грн)</option>
+            `;
+        } else {
+            periodSelect.innerHTML = `
+                <option value="1m">1 Місяць — 100 грн (1 груповий чат)</option>
+                <option value="3m">3 Місяці — 250 грн (до 3 чатів, знижка 17%)</option>
+                <option value="1y">1 Рік — 850 грн (до 10 чатів, знижка 30%)</option>
+            `;
+        }
     }
+    
     updateInvoiceCalculation();
     if (modal) modal.classList.add('active');
 };
@@ -921,10 +938,17 @@ window.updateInvoiceCalculation = function() {
     if (!periodSelect || !totalSpan) return;
 
     const val = periodSelect.value;
-    let priceText = "100 грн";
-    if (val === '1m') priceText = "100 грн";
-    if (val === '3m') priceText = "250 грн";
-    if (val === '1y') priceText = "850 грн";
+    let priceText = "415 грн";
+
+    if (window.currentProductKey === 'santech-scan') {
+        if (val === '10$') priceText = "415 грн ($10)";
+        if (val === '20$') priceText = "830 грн ($20)";
+        if (val === '50$') priceText = "2075 грн ($50)";
+    } else {
+        if (val === '1m') priceText = "100 грн";
+        if (val === '3m') priceText = "250 грн";
+        if (val === '1y') priceText = "850 грн";
+    }
 
     totalSpan.textContent = priceText;
 };
