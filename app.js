@@ -960,7 +960,7 @@ window.handleGenerateInvoice = function(e) {
     const payerNameInput = document.getElementById('invPayerName');
     const taxCodeInput = document.getElementById('invTaxCode');
 
-    const prodName = 'Командний Бот-Нагадувач';
+    const prodName = window.currentProductKey === 'santech-scan' ? 'SanTechScan AI' : 'Командний Бот-Нагадувач';
     const periodText = periodSelect.options[periodSelect.selectedIndex].text.split('—')[0].trim();
     const priceText = document.getElementById('invTotalAmount').textContent;
 
