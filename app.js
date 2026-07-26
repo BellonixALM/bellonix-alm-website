@@ -905,6 +905,11 @@ window.openInvoiceModal = function(productKey) {
     window.currentProductKey = productKey || 'knock-knock';
     const modal = document.getElementById('invoiceModal');
     const periodSelect = document.getElementById('invPeriodSelect');
+    const prodInput = document.getElementById('invSelectedProductInput');
+    
+    if (prodInput) {
+        prodInput.value = window.currentProductKey === 'santech-scan' ? 'SanTechScan AI — ШІ-Бот Замовлень для Сантехніки' : 'Командний Бот-Нагадувач (Knock-Knock Bot)';
+    }
     
     if (periodSelect) {
         if (window.currentProductKey === 'santech-scan') {
