@@ -995,3 +995,32 @@ window.printInvoice = function() {
     window.print();
 };
 
+// --- Solutions Category Filtering ---
+window.filterSolutions = function(category, btnElement) {
+    const tabs = document.querySelectorAll('.filter-tab-btn');
+    tabs.forEach(tab => {
+        tab.classList.remove('active');
+        tab.style.background = 'rgba(255,255,255,0.05)';
+        tab.style.borderColor = 'var(--color-border)';
+    });
+
+    if (btnElement) {
+        btnElement.classList.add('active');
+        btnElement.style.background = 'var(--color-accent)';
+        btnElement.style.borderColor = 'var(--color-accent)';
+    }
+
+    const cards = document.querySelectorAll('.solution-card');
+    cards.forEach(card => {
+        const categories = (card.getAttribute('data-category') || '').split(' ');
+        if (category === 'all' || categories.includes(category)) {
+            card.style.display = 'block';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+};
+
+
