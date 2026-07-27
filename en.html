@@ -170,9 +170,39 @@
                 <p class="section-desc">We unify messaging interfaces (Telegram / Viber) with backend database engines and interactive executive web panels to maximize workflow automation.</p>
             </div>
 
+            <div class="solutions-filter-tabs" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+                <button class="filter-tab-btn active" onclick="filterSolutions('all', this)" style="padding: 0.6rem 1.3rem; border-radius: 25px; border: 1px solid var(--color-accent); background: var(--color-accent); color: white; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.3s;">✨ All Solutions</button>
+                <button class="filter-tab-btn" onclick="filterSolutions('bots', this)" style="padding: 0.6rem 1.3rem; border-radius: 25px; border: 1px solid var(--color-border); background: rgba(255,255,255,0.05); color: var(--color-text-white); cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.3s;">🤖 Telegram & AI Bots</button>
+                <button class="filter-tab-btn" onclick="filterSolutions('web', this)" style="padding: 0.6rem 1.3rem; border-radius: 25px; border: 1px solid var(--color-border); background: rgba(255,255,255,0.05); color: var(--color-text-white); cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.3s;">📊 Dashboards & Portals</button>
+                <button class="filter-tab-btn" onclick="filterSolutions('special', this)" style="padding: 0.6rem 1.3rem; border-radius: 25px; border: 1px solid var(--color-border); background: rgba(255,255,255,0.05); color: var(--color-text-white); cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.3s;">🛠 Rental & Logistics</button>
+            </div>
+
             <div class="solutions-grid">
-                <!-- Card 1: Logistics Bots -->
-                <div class="solution-card glass-panel hover-tilt">
+                <!-- Card 1: SanTechScan AI Bot -->
+                <div class="solution-card glass-panel hover-tilt" data-category="bots">
+                    <div class="icon-box"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <div class="card-badge" style="position: absolute; top: 18px; right: 18px; background: rgba(0, 128, 128, 0.15); color: var(--color-accent); border: 1px solid rgba(0, 128, 128, 0.3); font-size: 0.7rem; padding: 4px 10px; border-radius: 12px; font-weight: 700;">New SaaS Product</div>
+                    <h3>SanTechScan AI — Order Bot for Plumbing & HVAC</h3>
+                    <p>Intelligent SaaS Telegram Bot for plumbing, heating, and water supply wholesale trading companies. Accepts photo notes or voice messages from installers, instantly recognizes items via AI (Vision & Voice), builds itemized specifications, and automatically posts them to manager chats and Excel files.</p>
+                    
+                    <div style="background: rgba(0, 128, 128, 0.08); border-left: 3px solid var(--color-accent); padding: 0.8rem 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.2rem;">
+                        <strong style="color: var(--color-accent); font-size: 0.85rem; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-bolt"></i> Business ROI:</strong>
+                        <p style="font-size: 0.8rem; margin: 0.3rem 0 0 0; color: var(--color-text-white); opacity: 0.95; line-height: 1.4;">Cuts order processing time for handwritten notes from 15 mins to 5 secs. Understands slang terms and supports installer verification by Tax ID.</p>
+                    </div>
+
+                    <ul class="features-list" style="margin-bottom: 1.5rem;">
+                        <li><i class="fa-solid fa-circle-check"></i> Instant 1-click recognition of handwritten notes & voice specs</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Auto-saves structured orders directly into Excel (.xlsx)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Installer Tax ID verification and manager moderation flow</li>
+                    </ul>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <a href="https://t.me/SanTechScan_AI_BellonixALM_bot" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;"><i class="fa-brands fa-telegram"></i> Try Telegram Bot Live</a>
+                        <button class="btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;" onclick="openInvoiceModal('santech-scan')"><i class="fa-solid fa-file-invoice-dollar"></i> Get Invoice / Plans ($10 / $20 / $50)</button>
+                    </div>
+                </div>
+
+                <!-- Card 2: Logistics Bots -->
+                <div class="solution-card glass-panel hover-tilt" data-category="bots special">
                     <div class="icon-box"><i class="fa-solid fa-truck-fast"></i></div>
                     <h3>Logistics Bots for Couriers & Dispatchers</h3>
                     <p>Smart bots for Telegram and Viber to completely automate courier/driver workflows: task assignment, photo confirmation of delivery notes, fuel logs, and instant issue reporting.</p>
@@ -183,8 +213,8 @@
                     </ul>
                 </div>
 
-                <!-- Card 2: Interactive Dashboards -->
-                <div class="solution-card glass-panel hover-tilt">
+                <!-- Card 3: Interactive Dashboards -->
+                <div class="solution-card glass-panel hover-tilt" data-category="web">
                     <div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div>
                     <h3>Management Analytics Dashboards</h3>
                     <p>Interactive web control panels synchronizing seamlessly with messaging bots. Visualize your core KPIs, team efficiency, project budgets, and trip statuses in real time.</p>
@@ -195,8 +225,8 @@
                     </ul>
                 </div>
 
-                <!-- Card 3: Rental Automation -->
-                <div class="solution-card glass-panel hover-tilt">
+                <!-- Card 4: Rental Automation -->
+                <div class="solution-card glass-panel hover-tilt" data-category="special">
                     <div class="icon-box"><i class="fa-solid fa-key"></i></div>
                     <h3>Rental & Lease Automation</h3>
                     <p>Automate car hire, heavy equipment rentals, bike sharing, or amusement parks toy cars. Tracks active lease sessions, calculates multi-tiered tariffs, and prevents operator theft.</p>
@@ -207,8 +237,8 @@
                     </ul>
                 </div>
 
-                <!-- Card 4: Intelligent B2B Lead Generator -->
-                <div class="solution-card glass-panel hover-tilt">
+                <!-- Card 5: Intelligent B2B Lead Generator -->
+                <div class="solution-card glass-panel hover-tilt" data-category="bots">
                     <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
                     <h3>Intelligent B2B Lead Generator</h3>
                     <p>AI-driven autonomous lead generation agents searching for clients, partners, and deals. Automatically scrapes job boards, public tender sites, and B2B Telegram channels.</p>
@@ -220,8 +250,30 @@
                     <a href="https://t.me/BellonixALMLeadGen_Bot" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Connect Lead Generator Bot</a>
                 </div>
 
-                <!-- Card 5: PE / Sole Trader Automation Web Portal -->
-                <div class="solution-card glass-panel hover-tilt">
+                <!-- Card 6: Intelligent Team Reminder Bot (Knock-Knock) -->
+                <div class="solution-card glass-panel hover-tilt" data-category="bots">
+                    <div class="icon-box"><i class="fa-solid fa-bell-concierge"></i></div>
+                    <h3>Team Reminder & Accountability Bot (Knock-Knock)</h3>
+                    <p>Tool for measuring team speed and execution discipline. Autonomous bot monitors all mentions (@) in Telegram chats and repeatedly pings until answered or reacted to.</p>
+
+                    <div style="background: rgba(0, 128, 128, 0.1); border-left: 3px solid var(--color-accent); padding: 0.8rem 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.2rem;">
+                        <strong style="color: var(--color-accent); font-size: 0.85rem; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> Why executives choose this:</strong>
+                        <p style="font-size: 0.8rem; margin: 0.3rem 0 0 0; color: var(--color-text-white); opacity: 0.95; line-height: 1.4;">Executives buy a <b>speed & discipline measurement system</b>: complete communication transparency, zero subjectivity, and faster response times without manual micro-management.</p>
+                    </div>
+
+                    <ul class="features-list" style="margin-bottom: 1.5rem;">
+                        <li><i class="fa-solid fa-circle-check"></i> 24/7 monitoring of all mentions (@) across work chats</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Response speed analytics & weekly digests</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Auto-clears reminders on Reply or emoji reaction</li>
+                    </ul>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <a href="https://t.me/BellonixALM_knock_knock_bot" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;"><i class="fa-brands fa-telegram"></i> Connect Telegram Bot</a>
+                        <button class="btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;" onclick="openInvoiceModal('knock-knock')"><i class="fa-solid fa-file-invoice-dollar"></i> Get Invoice / Pricing</button>
+                    </div>
+                </div>
+
+                <!-- Card 7: PE / Sole Trader Automation Web Portal -->
+                <div class="solution-card glass-panel hover-tilt" data-category="web">
                     <div class="icon-box"><i class="fa-solid fa-file-invoice-dollar"></i></div>
                     <h3>SME & Sole Trader Invoicing Web Portals</h3>
                     <p>Lightweight, fast web portals for small businesses and self-employed professionals without complex ERP/accounting setups. Easily create invoices, service acts, delivery notes, and track sales.</p>
@@ -703,6 +755,100 @@
         <div class="toast-content">
             <i class="fa-solid fa-circle-check text-green"></i>
             <span id="toastMsg">Success!</span>
+        </div>
+    </div>
+
+    <!-- Invoice & Subscription Modal -->
+    <div id="invoiceModal" class="modal-overlay">
+        <div class="modal-content glass-panel animate-zoom" style="max-width: 650px;">
+            <button class="modal-close" onclick="closeInvoiceModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="invModalTitle">Invoice & Subscription Checkout</h3>
+            
+            <!-- Step 1: Form -->
+            <form id="invoiceForm" onsubmit="handleGenerateInvoice(event)">
+                <div class="form-group">
+                    <label>Selected Product</label>
+                    <input type="text" id="invSelectedProductInput" value="Team Reminder Bot (Knock-Knock Bot)" disabled style="width: 100%; padding: 0.75rem; background: rgba(0, 128, 128, 0.1); border: 1px solid var(--color-accent); border-radius: 8px; color: var(--color-text-white); font-weight: 600;">
+                </div>
+
+                <div class="form-group">
+                    <label for="invPeriodSelect">Pricing Plan</label>
+                    <select id="invPeriodSelect" class="form-control" style="width: 100%; padding: 0.75rem; background: rgba(255,255,255,0.05); border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-main);" onchange="updateInvoiceCalculation()">
+                        <option value="1m">1 Month — 100 UAH (1 group chat)</option>
+                        <option value="3m">3 Months — 250 UAH (up to 3 chats, 17% off)</option>
+                        <option value="1y">1 Year — 850 UAH (up to 10 chats, 30% off)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="invPayerName">Full Name / Company Name / Taxpayer</label>
+                    <input type="text" id="invPayerName" placeholder="John Smith or Smith Ltd." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="invTaxCode">Company Reg / Tax ID <small style="color: var(--color-grey); font-weight: normal;">(optional for individuals)</small></label>
+                    <input type="text" id="invTaxCode" placeholder="12345678 (fill for companies)">
+                </div>
+
+                <div class="form-group">
+                    <label for="invContact">Contact Telegram or Email</label>
+                    <input type="text" id="invContact" placeholder="@username or email@domain.com" required>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--color-border); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 1.1rem;">
+                        <span>Total Due:</span>
+                        <span id="invTotalAmount" style="color: var(--color-accent);">199 UAH</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary w-full"><i class="fa-solid fa-receipt"></i> Generate Official Invoice & QR Code</button>
+            </form>
+
+            <!-- Step 2: Result View (Invoice & Payment Requisites) -->
+            <div id="invoiceResultView" style="display: none;">
+                <div id="printableInvoice" style="background: #ffffff; color: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #cbd5e1; font-family: sans-serif;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #008080; padding-bottom: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <h2 style="margin: 0; color: #0d3b66; font-size: 1.3rem;">INVOICE № <span id="resInvNumber">SF-202607-101</span></h2>
+                            <small style="color: #64748b;">Date: <span id="resInvDate">27.07.2026</span></small>
+                        </div>
+                        <div style="text-align: right;">
+                            <strong style="color: #000; font-size: 0.9rem;">Bellonix ALM</strong><br>
+                            <small style="color: #666;">FOP Bellonin M. V.</small>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4;">
+                        <strong>Payee:</strong> FOP Bellonin M. V.<br>
+                        <strong>Tax ID:</strong> 3378512398<br>
+                        <strong>IBAN:</strong> <code id="resIbanCode" style="background: #eee; padding: 2px 6px; border-radius: 4px; font-weight: bold;">UA893220010000026007012345678</code> 
+                        <button onclick="copyIbanToClipboard()" style="background: none; border: none; cursor: pointer; color: #0066cc; font-size: 0.85rem;" title="Copy IBAN"><i class="fa-regular fa-copy"></i></button><br>
+                        <strong>Bank:</strong> JS CB "PRIVATBANK", MFO 305299<br>
+                        <strong>Payer:</strong> <span id="resPayerText">Payer Name</span> (<span id="resTaxCodeText">12345678</span>)
+                    </div>
+
+                    <div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 0.75rem 0; margin-bottom: 1rem; font-size: 0.9rem;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 600;">
+                            <span id="resItemName">Subscription: Team Reminder Bot (1 mo)</span>
+                            <span id="resItemPrice">199.00 UAH</span>
+                        </div>
+                        <small style="color: #666;" id="resPurposeText">Purpose: Payment for Team Reminder Bot subscription, VAT exempt</small>
+                    </div>
+
+                    <!-- Instant Payment QR Code -->
+                    <div style="text-align: center; background: #f9f9f9; padding: 1rem; border-radius: 8px; border: 1px dashed #ccc;">
+                        <div style="font-size: 0.85rem; font-weight: bold; color: #333; margin-bottom: 0.5rem;">📱 Scan QR Code to pay via Banking App (Monobank / Privat24):</div>
+                        <img id="resQrImage" src="" alt="Payment QR" style="width: 170px; height: 170px; border-radius: 6px; border: 1px solid #ddd; background: #fff; padding: 4px;">
+                        <div style="font-size: 0.75rem; color: #777; margin-top: 0.4rem;">Or transfer using IBAN requisites provided.</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 1.2rem;">
+                    <button class="btn-secondary" style="flex: 1;" onclick="resetInvoiceForm()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button class="btn-primary" style="flex: 2;" onclick="printInvoice()"><i class="fa-solid fa-print"></i> Print / Save PDF</button>
+                </div>
+            </div>
         </div>
     </div>
 
