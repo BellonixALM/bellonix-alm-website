@@ -89,10 +89,11 @@
     document.body.classList.add('light-theme');
   }
 
-  // View count increment
+    // View count increment
   const artId = window.location.pathname.split('/').pop().replace('.html', '');
   if (artId) {
-    fetch(`https://api.counterapi.dev/v1/bellonix-alm/article_${artId}/up`).catch(() => {});
+    const apiKey = 'art' + artId.replace(/[^a-zA-Z0-9]/g, '');
+    fetch('https://api.counterapi.dev/v1/bellonix-alm/' + apiKey + '/up').catch(() => {});
   }
 </script>
 </body>

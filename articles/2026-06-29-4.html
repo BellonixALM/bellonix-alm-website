@@ -18,7 +18,7 @@
 <script>
   const artId = window.location.pathname.split('/').pop().replace('.html', '');
   if (artId) {
-    fetch(`https://api.counterapi.dev/v1/bellonix-alm/article_${artId}/up`).catch(() => {});
+    fetch(`https://api.counterapi.dev/v1/bellonix-alm/art${artId.replace(/[^a-zA-Z0-9]/g, '')}/up`).catch(() => {});
   }
 </script>
 </body>

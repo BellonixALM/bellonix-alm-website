@@ -49,8 +49,8 @@
         `;
         container.appendChild(card);
 
-        // Fetch view count for this article
-        const apiKey = `article_${artId.replace(/-/g, '_')}`;
+        // Fetch view count for this article using clean alphanumeric key
+        const apiKey = `art${artId.replace(/[^a-zA-Z0-9]/g, '')}`;
         fetch(`https://api.counterapi.dev/v1/bellonix-alm/${apiKey}`)
             .then(res => res.json())
             .then(data => {
