@@ -776,5 +776,21 @@
     "image": "bas_efficiency.png",
     "file": "2026-07-29-2-en.html",
     "lang": "en"
+  },
+  {
+    "title": "Дашборди та аналітика даних: ваш компас у сучасному бізнесі",
+    "date": "2026-07-30",
+    "summary": "У світі швидких змін ефективне управління бізнесом неможливе без оперативної та точної інформації. Ця стаття розкриває, як сучасні дашборди та інтеграція з месенджер-ботами трансформують прийняття рішень, надаючи керівникам і логістам миттєвий доступ до критично важливих показників.",
+    "image": "bas_efficiency.png",
+    "file": "2026-07-30-1-ua.html",
+    "lang": "ua"
+  },
+  {
+    "title": "Unlocking Business Agility: Dashboards, Data Analytics, and Messenger Bots for Rapid Decision-Making",
+    "date": "2026-07-30",
+    "summary": "In today's dynamic business environment, quick and informed decision-making is paramount. This article explores how advanced data analytics, interactive management dashboards, and the strategic integration of messenger bots like Telegram and Viber empower executives and logistics managers to gain real-time insights, optimize operations, and achieve a significant competitive advantage. By transforming raw data into actionable intelligence, businesses can respond proactively to market changes and drive efficiency.",
+    "image": "bas_efficiency.png",
+    "file": "2026-07-30-1-en.html",
+    "lang": "en"
   }
 ]
