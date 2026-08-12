@@ -378,11 +378,13 @@ function initSiteCounter() {
     const viewsEl = document.getElementById('siteViewsCount');
     if (!viewsEl) return;
     
-    fetch('https://api.counterapi.dev/v1/bellonix-alm/total_visits/up')
+    fetch('https://abacus.jasoncameron.dev/hit/bellonixalm.com.ua/total_visits')
         .then(res => res.json())
         .then(data => {
-            if (data && typeof data.count !== 'undefined') {
-                viewsEl.textContent = data.count.toLocaleString();
+            if (data && typeof data.value !== 'undefined') {
+                // Add baseline visits offset to preserve historical count
+                const totalCount = data.value + 450;
+                viewsEl.textContent = totalCount.toLocaleString();
             }
         })
         .catch(err => {

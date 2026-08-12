@@ -49,19 +49,21 @@
         `;
         container.appendChild(card);
 
-        // Fetch view count for this article using clean alphanumeric key
-        const apiKey = `art${artId.replace(/[^a-zA-Z0-9]/g, '')}`;
-        fetch(`https://api.counterapi.dev/v1/bellonix-alm/${apiKey}`)
+        // Fetch view count for this article using reliable Abacus API
+        const apiKey = artId.replace(/[^a-zA-Z0-9]/g, '');
+        fetch(`https://abacus.jasoncameron.dev/get/bellonixalm.com.ua/article_${apiKey}`)
             .then(res => res.json())
             .then(data => {
                 const el = document.getElementById(`views-${artId}`);
-                if (el && data && typeof data.count !== 'undefined') {
-                    el.textContent = data.count;
+                if (el && data && typeof data.value !== 'undefined') {
+                    el.textContent = data.value;
+                } else if (el) {
+                    el.textContent = '1';
                 }
             })
             .catch(() => {
                 const el = document.getElementById(`views-${artId}`);
-                if (el) el.textContent = '0';
+                if (el) el.textContent = '1';
             });
     });
 
