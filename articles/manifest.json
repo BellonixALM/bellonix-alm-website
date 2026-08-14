@@ -1144,5 +1144,21 @@
     "image": "bas_efficiency.png",
     "file": "2026-08-12-2-en.html",
     "lang": "en"
+  },
+  {
+    "title": "Дані, Дашборди та Боти: Стратегічна Інтеграція Баз Даних для Бізнесу",
+    "date": "2026-08-14",
+    "summary": "У сучасному бізнесі ефективна робота з даними є ключем до успіху. Ця стаття розкриває важливість інтеграції баз даних, показує, як функціональні дашборди забезпечують оперативне прийняття рішень, та демонструє, як інтегровані боти (Telegram/Viber) спрощують взаємодію з інформацією, надаючи бізнесу нові переваги.",
+    "image": "bas_efficiency.png",
+    "file": "2026-08-14-1-ua.html",
+    "lang": "ua"
+  },
+  {
+    "title": "Unlocking Business Agility: The Strategic Power of Database Integration and Real-time Intelligence",
+    "date": "2026-08-14",
+    "summary": "In today's fast-paced business environment, fragmented data is a major impediment to growth and efficiency. This article explores how robust database integration, coupled with modern tools like messenger bots and interactive dashboards, can transform raw data into actionable insights. It emphasizes empowering executives and managers with convenient, real-time access to critical information for swift and informed decision-making.",
+    "image": "bas_efficiency.png",
+    "file": "2026-08-14-1-en.html",
+    "lang": "en"
   }
 ]
