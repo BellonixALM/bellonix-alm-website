@@ -187,8 +187,8 @@ def main():
     today = datetime.date.today().isoformat()
     existing_count = len(list(ARTICLES_DIR.glob(f"{today}-*-ua.html")))
 
-    if existing_count >= 2:
-        print(f"[info] Already generated {existing_count} articles for today ({today}). Skipping generation.")
+    if existing_count >= 1:
+        print(f"[info] Already generated {existing_count} article for today ({today}). Skipping generation.")
         sys.exit(0)
 
     topics = load_topics()

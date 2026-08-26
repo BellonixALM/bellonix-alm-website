@@ -741,12 +741,19 @@ function loadReviews() {
 
 function renderEmptyReviewsPlaceholder() {
     const container = document.getElementById('reviewsContainer');
+    const isEn = document.documentElement.lang === 'en';
+
+    const title = isEn ? 'No reviews yet' : 'Тут поки що немає відгуків';
+    const text = isEn 
+        ? 'Your review can be the first! Share your experience collaborating with BELLONIX ALM.' 
+        : 'Ваш відгук може стати першим! Поділіться своїм досвідом співпраці з BELLONIX ALM.';
+
     container.innerHTML = `
         <div class="empty-reviews-placeholder glass-panel" style="grid-column: 1 / -1; text-align: center; padding: 3rem; width: 100%;">
             <div class="icon-box" style="margin: 0 auto 1.5rem auto; font-size: 2.5rem;"><i class="fa-regular fa-comments"></i></div>
-            <h3>Тут поки що немає відгуків</h3>
+            <h3>${title}</h3>
             <p style="color: var(--color-text-muted); margin-bottom: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto;">
-                Ваш відгук може стати першим! Поділіться своїм досвідом співпраці з BELLONIX ALM.
+                ${text}
             </p>
         </div>
     `;
