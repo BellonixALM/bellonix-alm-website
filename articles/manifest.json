@@ -1608,5 +1608,21 @@
     "image": "bas_efficiency.png",
     "file": "2026-08-30-1-en.html",
     "lang": "en"
+  },
+  {
+    "title": "Стратегічний підхід до автоматизації бізнесу: Боти та Дашборди для прийняття рішень",
+    "date": "2026-09-01",
+    "summary": "У сучасному бізнес-середовищі автоматизація є не просто перевагою, а необхідністю для зростання та ефективності. Ця стаття розкриває ключові аспекти систем автоматизації, зосереджуючись на інтеграції комунікаційних ботів (Telegram/Viber) та функціональних дашбордів для оперативного управління та прийняття стратегічних рішень. Вона орієнтована на керівників, власників компаній та логістів, які прагнуть оптимізувати свої бізнес-процеси.",
+    "image": "bas_efficiency.png",
+    "file": "2026-09-01-1-ua.html",
+    "lang": "ua"
+  },
+  {
+    "title": "Revolutionizing Operations: Leveraging Business Automation for Strategic Growth",
+    "date": "2026-09-01",
+    "summary": "In today's dynamic business environment, robust automation systems are no longer a luxury but a necessity. This article explores how integrated business automation, featuring powerful BAS platforms, convenient messenger bots, and insightful interactive dashboards, empowers executives and managers to streamline operations, gain real-time insights, and make swift, data-driven decisions for sustainable growth.",
+    "image": "bas_efficiency.png",
+    "file": "2026-09-01-1-en.html",
+    "lang": "en"
   }
 ]
