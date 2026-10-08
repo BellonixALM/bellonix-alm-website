@@ -1114,18 +1114,21 @@ section {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #ffffff;
-    padding: 25px 45px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
+    background: #ffffff !important;
+    padding: 22px 35px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0,0,0,0.15);
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
+    min-width: 260px;
+    min-height: 90px;
 }
 
 .client-logo-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 87, 183, 0.2);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 87, 183, 0.35), 0 4px 12px rgba(0,0,0,0.2);
+    border-color: #0057b7 !important;
 }
 
 .reviews-slider {
